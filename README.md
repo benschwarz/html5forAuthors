@@ -22,6 +22,12 @@ how to use it. If you try it and run into problems or have
 questions, you'll find all the answers by reading the source of
 the Makefile within.
 
+Note that the versions of anolis and the spec splitter from the
+html5lib project are included in this repo just for the sake of
+convenience. If you make the "distclean" target, it will remove
+the anolis and html5-tools subdirs, but then the build process
+will subsequently re-download and patch them before using them.
+
 Michael(tm) Smith <sideshowbarker@gmail.com>
 
 ![me](http://github.com/sideshowbarker/jsblog/raw/master/me.jpg)
