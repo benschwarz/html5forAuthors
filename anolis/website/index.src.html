@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en-gb-x-sneddy">
+<meta charset="utf-8">
+<title>Anolis</title>
+<link rel="stylesheet" href="style.css">
+<style>
+a:not([href]) {
+background-color: #00f;
+color: #fff;
+}
+span:not([title=""]):not(.secno) {
+background-color: #a00;
+color: #fff;
+}
+</style>
+
+<header>
+	<h1>[TITLE]</h1>
+</header>
+
+<h2 class="no-num no-toc">Contents</h2>
+<!--toc-->
+
+<h2>Introduction</h2>
+
+<p>The need for Anolis came from the need for long technical documents to
+include niceties such as cross-references and a table of contents for the
+purpose of easy navigation — doing this manually can be a great chore
+especially when sections are numbered and a section is added, consequently
+changing the numbering of many others, leading to it being advantageous to do it
+programmatically.</p>
+
+<p>Anolis does this on HTML documents, as a number of sequential processes.
+Currently cross-referencing, section numbering, table of contents creation, and
+a number of substitutions are done (mainly relating to the current
+date).</p>
+
+<h2>Installing Anolis</h2>
+
+<h3>Requirements</h3>
+
+<p>The following are the minimum requirements: later versions should also work
+without issue.</p>
+
+<ul>
+	<li><a href="http://python.org/">Python</a> 2.3
+	<li><a href="http://codespeak.net/lxml/">lxml</a> 2.0
+	<li><a href="http://code.google.com/p/html5lib">html5lib</a> 0.10
+</ul>
+
+<h3>Obtaining a copy</h3>
+
+<p>The latest release is 1.0. This can downloaded as a 
+<a href="http://hg.gsnedders.com/anolis/archive/1.0.tar.bz2#egg=anolis-1.0">bzip2</a>,
+<a href="http://hg.gsnedders.com/anolis/archive/1.0.zip#egg=anolis-1.0">zip</a>, or
+<a href="http://hg.gsnedders.com/anolis/archive/1.0.tar.gz#egg=anolis-1.0">gzip</a>
+archive.</p>
+
+<p>Alternatively, a copy can be obtained from <dfn>our <a
+href="http://www.selenic.com/mercurial/">Mercurial</a> repository</dfn>: this is
+where our ongoing development occurs, and allows any revision (and therefore any
+release) to be downloaded. Our repository is located at
+<code><!--begin-link-->http://hg.gsnedders.com/anolis/<!--end-link--></code>.
+
+<h3>Installation</h3>
+
+<p>Normally, installation is done through <a
+href="http://pypi.python.org/pypi/setuptools">setuptools</a>, with the following
+command:</p>
+
+<p><code>python setup.py install</code></p>
+
+<p>Please see setuptools' documentation for information on installation options
+(such as installing in non-standard locations).</p>
+
+<h3>Running the test suite</h3>
+
+<p>The source distribution and the current development copy (in <span title="our
+mercurial repository">Mercurial</span>) both contain a test suite. It can be run
+with the following command:</p>
+
+<p><code>python runtests.py</code></p>
+
+<p>Any test failures should be reported at our
+<dfn><a href="http://bugs.gsnedders.com/projects/show/anolis">bug
+tracker</a></dfn>.</p>
+
+<h2>Documentation</h2>
+
+<p>Documentation is included with the latest release, and the documentation for
+the latest release can be obtained <a
+href="http://hg.gsnedders.com/anolis/raw-file/1.0/README.html">here</a>.</p>
+
+<h2 class="no-num">Acknowledgements</h2>
+
+<p>Thanks to Andrew Sidwell, Anne van Kesteren, Henri Sivonen, Ian Hickson,
+James Graham, Lachlan Hunt, Magnus Kristiansen, Michael(tm) Smith, and Philip
+Taylor for their ever needed help.</p>
+
+<p>Special thanks to Bert Bos for creating the CSS3 Module Postprocessor, on
+which this is partially based, and (with <code>--w3c-compat</code>) claims to be
+partially compatible with. Further special thanks to Bert Bos for creating a
+number of things (especially the algorithm for finding the W3C status) that took
+the author of Anolis many hours to reverse engineer.</p>

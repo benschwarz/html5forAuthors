@@ -1,0 +1,560 @@
+<!doctype html>
+<html lang="en-gb-x-sneddy">
+<meta charset="utf-8">
+<title>Anolis 1.1dev</title>
+<link rel="stylesheet" href="style.css">
+<style>
+a:not([href]) {
+background-color: #00f;
+color: #fff;
+}
+span:not([data-anolis-xref=""]):not(.secno) {
+background-color: #a00;
+color: #fff;
+}
+</style>
+
+<header>
+    <h1>[TITLE]</h1>
+    <h2 class="no-num no-toc">Documentation — [DATE]</h2>
+</header>
+
+<h2 class="no-num no-toc">Contents</h2>
+<!--toc-->
+
+<h2>Introduction</h2>
+
+<p>The need for Anolis came from the need for long technical documents to
+include niceties such as cross-references and a table of contents for the
+purpose of easy navigation — doing this manually can be a great chore
+especially when sections are numbered and a section is added, consequently
+changing the numbering of many others, leading to it being advantageous to do
+it programmatically.
+
+<p>Anolis does this on HTML documents, as a number of sequential processes.
+Currently cross-referencing, section numbering, table of contents creation, and
+a number of substitutions are done (mainly relating to the current date).
+
+<h2>Installing Anolis</h2>
+
+<h3>Requirements</h3>
+
+<p>The following are the minimum requirements: later versions should also work
+without issue.
+
+<ul>
+    <li><a href="http://python.org/">Python</a> 2.3
+    <li><a href="http://codespeak.net/lxml/">lxml</a> 2.0
+    <li><a href="http://code.google.com/p/html5lib">html5lib</a> 0.10
+</ul>
+
+<h3>Obtaining a copy</h3>
+
+<p>Releases are occasionally made. A link to the latest release can be found
+from the <a href="http://anolis.gsnedders.com">Anolis website</a>.
+
+<p>Alternatively, a copy can be obtained from <dfn>our <a
+href="http://www.selenic.com/mercurial/">Mercurial</a> repository</dfn>: this
+is where our ongoing development occurs, and allows any revision (and therefore
+any release) to be downloaded. Our repository is located at
+<code><!--begin-link-->http://hg.gsnedders.com/anolis/<!--end-link--></code>.
+
+<h3>Installation</h3>
+
+<p>Normally, installation is done through <a
+href="http://pypi.python.org/pypi/setuptools">setuptools</a>, with the
+following command:
+
+<p><code>python setup.py install</code>
+
+<p>Please see setuptools' documentation for information on installation options
+(such as installing in non-standard locations).
+
+<h3>Running the test suite</h3>
+
+<p>The source distribution and the current development copy (in <span
+data-anolis-xref="our mercurial repository">Mercurial</span>) both contain a test suite.
+It can be run with the following command:
+
+<p><code>python runtests.py</code>
+
+<p>Any test failures should be reported at our <dfn><a
+href="http://bugs.gsnedders.com/projects/show/anolis">bug
+tracker</a></dfn>.
+
+<h2>Using Anolis</h2>
+
+<p>Anolis is invoked through the <code>anolis</code> command. The
+<dfn><code>--help</code></dfn> (or <dfn><code>-h</code></dfn>) option gives
+some basic help.
+
+<p>The <dfn><code>--enable</code></dfn> and <dfn><code>--disable</code></dfn>
+options enable/disable respectively the process given as the option value
+(e.g., <code>--disable=toc</code> disables building the <span
+data-anolis-xref="table of contents/section numbering">table of contents and
+numbering sections</span>). The default processes are <code>sub</code>
+(<span>substitution</span>), <code>toc</code> (<span>table of contents/section
+numbering</span>), and <code>xref</code> (<span>cross-referencing</span>). Any
+enabled process loaded via <code>from processes import foo</code>, and if that
+fails <code>import foo</code> (where <code>foo</code> is the process), and is
+then called as <code>foo.foo(ElementTree, **kwargs)</code>.
+
+<p>Some options alter what is used to parse and serialize the document: the
+<dfn><kbd>--parser</kbd></dfn> option allows either <kbd>html5lib</kbd> (the
+default) or <kbd>lxml.html</kbd> (this is quicker, but does not comply to the
+<a href="http://whatwg.org/html5">HTML 5</a> specification) to be used to parse
+the input file, and the <dfn><kbd>--serialzier</kbd></dfn> option allows the
+same two values, but controls the serializer used for output (note that
+lxml.html has some rather severe issues as a serializer)<!--; passing the XXX:
+need double hyphen <dfn><code>xml</code></dfn> option uses libxml2's XML parser
+instead-->.
+
+<p>The <dfn><kbd>--output-encoding</kbd></dfn> option sets the character
+encoding used for output — this defaults to UTF-8. Treatment of characters that
+cannot be represented in the set output encoding is dependant on the serializer
+selected via the <span>--serialzier</span> option.
+
+<p>Anolis offers a <dfn>compatibility mode</dfn>, which aims to be compatible
+with the <a href="http://www.w3.org/Style/Group/css3-src/bin/postprocess">CSS3
+module postprocessor</a> (within reason). This is mainly provided for the sake
+of pre-existing <a href="http://w3.org/">W3C</a> documents. The
+<dfn><code>--w3c-compat</code></dfn> option turns on this compatibility mode,
+although specific options that turn on just one compatibility feature at a time
+are also available (and are documented below under each <span
+data-anolis-xref="processes">process</span>) — these are all implied by the
+<code>--w3c-compat</code> options, with one exception:
+<code>--w3c-compat-crazy-substitutions</code>, as it can lead to undesirable
+results.
+
+<p>The options <dfn><code>--newline-char</code></dfn> and
+<dfn><code>--indent-char</code></dfn> set the newline and indent strings (they
+do not have to be a single character) respectively. They default to U+000A LINE
+FEED (LF) and U+0020 SPACE respectively. These are only used when generating
+large trees of generated markup, such as the table of contents.
+
+<p>Other <span data-anolis-xref="processes">process</span> specific options are
+documented under the <span data-anolis-xref="processes">process</span> to which
+they belong.
+
+<p>Upon a <dfn>fatal error</dfn>, processing of the document is terminated and
+the output file is left unchanged.
+
+<p>The <dfn>textContent</dfn> property is the same as that defined in <a
+href="http://w3.org/TR/DOM-Level-3-Core/">DOM Level 3 Core</a> on the Node
+interface.
+
+<p><dfn>Whitespace</dfn> is as defined in <a
+href="http://whatwg.org/html5">HTML 5</a>: <q>U+0020 SPACE, U+0009 CHARACTER
+TABULATION (tab), U+000A LINE FEED (LF), U+000C FORM FEED (FF), and U+000D
+CARRIAGE RETURN (CR)</q>.
+
+<p><dfn>Interactive content</dfn> is as defined in <a
+href="http://whatwg.org/html5">HTML 5</a>: the <code>a</code>, <code>bb</code>,
+<code>details</code>, and <code>datagrid</code> elements; the
+<code>audio</code> and <code>video</code> elements when they have a
+<code>controls</code> attribute; the <code>menu</code> element when the
+<code>type</code> attribute is case-insensitively equal to
+<code>toolbar</code>.
+
+<p><dfn data-anolis-xref="id generation">When an <code>id</code> attribute is
+needed, it is created as follows</dfn>:
+
+<ol>
+    <li>Let <var>i</var> be equal to 0.
+    <li>If the element already has an <code>id</code> attribute, return its
+value, and terminate this algorithm.
+    <li>If the <code>title</code> attribute is present and its value is not
+empty and does not consist of <span>whitespace</span> only, let
+<var>generated_id</var> be equal to its value; otherwise, let
+<var>generated_id</var> be equal to <span>textContent</span>.
+    <li>The <var>generated_id</var> is stripped of leading/trailing
+<span>whitespace</span> and converted to lowercase (behaviour of this is
+dependent on the current locale setting of Python).
+    <li>The first of the following list whose condition matches the current
+state of the string is done:
+        <ol>
+            <li>If <var>generated_id</var> is an empty string,
+<var>generated_id</var> is set to <code>generatedID</code>.
+            <li>If the <dfn><code>--force-html4-id</code></dfn> option is used, or the DOCTYPE's public identifier is one of:
+                <ul>
+                    <li><code>-//W3C//DTD HTML 4.0//EN</code>
+                    <li><code>-//W3C//DTD HTML 4.0 Transitional//EN</code>
+                    <li><code>-//W3C//DTD HTML 4.0 Frameset//EN</code>
+                    <li><code>-//W3C//DTD HTML 4.01//EN</code>
+                    <li><code>-//W3C//DTD HTML 4.01 Transitional//EN</code>
+                    <li><code>-//W3C//DTD HTML 4.01 Frameset//EN</code>
+                    <li><code>ISO/IEC 15445:2000//DTD HyperText Markup
+                      Language//EN</code>
+                    <li><code>ISO/IEC 15445:2000//DTD HTML//EN</code>
+                    <li><code>-//W3C//DTD XHTML 1.0 Strict//EN</code>
+                    <li><code>-//W3C//DTD XHTML 1.0 Transitional//EN</code>
+                    <li><code>-//W3C//DTD XHTML 1.0 Frameset//EN</code>
+                    <li><code>-//W3C//DTD XHTML 1.1//EN</code>
+                </ul>
+              Then:
+                <ol>
+                    <li>All runs of characters apart from U+002D HYPHEN-MINUS
+(-), U+002E FULL STOP (.), U+0030 DIGIT ZERO to U+0039 DIGIT NINE (0–9),
+U+003A COLON (:), U+0041 LATIN CAPITAL LETTER A to U+005A LATIN CAPITAL LETTER
+Z (A–Z), U+005F LOW LINE (_), and U+0061 LATIN SMALL LETTER A to U+007A LATIN
+SMALL LETTER Z (a–z) are replaced by a single U+002D HYPHEN-MINUS (-)
+character within <var>generated_id</var>.
+                    <li>Leading and trailing U+002D HYPHEN-MINUS (-) characters
+are removed from <var>generated_id</var>.
+                    <li>If <var>generated_id</var> is not empty and if the
+first character is not in the range U+0041 LATIN CAPITAL LETTER A to U+005A 
+LATIN CAPITAL LETTER Z (A–Z) or U+0061 LATIN SMALL LETTER A to U+007A LATIN 
+SMALL LETTER Z (a–z), <var>generated_id</var> is prefixed by a single U+0078 
+LATIN SMALL LETTER X (x) character.
+                </ol>
+            
+            <li>Otherwise, runs of characters that do not match the ifragment
+production in <a href="http://www.ietf.org/rfc/rfc3987">RFC 3987</a> are
+replaced by a single U+002D HYPHEN-MINUS (-) character within
+<var>generated_id</var>, and then leading and trailing U+002D HYPHEN-MINUS (-)
+characters are removed from <var>generated_id</var>.
+        </ol>
+    <li>If <var>generated_id</var> is empty, <var>generated_id</var> is set to <code>generatedID</code>.
+    <li>Let <var>output_id</var> equal <var>generated_id</var>.
+    <li>If <var>output_id</var> matches a ready-existing ID, continue to the
+next step; otherwise, jump to step 12.
+    <li>Increment <var>i</var> by one.
+    <li>Let <var>output_id</var> equal <var>generated_id</var> suffixed with a 
+U+002D HYPHEN-MINUS (-) character followed by <var>i</var> as a big-endian base 
+10 number.
+    <li>Jump back to step 8.
+    <li>The generated ID is <var>output_id</var>.
+</ol>
+
+<h2><dfn>Processes</dfn></h2>
+
+<p>The elements listed in the below processes, except where otherwise stated,
+are the local name of the element <!--either--> in null namespace<!-- or in the
+<dfn>HTML namespace</dfn> (<code>http://www.w3.org/1999/xhtml</code>)-->.
+
+<h3><dfn>Cross-referencing</dfn></h3>
+
+<p>Cross-referencing has three essential parts: <dfn
+data-anolis-xref="definition">definitions</dfn> that define <dfn
+data-anolis-xref="term">terms</dfn>, and <dfn
+data-anolis-xref="instance">instances</dfn> of those <span
+data-anolis-xref="term">terms</span>.
+
+<p><span data-anolis-xref="term">Terms</span> are taken from the
+<code>data-anolis-xref</code> attribute if present, failing that the
+<code>title</code> attribute if that is present, otherwise from the
+<span>textContent</span> property of the <code>dfn</code> element. By default,
+Anolis will throw a <span>fatal error</span> if a <span>term</span> is defined
+more than once: this behaviour can be turned off (causing the final
+<span>definition</span> of the <span>term</span> to be the one that is used) by
+the <dfn><code>--allow-duplicate-dfns</code></dfn> option.
+
+<p><span data-anolis-xref="definition">Definitions</span> are marked-up with
+the <code>dfn</code> element.
+
+<p><span data-anolis-xref="instance">Instances</span> are marked-up with
+various elements, depending on the setting of
+<dfn><code>--w3c-compat-xref-elements</code></dfn>: if it is disabled (the
+default), the <code>abbr</code>, <code>code</code>, <code>i</code>,
+<code>span</code>, and <code>var</code> elements are used for <span
+data-anolis-xref="instance">instances</span>; if it is enabled, the
+<code>abbr</code>, <code>acronym</code>, <code>b</code>, <code>bdo</code>,
+<code>big</code>, <code>code</code>, <code>del</code>, <code>em</code>,
+<code>i</code>, <code>ins</code>, <code>kbd</code>, <code>label</code>,
+<code>legend</code>, <code>q</code>, <code>samp</code>, <code>small</code>,
+<code>span</code>, <code>strong</code>, <code>sub</code>, <code>sup</code>,
+<code>tt</code>, <code>var</code> elements are used for <span
+data-anolis-xref="instance">instances</span>. Those that are only there in
+<span>compatibility mode</span> are there because either they should not
+semantically be used for an <span>instance</span>, or because they are not
+present in <a href="http://whatwg.org/html5">HTML 5</a>. An
+<span>instance</span> is only used if it does not have an <span>interactive
+content</span> or <code>dfn</code> element as either a parent or a child.
+
+<p>Both <span data-anolis-xref="definition">definitions</span> and <span
+data-anolis-xref="instance">instances</span> are <dfn
+data-anolis-xref="cross-reference normalization">normalized</dfn> as follows:
+
+<ul>
+    <li>Leading and trailing <span>whitespace</span> is stripped,
+    <li>Converted to lowercase (behaviour of this is dependent on the current
+locale setting of Python),
+    <li>All consecutive <span>whitespace</span> is replaced with a single
+U+0020 SPACE CHARACTER<!-- unless there is a <code>pre</code> element as a
+parent-->, and
+    <li>If <dfn><code>--w3c-compat-xref-normalization</code></dfn> is enabled,
+all characters apart from U+0020 SPACE CHARACTER, U+002D HYPHEN-MINUS (-),
+U+0030 DIGIT ZERO to U+0039 DIGIT NINE (0–9), U+0041 LATIN CAPITAL LETTER A
+to U+005A LATIN CAPITAL LETTER Z (A–Z), and U+0061 LATIN SMALL LETTER A to
+U+007A LATIN SMALL LETTER Z (a–z) are removed.
+</ul>
+
+<p>If the <span>instance</span> is contained within a <code>span</code>
+element, the <code>span</code> element is turned into an <code>a</code>
+element, and a <code>href</code> attribute is added to link it to the
+<span>definition</span> (e.g., <code>&lt;span>foo&lt;/span></code> becomes
+<code>&lt;a href=#foo>foo&lt;/a></code>) — all other attributes are
+preserved. Otherwise (when the <span>instance</span> is not contained within a
+<code>span</code> element), the location of the <code>a</code> element when
+linking an <span>instance</span> is dependent on the
+<dfn><code>--w3c-compat-xref-a-placement</code></dfn> option: if it is disabled
+(the default), the <code>a</code> element is placed around the element
+containing the <span>instance</span> (e.g., <code>&lt;i>foo&lt;/i></code>
+becomes <code>&lt;a href=#foo>&lt;i>foo&lt;/i>&lt;/a></code>); if it is
+enabled, the <code>a</code> element goes within the element containing the
+<span>instance</span> and goes around all of its content (e.g.,
+<code>&lt;i>foo&lt;/i></code> becomes <code>&lt;i>&lt;a
+href=#foo>foo&lt;/a>&lt;/i></code>).
+
+<h3><dfn>Table of contents/section numbering</dfn></h3>
+
+<p>To create a table of contents, and to number the <span
+data-anolis-xref="section">sections</span> of the document, an
+<dfn>outline</dfn> is created (this is a list of <span
+data-anolis-xref="section">sections</span>, which can each contain more <span
+data-anolis-xref="section">sections</span>, where a <dfn>section</dfn>
+represents a part of the document, and often has a <dfn
+data-anolis-xref="section heading">heading</dfn> associated with it — for more
+detailed definitions see <a href="http://whatwg.org/html5">HTML 5</a>). This
+means not only are the <code>h1</code>–<code>h6</code> elements supported, but
+also elements such as <code data-anolis-xref="">section</code> are used to
+create the <span>outline</span>. After creating the <span>outline</span>, every
+<span>section</span> with a depth between those provided by
+<dfn><code>--min-depth</code></dfn> and <dfn><code>--max-depth</code></dfn>
+(defaulting to two and six respectively), and which has a <span
+data-anolis-xref="section heading">heading</span>, is numbered if it does not
+have <code>no-num</code> as a class, and is added to the table of contents if
+it does not have <code>no-toc</code> as a class. <span
+data-anolis-xref="section">Sections</span> without a <span
+data-anolis-xref="section heading">heading</span> are treated as if they did
+not exist, unless they have children, in which they will appear to exist while
+not existing all at once (e.g., they increment the <span>section</span>
+numbering, though that is not output anywhere; and they get a list item in the
+table of contents, with only the children within it, and no link to the
+<span>section</span> itself).
+
+<p>The format of <span>section</span> numbers should comply with <a
+href="http://www.iso.org/iso/iso_catalogue/catalogue_tc/catalogue_detail.htm?csnumber=6937">ISO
+2145:1978</a>, Numbering of divisions and subdivisions in written documents.
+This means that each <span>section</span> number is given by Arabic numerals,
+seperated by a single U+002E FULL STOP character, and there is no trailing
+U+002E FULL STOP character.
+
+<p>The <span>section</span> number is inserted as the first child node of the
+<span>section heading</span> as a <code>span</code> element with the
+<code>class</code> attribute set to <code>secno</code>: this is copied into the
+table of contents.
+
+<p>Pre-existing <code>span</code> elements with a class of <code>secno</code>
+are removed from all <span data-anolis-xref="section heading">section
+headings</span>, regardless of whether their depth falls within the range given
+by <code>--min-depth</code> and <code>--max-depth</code>.
+
+<p>The table of contents is built up as an ordered list (an <code>ol</code>
+element), with each <span>section</span> marked up as a <code>li</code>
+element, and child <span data-anolis-xref="section">sections</span> are marked
+up with an <code>ol</code> within that <code>li</code> (and this continues
+recursively, ad infinitum). By default, the root element of the table of
+contents (an <code>ol</code> element) is given a <code>class</code> attribute
+set to <code>toc</code>; however, with the
+<dfn><code>--w3c-compat-class-toc</code></dfn> option this is placed on every
+<code>ol</code> within the table of contents. The entire <span>section
+heading</span> is copied to be the content of the list item, with all
+<span>interactive content</span> elements and <code>id</code> attributes
+removed.
+
+<p>A <span>normal comment substitution</span> is done with
+<var>sub_identifier</var> equal to <code>toc</code>, and the table of contents
+as the replacement.
+
+<h3><dfn>Substitution</dfn></h3>
+
+<p>Various strings are replaced in magic ways: a <dfn>normal string
+substitution</dfn> takes the form of <code>[xxx]</code> where xxx is
+case-sensitively the replacement, which may be followed by any characters apart
+from U+005D RIGHT SQUARE BRACKET (]) before the final U+005D RIGHT SQUARE
+BRACKET character — these extra characters are effectively a comment, and
+carry absolutely no meaning, and vanish into some as-of-yet unknown abyss when
+the string replacement is done. The entire string must be contained within a
+single text node.
+
+<p>A <dfn>normal comment substitution</dfn> is one where there is a string,
+<var>sub_identifier</var>, that identifies the comment for the substitution,
+and the replacement. All nodes between a comment with a value equal to (with
+leading and trailing <span>whitespace</span> removed) <code>begin-</code>
+followed by <var>sub_identifier</var> and one with q value equal to (with
+leading and trailing <span>whitespace</span> removed) <code>end-</code>
+followed by <var>sub_identifier</var> are removed, and replaced with the
+replacement. Additionally, any comment (with leading and trailing
+<span>whitespace</span> removed) with a value equal to
+<var>sub_identifier</var> is replaced with a comment with a value of
+<code>begin-</code> followed by <var>sub_identifier</var>, the replacement, and
+then a comment with a value of <code>end-</code> followed by
+<var>sub_identifier</var>.
+
+<p>The <dfn>W3C status</dfn> is found, when needed by one of the substitutions,
+by iterating all text nodes in document order (i.e., attribute values and
+comments have no effect), and for each node, the following is done (in this
+order):
+
+<ol>
+    <li>If the node contains, case-insensitively, "latest", followed by one or
+more <span>whitespace</span> characters, followed by "version", searching
+stops, and the default is used (ED).
+    <li>Otherwise, if the node, case-sensitively, contains
+"http://www.w3.org/TR/" followed by one of "MO", "WD", "CR", "PR", "REC",
+"PER", or "NOTE", which in turn is followed by U+002D HYPHEN-MINUS (-), then
+searching stops, and the status is whatever matched the previous list of
+options by the first match in the text node.
+</ol>
+
+<p>A side-effect of doing it in this order is the fact that if a node contains
+both of these possible strings is that the latter is ignored, meaning that the
+default (ED) is used.
+
+<!-- I wish the above was more sane — it took me several hours to work out
+(though the comment in the CSS3 Module Postprocessor docs saying, "If there is
+a H2 subheading under the H1 that gives the spec's status, the [STATUS]
+variable will be initialized from that, otherwise it will default to WD." did
+not help me work it out quickly, as what is done is completely utterly
+different to that) — even though the algorithm is simple enough, it is just
+far too unexpected. Sadly, though, pre-existing documents depend on this very
+exact behaviour, and thus it cannot be changed. -->
+
+<p>There is also a <dfn>long W3C status</dfn>, which correlates to the
+<span>W3C status</span> under the following mapping:
+
+<table>
+    <tr>
+        <th><span>W3C Status</span>
+        <th><span>Long W3C Status</span>
+    <tr>
+        <td>MO
+        <td>W3C Member-only Draft
+    <tr>
+        <td>ED
+        <td>Editor's Draft
+    <tr>
+        <td>WD
+        <td>W3C Working Draft
+    <tr>
+        <td>CR
+        <td>W3C Candidate Recommendation
+    <tr>
+        <td>PR
+        <td>W3C Proposed Recommendation
+    <tr>
+        <td>REC
+        <td>W3C Recommendation
+    <tr>
+        <td>PER
+        <td>W3C Proposed Edited Recommendation
+    <tr>
+        <td>NOTE
+        <td>W3C Working Group Note
+</table>
+
+<p>By default, the <span data-anolis-xref="normal string substitution">normal
+string substitutions</span> are:
+
+<dl>
+    <dt><code>[<!---->DATE]</code>
+    <dd>This is replaced with the current date for UTC±0 in the form of, e.g.,
+<samp>31 July 2008</samp>. The word used for the month is dependent on the
+current locale of Python. The number of the day of the month has no leading
+zeros.
+    
+    <dt><code>[<!---->CDATE]</code>
+    <dd>This is replaced with the current date for UTC±0 in the form YYYYMMDD,
+e.g., <samp>20080731</samp>. This is a conforming <a
+href="http://www.iso.org/iso/iso_catalogue/catalogue_tc/catalogue_detail.htm?csnumber=40874">ISO
+8601:2004</a> date.
+    
+    <dt><code>[<!---->YEAR]</code>
+    <dd>This is replaced with the current year for UTC±0, in the form YYYY,
+e.g., <samp>2008</samp>. This is a conforming <a
+href="http://www.iso.org/iso/iso_catalogue/catalogue_tc/catalogue_detail.htm?csnumber=40874">ISO
+8601:2004</a> year.
+    
+    <dt><code>[<!---->TITLE]</code>
+    <dd>This is replaced with the <span>textContent</span> of the first
+<code>title</code> element which is within the first <code>head</code> of the
+document, or an empty string if such a <code>title</code> element does not
+exist.
+</dl>
+
+<p>There is one comment substitution by default. Any nodes between a comment
+with a value equal to (with leading and trailing <span>whitespace</span>
+removed) <code>begin-link</code> and one with a value equal to
+<code>end-link</code>, with <span>interactive content</span> elements removed
+(though children of those elements preserved), are effectively wrapped in an
+<code>a</code> element which has a <code>href</code> attribute equal to the
+<code>textContent</code> of all the nodes between the two comments concatenated
+in document order. The two comments must have the same parent, otherwise a
+<span>fatal error</span> occurs.
+
+<p>If <dfn><code>--w3c-compat-substitutions</code></dfn> is enabled, the
+following <span data-anolis-xref="normal string substitution">normal string
+substitutions</span> are done in addition to those above:
+
+<dl>
+    <dt><code>[STATUS]</code>
+    <dd>This is replaced with the <span>W3C status</span>.
+    
+    <dt><code>[LONGSTATUS]</code>
+    <dd>This is replaced with the <span>long W3C status</span>.
+</dl>
+
+<p>Additionally, the following <span data-anolis-xref="normal comment
+substitution">normal comment substitutions</span> are done:
+
+<dl>
+    <dt><var>sub_identifier</var> equal to <code>logo</code>
+    <dd>Replacement is equal to: <code>&lt;p>&lt;a
+href="http://www.w3.org/">&lt;img alt="W3C"
+src="http://www.w3.org/Icons/w3c_home"/>&lt;/a>&lt;/p></code> (parsed as an XML
+fragment, and serialized into the output document in the needed format).
+    
+    <dt><var>sub_identifier</var> equal to <code>copyright</code> 
+    <dd>Replacement is equal to: <code>&lt;p class="copyright">&lt;a
+href="http://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright&lt;/a>
+&#xA9; [<!---->YEAR] &lt;a href="http://www.w3.org/">&lt;acronym data-anolis-xref="World
+Wide Web Consortium">W3C&lt;/acronym>&lt;/a>&lt;sup>&#xAE;&lt;/sup> (&lt;a
+href="http://www.csail.mit.edu/">&lt;acronym data-anolis-xref="Massachusetts Institute of
+Technology">MIT&lt;/acronym>&lt;/a>, &lt;a
+href="http://www.ercim.org/">&lt;acronym data-anolis-xref="European Research Consortium
+for Informatics and Mathematics">ERCIM&lt;/acronym>&lt;/a>, &lt;a
+href="http://www.keio.ac.jp/">Keio&lt;/a>), All Rights Reserved. W3C &lt;a
+href="http://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability&lt;/a>,
+&lt;a
+href="http://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark&lt;/a>
+and &lt;a
+href="http://www.w3.org/Consortium/Legal/copyright-documents">document
+use&lt;/a> rules apply.&lt;/p></code> (parsed as an XML fragment, and
+serialized into the output document in the needed format).
+</dl>
+
+<p>There is one further string substitution, and this is only done when
+<dfn><code>--w3c-compat-crazy-substitutions</code></dfn> is enabled (note that
+this is not included in <code>--w3c-compat</code>). A string of
+<code>http://www.w3.org/StyleSheets/TR/W3C-</code> followed by one or more
+characters in the range U+0041 LATIN CAPITAL LETTER A to U+005A LATIN CAPITAL
+LETTER Z (A–Z) is replaced with whatever
+<code>http://www.w3.org/StyleSheets/TR/W3C-[STATUS]</code> would evaluate to
+be. Like the <span data-anolis-xref="normal string substitution">normal string
+substitutions</span>, this string must be contained in a single text node.
+
+<!-- Is that crazy enough to justify the option name? -->
+
+<h2 class="no-num">Acknowledgements</h2>
+
+<p>Thanks to Andrew Sidwell, Anne van Kesteren, Henri Sivonen, Ian Hickson,
+James Graham, Lachlan Hunt, Magnus Kristiansen, Michael(tm) Smith, and Philip
+Taylor for their ever needed help.
+
+<p>Special thanks to Bert Bos for creating the CSS3 Module Postprocessor, on
+which this is partially based, and (with <code>--w3c-compat</code>) claims to
+be partially compatible with. Further special thanks to Bert Bos for creating a
+number of things (especially the algorithm for finding the <span>W3C
+status</span>) that took the author of Anolis many hours to reverse
+engineer.

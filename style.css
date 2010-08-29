@@ -1,0 +1,106 @@
+/* the @class=full-spec links are "external" links to the full
+ * HTML5 spec (not internal ones to others parts in the author
+ * view); so we want some kind of visual warning indication to
+ * users that if they follow them, they will be leaving the author
+ * view and finding themselves in the full spec instead */
+a.full-spec-link:link:hover,
+a.full-spec-:visited:hover
+{
+  background: #ffa;
+  color: green;
+  outline-offset: 4px;
+  outline: solid green;
+}
+/* this is for the first paragraph that we add to the Abstract;
+ * that paragraph is specific to the author view (it's not in the
+ * full spec); its purpose is to alert readers to the fact that
+ * this is a subset of the full spec */
+.strong-note {
+  outline-offset: 4px;
+  outline: solid green;
+}
+/* intent of this is to give a clear reminder on each page that
+ * this is not the full spec; but if we instead change the overall
+ * formatting of the document to tune it for an author audience,
+ * that will very clearly set it apart visually from the full spec
+ * proper, and there will be no risk of anybody mistaking the two,
+ * and we could remove this generated text */
+h3:after, h4:after, h5:after {
+  content: "  (details for Web Authors)";
+  color: #bbb;
+  font-weight: normal;
+}
+.toc + h3:after {
+  content: "";
+}
+h1 .rcsrevision {
+  color: #bbb;
+}
+.dfn-ref {
+  font-weight: bold;
+}
+.index-norefs,
+.index-id {
+  color: #666;
+}
+.index-nav {
+  text-align: center;
+  font-size: 120%;
+}
+.index-of-terms dl {
+  line-height: 1.3em;
+}
+.index-of-terms dt {
+  margin-top: 14px;
+  margin-bottom: 0px;
+  height: 1.3em;
+}
+.index-term {
+  font-size: 18px;
+  /* border-bottom: 2px solid #005A9C; */
+  margin-bottom: 4px;
+  margin-top: 18px;
+  margin-right: 50%;
+}
+.index-entry li {
+  list-style-type: none;
+}
+.index-entry ul {
+  margin-bottom: 0px;
+}
+
+dfn {
+  cursor: pointer;
+}
+dfn[title=""] {
+  cursor: inherit;
+}
+
+.dfnPanel p {
+  margin-bottom: 3px;
+}
+.dfnPanel .norefs {
+  font-weight: bold;
+}
+.dfnPanel dd {
+  /* style this just like an li */
+  display: list-item;
+  list-style-type: disc;
+  list-style-position: inside;
+  margin-left: 0;
+}
+pre .dfnPanel {
+  white-space: normal;
+}
+.dfn-excerpt {
+  font-style: italic;
+  margin-left: 0;
+  font-size: 95%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow:hidden;
+  display:block;
+}
+.dfnPanel .dfn-excerpt {
+  white-space: normal;
+}

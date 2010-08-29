@@ -1,0 +1,66 @@
+Index: html5-tools/spec-splitter/spec-splitter.py
+===================================================================
+--- html5-tools/spec-splitter/spec-splitter.py	(revision 175)
++++ html5-tools/spec-splitter/spec-splitter.py	(working copy)
+@@ -9,6 +9,7 @@
+ w3c = False
+ use_html5lib_parser = False
+ use_html5lib_serialiser = False
++make_index_of_terms = False
+ file_args = []
+ 
+ for arg in sys.argv[1:]:
+@@ -20,6 +21,8 @@
+         use_html5lib_parser = True
+     elif arg == '--html5lib-serialiser':
+         use_html5lib_serialiser = True
++    elif arg == '--make-index-of-terms':
++        make_index_of_terms = True
+     else:
+         file_args.append(arg)
+ 
+@@ -78,6 +81,10 @@
+ 
+ doctitle = doc.find('.//title').text
+ 
++if make_index_of_terms:
++  # get all the nodes from the index of terms (if any) and save for later
++  index_of_terms = doc.xpath("//*[@class='index-of-terms']//dl")
++
+ # Absolutise some references, so the spec can be hosted elsewhere
+ if absolute_uris:
+     for a in ('href', 'src'):
+@@ -305,6 +312,22 @@
+ 
+     doc.find('body').insert(1, nav) # after the header
+ 
++if make_index_of_terms:
++# Write additional separate files for each term entry in the index of terms.
++# Each term entry should be a <dl> with an id attribute whose value is an id of
++# a <dfn>, with the string "_index" appended to it.
++# For now, the subdirectory for the files is hardcoded here as "index-of-terms".
++  for term in index_of_terms:
++  # the firstChild <dt> here is a name and link for the defining instance of
++  # each index term; we don't need that in this context, so just remove it
++      term.remove(term.find("./dt"))
++      fix_refs('DUMMY', term)
++      # we use the ID of the term as the base for the filename, minus the last six
++      # characters ("_index")
++      id = term.get("id")[:-6]
++      f = open('%s/%s' % ("index-of-terms", id+".html"), 'w')
++      f.write(etree.tostring(term, pretty_print=True, method="html"))
++
+ report_broken_refs()
+ 
+ print "Outputting..."
+@@ -312,10 +335,6 @@
+ # Output all the pages
+ for name, doc, title in pages:
+     f = open('%s/%s' % (file_args[1], get_page_filename(name)), 'w')
+-    if w3c:
+-        f.write('<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">\n')
+-    else:
+-        f.write('<!DOCTYPE html>\n')
+     if use_html5lib_serialiser:
+         tokens = html5lib.treewalkers.getTreeWalker('lxml')(doc)
+         serializer = html5lib.serializer.HTMLSerializer(quote_attr_values=True, inject_meta_charset=False)
