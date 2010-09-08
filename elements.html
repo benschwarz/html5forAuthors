@@ -1,0 +1,860 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"><!-- when publishing, change bits marked ZZZ --><html class="split chapter" lang="en-US-x-Hixie"><meta content="text/html; charset=ascii" http-equiv="Content-Type"><title>3.2 Elements &mdash; HTML5 (Edition for Web Authors)</title><link href="whatwg.css" rel="stylesheet"><style type="text/css">
+   pre { margin-left: 2em; white-space: pre-wrap; }
+   h2 { margin: 3em 0 1em 0; }
+   h3 { margin: 2.5em 0 1em 0; }
+   h4 { margin: 2.5em 0 0.75em 0; }
+   h5, h6 { margin: 2.5em 0 1em; }
+   h1 + h2, h1 + h2 + h2 { margin: 0.75em 0 0.75em; }
+   h2 + h3, h3 + h4, h4 + h5, h5 + h6 { margin-top: 0.5em; }
+   p { margin: 1em 0; }
+   hr:not(.top) { display: block; background: none; border: none; padding: 0; margin: 2em 0; height: auto; }
+   dl, dd { margin-top: 0; margin-bottom: 0; }
+   dt { margin-top: 0.75em; margin-bottom: 0.25em; clear: left; }
+   dt + dt { margin-top: 0; }
+   dd dt { margin-top: 0.25em; margin-bottom: 0; }
+   dd p { margin-top: 0; }
+   dd dl + p { margin-top: 1em; }
+   dd table + p { margin-top: 1em; }
+   p + * > li, dd li { margin: 1em 0; }
+   dt, dfn { font-weight: bold; font-style: normal; }
+   dt dfn { font-style: italic; }
+   pre, code { font-size: inherit; font-family: monospace; font-variant: normal; }
+   pre strong { color: black; font: inherit; font-weight: bold; background: yellow; }
+   pre em { font-weight: bolder; font-style: normal; }
+   @media screen { code { color: orangered; } code :link, code :visited { color: inherit; } }
+   var sub { vertical-align: bottom; font-size: smaller; position: relative; top: 0.1em; }
+   table { border-collapse: collapse; border-style: hidden hidden none hidden; }
+   table thead, table tbody { border-bottom: solid; }
+   table tbody th:first-child { border-left: solid; }
+   table tbody th { text-align: left; }
+   table td, table th { border-left: solid; border-right: solid; border-bottom: solid thin; vertical-align: top; padding: 0.2em; }
+   blockquote { margin: 0 0 0 2em; border: 0; padding: 0; font-style: italic; }
+
+   .bad, .bad *:not(.XXX) { color: gray; border-color: gray; background: transparent; }
+   .matrix, .matrix td { border: none; text-align: right; }
+   .matrix { margin-left: 2em; }
+   .dice-example { border-collapse: collapse; border-style: hidden solid solid hidden; border-width: thin; margin-left: 3em; }
+   .dice-example caption { width: 30em; font-size: smaller; font-style: italic; padding: 0.75em 0; text-align: left; }
+   .dice-example td, .dice-example th { border: solid thin; width: 1.35em; height: 1.05em; text-align: center; padding: 0; }
+
+   .toc dfn, h1 dfn, h2 dfn, h3 dfn, h4 dfn, h5 dfn, h6 dfn { font: inherit; }
+   img.extra { float: right; }
+   pre.idl { border: solid thin; background: #EEEEEE; color: black; padding: 0.5em 1em; }
+   pre.idl :link, pre.idl :visited { color: inherit; background: transparent; }
+   pre.css { border: solid thin; background: #FFFFEE; color: black; padding: 0.5em 1em; }
+   pre.css:first-line { color: #AAAA50; }
+   dl.domintro { color: green; margin: 2em 0 2em 2em; padding: 0.5em 1em; border: none; background: #DDFFDD; }
+   hr + dl.domintro, div.impl + dl.domintro { margin-top: 2.5em; margin-bottom: 1.5em; }
+   dl.domintro dt, dl.domintro dt * { color: black; text-decoration: none; }
+   dl.domintro dd { margin: 0.5em 0 1em 2em; padding: 0; }
+   dl.domintro dd p { margin: 0.5em 0; }
+   dl.switch { padding-left: 2em; }
+   dl.switch > dt { text-indent: -1.5em; }
+   dl.switch > dt:before { content: '\21AA'; padding: 0 0.5em 0 0; display: inline-block; width: 1em; text-align: right; line-height: 0.5em; }
+   dl.triple { padding: 0 0 0 1em; }
+   dl.triple dt, dl.triple dd { margin: 0; display: inline }
+   dl.triple dt:after { content: ':'; }
+   dl.triple dd:after { content: '\A'; white-space: pre; }
+   .diff-old { text-decoration: line-through; color: silver; background: transparent; }
+   .diff-chg, .diff-new { text-decoration: underline; color: green; background: transparent; }
+   a .diff-new { border-bottom: 1px blue solid; }
+
+   h2 { page-break-before: always; }
+   h1, h2, h3, h4, h5, h6 { page-break-after: avoid; }
+   h1 + h2, hr + h2.no-toc { page-break-before: auto; }
+
+   p > span:not([title=""]):not([class="XXX"]):not([class="impl"]), li > span:not([title=""]):not([class="XXX"]):not([class="impl"]) { border-bottom: solid #9999CC; }
+
+   div.head { margin: 0 0 1em; padding: 1em 0 0 0; }
+   div.head p { margin: 0; }
+   div.head h1 { margin: 0; }
+   div.head .logo { float: right; margin: 0 1em; }
+   div.head .logo img { border: none } /* remove border from top image */
+   div.head dl { margin: 1em 0; }
+   div.head p.copyright, div.head p.alt { font-size: x-small; font-style: oblique; margin: 0; }
+
+   body > .toc > li { margin-top: 1em; margin-bottom: 1em; }
+   body > .toc.brief > li { margin-top: 0.35em; margin-bottom: 0.35em; }
+   body > .toc > li > * { margin-bottom: 0.5em; }
+   body > .toc > li > * > li > * { margin-bottom: 0.25em; }
+   .toc, .toc li { list-style: none; }
+
+   .brief { margin-top: 1em; margin-bottom: 1em; line-height: 1.1; }
+   .brief li { margin: 0; padding: 0; }
+   .brief li p { margin: 0; padding: 0; }
+
+   .category-list { margin-top: -0.75em; margin-bottom: 1em; line-height: 1.5; }
+   .category-list::before { content: '\21D2\A0'; font-size: 1.2em; font-weight: 900; }
+   .category-list li { display: inline; }
+   .category-list li:not(:last-child)::after { content: ', '; }
+   .category-list li > span, .category-list li > a { text-transform: lowercase; }
+   .category-list li * { text-transform: none; } /* don't affect <code> nested in <a> */
+
+   .XXX { color: #E50000; background: white; border: solid red; padding: 0.5em; margin: 1em 0; }
+   .XXX > :first-child { margin-top: 0; }
+   p .XXX { line-height: 3em; }
+   .annotation { border: solid thin black; background: #0C479D; color: white; position: relative; margin: 8px 0 20px 0; }
+   .annotation:before { position: absolute; left: 0; top: 0; width: 100%; height: 100%; margin: 6px -6px -6px 6px; background: #333333; z-index: -1; content: ''; }
+   .annotation :link, .annotation :visited { color: inherit; }
+   .annotation :link:hover, .annotation :visited:hover { background: transparent; }
+   .annotation span { border: none ! important; }
+   .note { color: green; background: transparent; font-family: sans-serif; }
+   .warning { color: red; background: transparent; }
+   .note, .warning { font-weight: bolder; font-style: italic; }
+   p.note, div.note { padding: 0.5em 2em; }
+   span.note { padding: 0 2em; }
+   .note p:first-child, .warning p:first-child { margin-top: 0; }
+   .note p:last-child, .warning p:last-child { margin-bottom: 0; }
+   .warning:before { font-style: normal; }
+   p.note:before { content: 'Note: '; }
+   p.warning:before { content: '\26A0 Warning! '; }
+
+   .bookkeeping:before { display: block; content: 'Bookkeeping details'; font-weight: bolder; font-style: italic; }
+   .bookkeeping { font-size: 0.8em; margin: 2em 0; }
+   .bookkeeping p { margin: 0.5em 2em; display: list-item; list-style: square; }
+   .bookkeeping dt { margin: 0.5em 2em 0; }
+   .bookkeeping dd { margin: 0 3em 0.5em; }
+
+   h4 { position: relative; z-index: 3; }
+   h4 + .element, h4 + div + .element { margin-top: -2.5em; padding-top: 2em; }
+   .element {
+     background: #EEEEFF;
+     color: black;
+     margin: 0 0 1em 0.15em;
+     padding: 0 1em 0.25em 0.75em;
+     border-left: solid #9999FF 0.25em;
+     position: relative;
+     z-index: 1;
+   }
+   .element:before {
+     position: absolute;
+     z-index: 2;
+     top: 0;
+     left: -1.15em;
+     height: 2em;
+     width: 0.9em;
+     background: #EEEEFF;
+     content: ' ';
+     border-style: none none solid solid;
+     border-color: #9999FF;
+     border-width: 0.25em;
+   }
+
+   .example { display: block; color: #222222; background: #FCFCFC; border-left: double; margin-left: 2em; padding-left: 1em; }
+   td > .example:only-child { margin: 0 0 0 0.1em; }
+
+   ul.domTree, ul.domTree ul { padding: 0 0 0 1em; margin: 0; }
+   ul.domTree li { padding: 0; margin: 0; list-style: none; position: relative; }
+   ul.domTree li li { list-style: none; }
+   ul.domTree li:first-child::before { position: absolute; top: 0; height: 0.6em; left: -0.75em; width: 0.5em; border-style: none none solid solid; content: ''; border-width: 0.1em; }
+   ul.domTree li:not(:last-child)::after { position: absolute; top: 0; bottom: -0.6em; left: -0.75em; width: 0.5em; border-style: none none solid solid; content: ''; border-width: 0.1em; }
+   ul.domTree span { font-style: italic; font-family: serif; }
+   ul.domTree .t1 code { color: purple; font-weight: bold; }
+   ul.domTree .t2 { font-style: normal; font-family: monospace; }
+   ul.domTree .t2 .name { color: black; font-weight: bold; }
+   ul.domTree .t2 .value { color: blue; font-weight: normal; }
+   ul.domTree .t3 code, .domTree .t4 code, .domTree .t5 code { color: gray; }
+   ul.domTree .t7 code, .domTree .t8 code { color: green; }
+   ul.domTree .t10 code { color: teal; }
+
+   body.dfnEnabled dfn { cursor: pointer; }
+   .dfnPanel {
+     display: inline;
+     position: absolute;
+     z-index: 10;
+     height: auto;
+     width: auto;
+     padding: 0.5em 0.75em;
+     font: small sans-serif, Droid Sans Fallback;
+     background: #DDDDDD;
+     color: black;
+     border: outset 0.2em;
+   }
+   .dfnPanel * { margin: 0; padding: 0; font: inherit; text-indent: 0; }
+   .dfnPanel :link, .dfnPanel :visited { color: black; }
+   .dfnPanel p { font-weight: bolder; }
+   .dfnPanel * + p { margin-top: 0.25em; }
+   .dfnPanel li { list-style-position: inside; }
+
+   #configUI { position: absolute; z-index: 20; top: 10em; right: 1em; width: 11em; font-size: small; }
+   #configUI p { margin: 0.5em 0; padding: 0.3em; background: #EEEEEE; color: black; border: inset thin; }
+   #configUI p label { display: block; }
+   #configUI #updateUI, #configUI .loginUI { text-align: center; }
+   #configUI input[type=button] { display: block; margin: auto; }
+
+  </style><style type="text/css">
+
+   .applies thead th > * { display: block; }
+   .applies thead code { display: block; }
+   .applies tbody th { whitespace: nowrap; }
+   .applies td { text-align: center; }
+   .applies .yes { background: yellow; }
+
+   .matrix, .matrix td { border: hidden; text-align: right; }
+   .matrix { margin-left: 2em; }
+
+   .dice-example { border-collapse: collapse; border-style: hidden solid solid hidden; border-width: thin; margin-left: 3em; }
+   .dice-example caption { width: 30em; font-size: smaller; font-style: italic; padding: 0.75em 0; text-align: left; }
+   .dice-example td, .dice-example th { border: solid thin; width: 1.35em; height: 1.05em; text-align: center; padding: 0; }
+
+   #table-example-1 { border: solid thin; border-collapse: collapse; margin-left: 3em; }
+   #table-example-1 * { font-family: "Essays1743", serif; line-height: 1.01em; }
+   #table-example-1 caption { padding-bottom: 0.5em; }
+   #table-example-1 thead, #table-example-1 tbody { border: none; }
+   #table-example-1 th, #table-example-1 td { border: solid thin; }
+   #table-example-1 th { font-weight: normal; }
+   #table-example-1 td { border-style: none solid; vertical-align: top; }
+   #table-example-1 th { padding: 0.5em; vertical-align: middle; text-align: center; }
+   #table-example-1 tbody tr:first-child td { padding-top: 0.5em; }
+   #table-example-1 tbody tr:last-child td { padding-bottom: 1.5em; }
+   #table-example-1 tbody td:first-child { padding-left: 2.5em; padding-right: 0; width: 9em; }
+   #table-example-1 tbody td:first-child::after { content: leader(". "); }
+   #table-example-1 tbody td { padding-left: 2em; padding-right: 2em; }
+   #table-example-1 tbody td:first-child + td { width: 10em; }
+   #table-example-1 tbody td:first-child + td ~ td { width: 2.5em; }
+   #table-example-1 tbody td:first-child + td + td + td ~ td { width: 1.25em; }
+
+   .apple-table-examples { border: none; border-collapse: separate; border-spacing: 1.5em 0em; width: 40em; margin-left: 3em; }
+   .apple-table-examples * { font-family: "Times", serif; }
+   .apple-table-examples td, .apple-table-examples th { border: none; white-space: nowrap; padding-top: 0; padding-bottom: 0; }
+   .apple-table-examples tbody th:first-child { border-left: none; width: 100%; }
+   .apple-table-examples thead th:first-child ~ th { font-size: smaller; font-weight: bolder; border-bottom: solid 2px; text-align: center; }
+   .apple-table-examples tbody th::after, .apple-table-examples tfoot th::after { content: leader(". ") }
+   .apple-table-examples tbody th, .apple-table-examples tfoot th { font: inherit; text-align: left; }
+   .apple-table-examples td { text-align: right; vertical-align: top; }
+   .apple-table-examples.e1 tbody tr:last-child td { border-bottom: solid 1px; }
+   .apple-table-examples.e1 tbody + tbody tr:last-child td { border-bottom: double 3px; }
+   .apple-table-examples.e2 th[scope=row] { padding-left: 1em; }
+   .apple-table-examples sup { line-height: 0; }
+
+   .details-example img { vertical-align: top; }
+
+   #named-character-references-table {
+     font-size: 0.6em;
+     column-width: 28em;
+     column-gap: 1em;
+     -moz-column-width: 28em;
+     -moz-column-gap: 1em;
+     -webkit-column-width: 28em;
+     -webkit-column-gap: 1em;
+   }
+   #named-character-references-table > table > tbody > tr > td:last-child { text-align: center; }
+   #named-character-references-table > table > tbody > tr > td:last-child:hover > span { position: absolute; top: auto; left: auto; margin-left: 0.5em; line-height: 1.2; font-size: 5em; border: outset; padding: 0.25em 0.5em; background: white; width: 1.25em; height: auto; text-align: center; }
+
+   .glyph.control { color: red; }
+
+   @font-face {
+     font-family: 'Essays1743';
+     src: url('http://www.whatwg.org/specs/web-apps/current-work/fonts/Essays1743.ttf');
+   }
+   @font-face {
+     font-family: 'Essays1743';
+     font-weight: bold;
+     src: url('http://www.whatwg.org/specs/web-apps/current-work/fonts/Essays1743-Bold.ttf');
+   }
+   @font-face {
+     font-family: 'Essays1743';
+     font-style: italic;
+     src: url('http://www.whatwg.org/specs/web-apps/current-work/fonts/Essays1743-Italic.ttf');
+   }
+   @font-face {
+     font-family: 'Essays1743';
+     font-style: italic;
+     font-weight: bold;
+     src: url('http://www.whatwg.org/specs/web-apps/current-work/fonts/Essays1743-BoldItalic.ttf');
+   }
+
+  </style><link href="data:text/css," id="complete" rel="stylesheet" title="Complete specification"><link href="data:text/css,.impl%20%7B%20display:%20none;%20%7D%0Ahtml%20%7B%20border:%20solid%20yellow;%20%7D%20.domintro:before%20%7B%20display:%20none;%20%7D" id="author" rel="alternate stylesheet" title="Author documentation only"><link href="data:text/css,.impl%20%7B%20background:%20%23FFEEEE;%20%7D%20.domintro:before%20%7B%20background:%20%23FFEEEE;%20%7D" id="highlight" rel="alternate stylesheet" title="Highlight implementation requirements"><script type="text/javascript">
+ function getCookie(name) {
+   var params = location.search.substr(1).split("&");
+   for (var index = 0; index < params.length; index++) {
+     if (params[index] == name)
+       return "1";
+     var data = params[index].split("=");
+     if (data[0] == name)
+       return unescape(data[1]);
+   }
+   var cookies = document.cookie.split("; ");
+   for (var index = 0; index < cookies.length; index++) {
+     var data = cookies[index].split("=");
+     if (data[0] == name)
+       return unescape(data[1]);
+   }
+   return null;
+ }
+ function load(script) {
+   var e = document.createElement('script');
+   e.setAttribute('src', script + '?' + encodeURIComponent(location) + '&' + encodeURIComponent(document.referrer));
+   document.body.appendChild(e);
+ }
+ function init() {
+   if (location.search == '?slow-browser')
+     return;
+   var configUI = document.createElement('div');
+   configUI.id = 'configUI';
+   document.body.appendChild(configUI);
+   if (document.getElementById('head'))
+     load('toc.js');
+   load('dfn.js');
+   if (getCookie('profile') == '1')
+     document.getElementsByTagName('h2')[0].textContent += '; load: ' + (new Date() - loadTimer) + 'ms';
+   fixBrokenLink();
+ }
+</script><link href="http://www.w3.org/StyleSheets/TR/W3C-ED" rel="stylesheet" type="text/css"><link href="style.css" rel="stylesheet"><script src="link-fixup.js"></script><link href="dom.html" rel="prev" title="3 Semantics, structure, and APIs of HTML documents">
+  <link href="Overview.html#contents" rel="index" title="Table of contents">
+  <link href="content-models.html" rel="next" title="3.2.5 Content models">
+  <body onload="fixBrokenLink(); init()"><div class="head" id="head">
+   <p><a href="http://www.w3.org/"><img alt="W3C" height="48" src="http://www.w3.org/Icons/w3c_home" width="72"></a></p>
+
+   <h1>HTML5 (Edition for Web Authors)<span class="rcsrevision"> revision 1.4343</span></h1>
+   </div><div>
+   <a href="dom.html">&larr; 3 Semantics, structure, and APIs of HTML documents</a> &ndash;
+   <a href="Overview.html#contents">Table of contents</a> &ndash;
+   <a href="content-models.html">3.2.5 Content models &rarr;</a>
+  <ol class="toc"><li><ol><li><a href="elements.html#elements"><span class="secno">3.2 </span>Elements</a>
+    <ol><li><a href="elements.html#semantics-0"><span class="secno">3.2.1 </span>Semantics</a><li><a href="elements.html#elements-in-the-dom"><span class="secno">3.2.2 </span>Elements in the DOM</a><li><a href="elements.html#global-attributes" id="x3.2.3-global-attributes"><span class="secno">3.2.3 </span>Global attributes</a>
+      <ol><li><a href="elements.html#the-id-attribute" id="x3.2.3.1-the-id-attribute"><span class="secno">3.2.3.1 </span>The <code>id</code> attribute</a><li><a href="elements.html#the-title-attribute" id="x3.2.3.2-the-title-attribute"><span class="secno">3.2.3.2 </span>The <code>title</code> attribute</a><li><a href="elements.html#the-lang-and-xml:lang-attributes"><span class="secno">3.2.3.3 </span>The <code title="attr-lang">lang</code> and <code title="attr-xml-lang">xml:lang</code> attributes</a><li><a href="elements.html#the-xml:base-attribute-xml-only" id="x3.2.3.4-the-xml:base-attribute-xml-only"><span class="secno">3.2.3.4 </span>The <code>xml:base</code>
+  attribute (XML only)</a><li><a href="elements.html#the-dir-attribute" id="x3.2.3.5-the-dir-attribute"><span class="secno">3.2.3.5 </span>The <code>dir</code> attribute</a><li><a href="elements.html#classes" id="x3.2.3.6-the-class-attribute"><span class="secno">3.2.3.6 </span>The <code>class</code> attribute</a><li><a href="elements.html#the-style-attribute" id="x3.2.3.7-the-style-attribute"><span class="secno">3.2.3.7 </span>The <code>style</code> attribute</a><li><a href="elements.html#embedding-custom-non-visible-data" id="x3.2.3.8-embedding-custom-non-visible-data"><span class="secno">3.2.3.8 </span>Embedding custom non-visible data</a></ol><li><a href="elements.html#element-definitions"><span class="secno">3.2.4 </span>Element definitions</a>
+      <ol><li><a href="elements.html#attributes"><span class="secno">3.2.4.1 </span>Attributes</a></ol></ol></ol></ol></div>
+
+  <h3 id="elements"><span class="secno">3.2 </span>Elements</h3><h4 id="semantics-0"><span class="secno">3.2.1 </span>Semantics</h4><p class="XXX annotation"><span><a href="http://www.w3.org/html/wg/tracker/issues/41">ISSUE-41</a> (Decentralized-extensibility) blocks progress to Last Call</span><p>Elements, attributes, and attribute values in HTML are defined
+  (by this specification) to have certain meanings (semantics). For
+  example, the <code><a href="grouping-content.html#the-ol-element" id="ol">ol</a></code> element represents an ordered list, and
+  the <code title="attr-lang"><a href="#attr-lang" id="lang-0">lang</a></code> attribute represents the
+  language of the content.<p>Authors must not use elements, attributes, or attribute values
+  for purposes other than their appropriate intended semantic
+  purpose. Authors must not use elements, attributes, or attribute
+  values that are not permitted by this specification or <a class="full-spec-link" href="http://dev.w3.org/html5/spec/infrastructure.html#other-applicable-specifications" title='Read about this "other applicable specifications" reference in the full HTML5 spec.'>other
+  applicable specifications</a>.<div class="example">
+   <p>For example, the following document is non-conforming, despite
+   being syntactically correct:</p>
+
+   <pre class="bad">&lt;!DOCTYPE HTML&gt;
+&lt;html lang="en-GB"&gt;
+ &lt;head&gt; &lt;title&gt; Demonstration &lt;/title&gt; &lt;/head&gt;
+ &lt;body&gt;
+  &lt;table&gt;
+   &lt;tr&gt; &lt;td&gt; My favourite animal is the cat. &lt;/td&gt; &lt;/tr&gt;
+   &lt;tr&gt;
+    &lt;td&gt;
+     &mdash;&lt;a href="http://example.org/~ernest/"&gt;&lt;cite&gt;Ernest&lt;/cite&gt;&lt;/a&gt;,
+     in an essay from 1992
+    &lt;/td&gt;
+   &lt;/tr&gt;
+  &lt;/table&gt;
+ &lt;/body&gt;
+&lt;/html&gt;</pre>
+
+   <p>...because the data placed in the cells is clearly not tabular
+   data (and the <code><a href="text-level-semantics.html#the-cite-element" id="cite-2">cite</a></code> element mis-used). A corrected
+   version of this document might be:</p>
+
+   <pre>&lt;!DOCTYPE HTML&gt;
+&lt;html lang="en-GB"&gt;
+ &lt;head&gt; &lt;title&gt; Demonstration &lt;/title&gt; &lt;/head&gt;
+ &lt;body&gt;
+  &lt;blockquote&gt;
+   &lt;p&gt; My favourite animal is the cat. &lt;/p&gt;
+  &lt;/blockquote&gt;
+  &lt;p&gt;
+   &mdash;&lt;a href="http://example.org/~ernest/"&gt;Ernest&lt;/a&gt;,
+   in an essay from 1992
+  &lt;/p&gt;
+ &lt;/body&gt;
+&lt;/html&gt;</pre>
+
+   <p>This next document fragment, intended to represent the heading
+   of a corporate site, is similarly non-conforming because the second
+   line is not intended to be a heading of a subsection, but merely a
+   subheading or subtitle (a subordinate heading for the same
+   section).</p>
+
+   <pre class="bad">&lt;body&gt;
+ &lt;h1&gt;ABC Company&lt;/h1&gt;
+ &lt;h2&gt;Leading the way in widget design since 1432&lt;/h2&gt;
+ ...</pre>
+
+   <p>The <code><a href="sections.html#the-hgroup-element" id="hgroup">hgroup</a></code> element is intended for these kinds of
+   situations:</p>
+
+   <pre>&lt;body&gt;
+ &lt;hgroup&gt;
+  &lt;h1&gt;ABC Company&lt;/h1&gt;
+  &lt;h2&gt;Leading the way in widget design since 1432&lt;/h2&gt;
+ &lt;/hgroup&gt;
+ ...</pre>
+
+   <p>In the next example, there is a non-conforming attribute value
+   ("carpet") and a non-conforming attribute ("texture"), which
+   is not permitted by this specification:</p>
+
+   <pre class="bad">&lt;label&gt;Carpet: &lt;input type="carpet" name="c" texture="deep pile"&gt;&lt;/label&gt;</pre>
+
+   <p>Here would be an alternative and correct way to mark this up:</p>
+
+   <pre>&lt;label&gt;Carpet: &lt;input type="text" class="carpet" name="c" data-texture="deep pile"&gt;&lt;/label&gt;</pre>
+
+  </div><p>Through scripting and using other mechanisms, the values of
+  attributes, text, and indeed the entire structure of the document
+  may change dynamically while a user agent is processing it. The
+  semantics of a document at an instant in time are those represented
+  by the state of the document at that instant in time, and the
+  semantics of a document can therefore change over time. User agents
+   update their presentation of the
+  document as this occurs.<p class="example">HTML has a <code><a href="the-button-element.html#the-progress-element" id="progress-2">progress</a></code> element that
+  describes a progress bar. If its "value" attribute is dynamically
+  updated by a script, the UA would update the rendering to show the
+  progress changing.<h4 id="elements-in-the-dom"><span class="secno">3.2.2 </span>Elements in the DOM</h4><p>The nodes representing <a href="infrastructure.html#html-elements" id="html-elements-1">HTML elements</a> in the DOM
+   implement, and expose to scripts, the
+  interfaces listed for them in the relevant sections of this
+  specification. This includes <a href="infrastructure.html#html-elements" id="html-elements-2">HTML elements</a> in <a href="dom.html#xml-documents" id="xml-documents-2">XML
+  documents</a>, even when those documents are in another context
+  (e.g. inside an XSLT transform).<p>Elements in the DOM <a class="full-spec-link" href="http://dev.w3.org/html5/spec/rendering.html#represents" title='Read about this "represent" reference in the full HTML5 spec.'>represent</a>
+  things; that is, they have intrinsic <em>meaning</em>, also known as
+  semantics.<p class="example">For example, an <code><a href="grouping-content.html#the-ol-element" id="ol-0">ol</a></code> element
+  represents an ordered list.<p>The basic interface, from which all the <a href="infrastructure.html#html-elements" id="html-elements-3">HTML
+  elements</a>' interfaces inherit,  is the <code><a href="#htmlelement" id="htmlelement-4">HTMLElement</a></code> interface.<pre class="idl">interface <dfn id="htmlelement">HTMLElement</dfn> : <a class="full-spec-link" href="http://dev.w3.org/html5/spec/infrastructure.html#element" title='Read about this "Element" reference in the full HTML5 spec.'>Element</a> {
+  // <a href="dom.html#dom-tree-accessors" id="dom-tree-accessors-1">DOM tree accessors</a>
+  NodeList <a class="full-spec-link" href="http://dev.w3.org/html5/spec/dom.html#dom-getelementsbyclassname" title='Read about this "getElementsByClassName" reference in the full HTML5 spec.'>getElementsByClassName</a>(in DOMString classNames);
+
+  // <a href="apis-in-html-documents.html#dynamic-markup-insertion" id="dynamic-markup-insertion-1">dynamic markup insertion</a>
+           attribute DOMString <a href="apis-in-html-documents.html#dom-innerhtml" id="dom-innerhtml-1" title="dom-innerHTML">innerHTML</a>;
+           attribute DOMString <a href="apis-in-html-documents.html#dom-outerhtml" id="dom-outerhtml-0" title="dom-outerHTML">outerHTML</a>;
+  void <a class="full-spec-link" href="http://dev.w3.org/html5/spec/apis-in-html-documents.html#dom-insertadjacenthtml" title='Read about this "insertAdjacentHTML" reference in the full HTML5 spec.'>insertAdjacentHTML</a>(in DOMString position, in DOMString text);
+
+  // <span>metadata attributes</span>
+           attribute DOMString <a class="full-spec-link" href="http://dev.w3.org/html5/spec/elements.html#dom-id" title='Read about this "id" reference in the full HTML5 spec.'>id</a>;
+           attribute DOMString <a class="full-spec-link" href="http://dev.w3.org/html5/spec/elements.html#dom-title" title='Read about this "title" reference in the full HTML5 spec.'>title</a>;
+           attribute DOMString <a class="full-spec-link" href="http://dev.w3.org/html5/spec/elements.html#dom-lang" title='Read about this "lang" reference in the full HTML5 spec.'>lang</a>;
+           attribute DOMString <a class="full-spec-link" href="http://dev.w3.org/html5/spec/elements.html#dom-dir" title='Read about this "dir" reference in the full HTML5 spec.'>dir</a>;
+           attribute <span>DOMString</span> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/elements.html#dom-classname" title='Read about this "className" reference in the full HTML5 spec.'>className</a>;
+  readonly attribute <a href="urls.html#domtokenlist" id="domtokenlist-5">DOMTokenList</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/elements.html#dom-classlist" title='Read about this "classList" reference in the full HTML5 spec.'>classList</a>;
+  readonly attribute <a class="full-spec-link" href="http://dev.w3.org/html5/spec/common-dom-interfaces.html#domstringmap" title='Read about this "DOMStringMap" reference in the full HTML5 spec.'>DOMStringMap</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/elements.html#dom-dataset" title='Read about this "dataset" reference in the full HTML5 spec.'>dataset</a>;
+
+  // <a href="editing.html#editing" id="user-interaction-1">user interaction</a>
+           attribute boolean <a class="full-spec-link" href="http://dev.w3.org/html5/spec/editing.html#dom-hidden" title='Read about this "hidden" reference in the full HTML5 spec.'>hidden</a>;
+  void <a class="full-spec-link" href="http://dev.w3.org/html5/spec/editing.html#dom-click" title='Read about this "click" reference in the full HTML5 spec.'>click</a>();
+  void <a class="full-spec-link" href="http://dev.w3.org/html5/spec/editing.html#dom-scrollintoview" title='Read about this "scrollIntoView" reference in the full HTML5 spec.'>scrollIntoView</a>();
+  void <a class="full-spec-link" href="http://dev.w3.org/html5/spec/editing.html#dom-scrollintoview" title='Read about this "scrollIntoView" reference in the full HTML5 spec.'>scrollIntoView</a>(in boolean top);
+           attribute long <a class="full-spec-link" href="http://dev.w3.org/html5/spec/editing.html#dom-tabindex" title='Read about this "tabIndex" reference in the full HTML5 spec.'>tabIndex</a>;
+  void <a class="full-spec-link" href="http://dev.w3.org/html5/spec/editing.html#dom-focus" title='Read about this "focus" reference in the full HTML5 spec.'>focus</a>();
+  void <a class="full-spec-link" href="http://dev.w3.org/html5/spec/editing.html#dom-blur" title='Read about this "blur" reference in the full HTML5 spec.'>blur</a>();
+           attribute DOMString <a class="full-spec-link" href="http://dev.w3.org/html5/spec/editing.html#dom-accesskey" title='Read about this "accessKey" reference in the full HTML5 spec.'>accessKey</a>;
+  readonly attribute DOMString <a class="full-spec-link" href="http://dev.w3.org/html5/spec/editing.html#dom-accesskeylabel" title='Read about this "accessKeyLabel" reference in the full HTML5 spec.'>accessKeyLabel</a>;
+           attribute boolean <a class="full-spec-link" href="http://dev.w3.org/html5/spec/dnd.html#dom-draggable" title='Read about this "draggable" reference in the full HTML5 spec.'>draggable</a>;
+           attribute DOMString <a class="full-spec-link" href="http://dev.w3.org/html5/spec/editing.html#dom-contenteditable" title='Read about this "contentEditable" reference in the full HTML5 spec.'>contentEditable</a>;
+  readonly attribute boolean <a class="full-spec-link" href="http://dev.w3.org/html5/spec/editing.html#dom-iscontenteditable" title='Read about this "isContentEditable" reference in the full HTML5 spec.'>isContentEditable</a>;
+           attribute <a href="interactive-elements.html#htmlmenuelement" id="htmlmenuelement-0">HTMLMenuElement</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/interactive-elements.html#dom-contextmenu" title='Read about this "contextMenu" reference in the full HTML5 spec.'>contextMenu</a>;
+           attribute boolean <a class="full-spec-link" href="http://dev.w3.org/html5/spec/editing.html#dom-spellcheck" title='Read about this "spellcheck" reference in the full HTML5 spec.'>spellcheck</a>;
+
+  // <a href="commands.html#command-api" id="command-api-0">command API</a>
+  readonly attribute DOMString <a class="full-spec-link" href="http://dev.w3.org/html5/spec/commands.html#dom-command-ro-commandtype" title='Read about this "commandType" reference in the full HTML5 spec.'>commandType</a>;
+  readonly attribute DOMString <a class="full-spec-link" href="http://dev.w3.org/html5/spec/commands.html#dom-command-ro-label" title='Read about this "label" reference in the full HTML5 spec.'>label</a>;
+  readonly attribute DOMString <a class="full-spec-link" href="http://dev.w3.org/html5/spec/commands.html#dom-command-ro-icon" title='Read about this "icon" reference in the full HTML5 spec.'>icon</a>;
+  readonly attribute boolean <a class="full-spec-link" href="http://dev.w3.org/html5/spec/commands.html#dom-command-ro-disabled" title='Read about this "disabled" reference in the full HTML5 spec.'>disabled</a>;
+  readonly attribute boolean <a class="full-spec-link" href="http://dev.w3.org/html5/spec/commands.html#dom-command-ro-checked" title='Read about this "checked" reference in the full HTML5 spec.'>checked</a>;<!-- v2COMMAND
+  readonly attribute <span>HTMLCollection</span> <span title="dom-command-ro-triggers">triggers</span>;-->
+
+  // <span>styling</span>
+  readonly attribute <span>CSSStyleDeclaration</span> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/elements.html#dom-style" title='Read about this "style" reference in the full HTML5 spec.'>style</a>;
+
+  // <a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#event-handler-idl-attributes" title='Read about this "event handler IDL attributes" reference in the full HTML5 spec.'>event handler IDL attributes</a>
+           attribute <a href="webappapis.html#function" id="function-54">Function</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onabort" title='Read about this "onabort" reference in the full HTML5 spec.'>onabort</a>;
+           attribute <a href="webappapis.html#function" id="function-55">Function</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onblur" title='Read about this "onblur" reference in the full HTML5 spec.'>onblur</a>;
+           attribute <a href="webappapis.html#function" id="function-56">Function</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-oncanplay" title='Read about this "oncanplay" reference in the full HTML5 spec.'>oncanplay</a>;
+           attribute <a href="webappapis.html#function" id="function-57">Function</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-oncanplaythrough" title='Read about this "oncanplaythrough" reference in the full HTML5 spec.'>oncanplaythrough</a>;
+           attribute <a href="webappapis.html#function" id="function-58">Function</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onchange" title='Read about this "onchange" reference in the full HTML5 spec.'>onchange</a>;
+           attribute <a href="webappapis.html#function" id="function-59">Function</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onclick" title='Read about this "onclick" reference in the full HTML5 spec.'>onclick</a>;
+           attribute <a href="webappapis.html#function" id="function-60">Function</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-oncontextmenu" title='Read about this "oncontextmenu" reference in the full HTML5 spec.'>oncontextmenu</a>;
+           attribute <a href="webappapis.html#function" id="function-61">Function</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-ondblclick" title='Read about this "ondblclick" reference in the full HTML5 spec.'>ondblclick</a>;
+           attribute <a href="webappapis.html#function" id="function-62">Function</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-ondrag" title='Read about this "ondrag" reference in the full HTML5 spec.'>ondrag</a>;
+           attribute <a href="webappapis.html#function" id="function-63">Function</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-ondragend" title='Read about this "ondragend" reference in the full HTML5 spec.'>ondragend</a>;
+           attribute <a href="webappapis.html#function" id="function-64">Function</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-ondragenter" title='Read about this "ondragenter" reference in the full HTML5 spec.'>ondragenter</a>;
+           attribute <a href="webappapis.html#function" id="function-65">Function</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-ondragleave" title='Read about this "ondragleave" reference in the full HTML5 spec.'>ondragleave</a>;
+           attribute <a href="webappapis.html#function" id="function-66">Function</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-ondragover" title='Read about this "ondragover" reference in the full HTML5 spec.'>ondragover</a>;
+           attribute <a href="webappapis.html#function" id="function-67">Function</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-ondragstart" title='Read about this "ondragstart" reference in the full HTML5 spec.'>ondragstart</a>;
+           attribute <a href="webappapis.html#function" id="function-68">Function</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-ondrop" title='Read about this "ondrop" reference in the full HTML5 spec.'>ondrop</a>;
+           attribute <a href="webappapis.html#function" id="function-69">Function</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-ondurationchange" title='Read about this "ondurationchange" reference in the full HTML5 spec.'>ondurationchange</a>;
+           attribute <a href="webappapis.html#function" id="function-70">Function</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onemptied" title='Read about this "onemptied" reference in the full HTML5 spec.'>onemptied</a>;
+           attribute <a href="webappapis.html#function" id="function-71">Function</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onended" title='Read about this "onended" reference in the full HTML5 spec.'>onended</a>;
+           attribute <a href="webappapis.html#function" id="function-72">Function</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onerror" title='Read about this "onerror" reference in the full HTML5 spec.'>onerror</a>;
+           attribute <a href="webappapis.html#function" id="function-73">Function</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onfocus" title='Read about this "onfocus" reference in the full HTML5 spec.'>onfocus</a>;
+           attribute <a href="webappapis.html#function" id="function-74">Function</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onformchange" title='Read about this "onformchange" reference in the full HTML5 spec.'>onformchange</a>;
+           attribute <a href="webappapis.html#function" id="function-75">Function</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onforminput" title='Read about this "onforminput" reference in the full HTML5 spec.'>onforminput</a>;
+           attribute <a href="webappapis.html#function" id="function-76">Function</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-oninput" title='Read about this "oninput" reference in the full HTML5 spec.'>oninput</a>;
+           attribute <a href="webappapis.html#function" id="function-77">Function</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-oninvalid" title='Read about this "oninvalid" reference in the full HTML5 spec.'>oninvalid</a>;
+           attribute <a href="webappapis.html#function" id="function-78">Function</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onkeydown" title='Read about this "onkeydown" reference in the full HTML5 spec.'>onkeydown</a>;
+           attribute <a href="webappapis.html#function" id="function-79">Function</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onkeypress" title='Read about this "onkeypress" reference in the full HTML5 spec.'>onkeypress</a>;
+           attribute <a href="webappapis.html#function" id="function-80">Function</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onkeyup" title='Read about this "onkeyup" reference in the full HTML5 spec.'>onkeyup</a>;
+           attribute <a href="webappapis.html#function" id="function-81">Function</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onload" title='Read about this "onload" reference in the full HTML5 spec.'>onload</a>;
+           attribute <a href="webappapis.html#function" id="function-82">Function</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onloadeddata" title='Read about this "onloadeddata" reference in the full HTML5 spec.'>onloadeddata</a>;
+           attribute <a href="webappapis.html#function" id="function-83">Function</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onloadedmetadata" title='Read about this "onloadedmetadata" reference in the full HTML5 spec.'>onloadedmetadata</a>;
+           attribute <a href="webappapis.html#function" id="function-84">Function</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onloadstart" title='Read about this "onloadstart" reference in the full HTML5 spec.'>onloadstart</a>;
+           attribute <a href="webappapis.html#function" id="function-85">Function</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onmousedown" title='Read about this "onmousedown" reference in the full HTML5 spec.'>onmousedown</a>;
+           attribute <a href="webappapis.html#function" id="function-86">Function</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onmousemove" title='Read about this "onmousemove" reference in the full HTML5 spec.'>onmousemove</a>;
+           attribute <a href="webappapis.html#function" id="function-87">Function</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onmouseout" title='Read about this "onmouseout" reference in the full HTML5 spec.'>onmouseout</a>;
+           attribute <a href="webappapis.html#function" id="function-88">Function</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onmouseover" title='Read about this "onmouseover" reference in the full HTML5 spec.'>onmouseover</a>;
+           attribute <a href="webappapis.html#function" id="function-89">Function</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onmouseup" title='Read about this "onmouseup" reference in the full HTML5 spec.'>onmouseup</a>;
+           attribute <a href="webappapis.html#function" id="function-90">Function</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onmousewheel" title='Read about this "onmousewheel" reference in the full HTML5 spec.'>onmousewheel</a>;
+           attribute <a href="webappapis.html#function" id="function-91">Function</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onpause" title='Read about this "onpause" reference in the full HTML5 spec.'>onpause</a>;
+           attribute <a href="webappapis.html#function" id="function-92">Function</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onplay" title='Read about this "onplay" reference in the full HTML5 spec.'>onplay</a>;
+           attribute <a href="webappapis.html#function" id="function-93">Function</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onplaying" title='Read about this "onplaying" reference in the full HTML5 spec.'>onplaying</a>;
+           attribute <a href="webappapis.html#function" id="function-94">Function</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onprogress" title='Read about this "onprogress" reference in the full HTML5 spec.'>onprogress</a>;
+           attribute <a href="webappapis.html#function" id="function-95">Function</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onratechange" title='Read about this "onratechange" reference in the full HTML5 spec.'>onratechange</a>;
+           attribute <a href="webappapis.html#function" id="function-96">Function</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onreadystatechange" title='Read about this "onreadystatechange" reference in the full HTML5 spec.'>onreadystatechange</a>;
+           attribute <a href="webappapis.html#function" id="function-97">Function</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onscroll" title='Read about this "onscroll" reference in the full HTML5 spec.'>onscroll</a>;
+           attribute <a href="webappapis.html#function" id="function-98">Function</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onseeked" title='Read about this "onseeked" reference in the full HTML5 spec.'>onseeked</a>;
+           attribute <a href="webappapis.html#function" id="function-99">Function</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onseeking" title='Read about this "onseeking" reference in the full HTML5 spec.'>onseeking</a>;
+           attribute <a href="webappapis.html#function" id="function-100">Function</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onselect" title='Read about this "onselect" reference in the full HTML5 spec.'>onselect</a>;
+           attribute <a href="webappapis.html#function" id="function-101">Function</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onshow" title='Read about this "onshow" reference in the full HTML5 spec.'>onshow</a>;
+           attribute <a href="webappapis.html#function" id="function-102">Function</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onstalled" title='Read about this "onstalled" reference in the full HTML5 spec.'>onstalled</a>;
+           attribute <a href="webappapis.html#function" id="function-103">Function</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onsubmit" title='Read about this "onsubmit" reference in the full HTML5 spec.'>onsubmit</a>;
+           attribute <a href="webappapis.html#function" id="function-104">Function</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onsuspend" title='Read about this "onsuspend" reference in the full HTML5 spec.'>onsuspend</a>;
+           attribute <a href="webappapis.html#function" id="function-105">Function</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-ontimeupdate" title='Read about this "ontimeupdate" reference in the full HTML5 spec.'>ontimeupdate</a>;
+           attribute <a href="webappapis.html#function" id="function-106">Function</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onvolumechange" title='Read about this "onvolumechange" reference in the full HTML5 spec.'>onvolumechange</a>;
+           attribute <a href="webappapis.html#function" id="function-107">Function</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onwaiting" title='Read about this "onwaiting" reference in the full HTML5 spec.'>onwaiting</a>;
+};
+
+interface <dfn id="htmlunknownelement">HTMLUnknownElement</dfn> : <a href="#htmlelement" id="htmlelement-5">HTMLElement</a> { };</pre><p>The <code><a href="#htmlelement" id="htmlelement-6">HTMLElement</a></code> interface holds methods and
+  attributes related to a number of disparate features, and the
+  members of this interface are therefore described in various
+  different sections of this specification.<h4 id="global-attributes"><span class="secno">3.2.3 </span><dfn>Global attributes</dfn></h4><p>The following attributes are common to and may be specified on
+  all <a href="infrastructure.html#html-elements" id="html-elements-4">HTML elements</a>:<ul class="brief"><li><code title="attr-accesskey"><a href="editing.html#the-accesskey-attribute" id="accesskey">accesskey</a></code></li>
+   <li><code title="attr-class"><a href="#classes" id="class-0">class</a></code></li>
+   <li><code title="attr-contenteditable"><a href="editing.html#attr-contenteditable" id="contenteditable-0">contenteditable</a></code></li>
+   <li><code title="attr-contextmenu"><a href="interactive-elements.html#attr-contextmenu" id="contextmenu">contextmenu</a></code></li>
+   <li><code title="attr-dir"><a href="#the-dir-attribute" id="dir-1">dir</a></code></li>
+   <li><code title="attr-draggable"><a href="dnd.html#the-draggable-attribute" id="draggable">draggable</a></code></li>
+   <li><code title="attr-hidden"><a href="editing.html#the-hidden-attribute" id="hidden">hidden</a></code></li>
+   <li><code title="attr-id"><a href="#the-id-attribute" id="id-0">id</a></code></li>
+   <li><code title="attr-lang"><a href="#attr-lang" id="lang-1">lang</a></code></li>
+   <li><code title="attr-spellcheck"><a href="editing.html#attr-spellcheck" id="spellcheck">spellcheck</a></code></li>
+   <li><code title="attr-style"><a href="#the-style-attribute" id="style-3">style</a></code></li>
+   <li><code title="attr-tabindex"><a href="editing.html#attr-tabindex" id="tabindex">tabindex</a></code></li>
+   <li><code title="attr-title"><a href="#the-title-attribute" id="title">title</a></code></li>
+  </ul><hr><p>The following <a href="webappapis.html#event-handler-content-attributes" id="event-handler-content-attributes-1">event handler content attributes</a> may
+  be specified on any <a href="infrastructure.html#html-elements" id="html-elements-5" title="HTML elements">HTML
+  element</a>:<ul class="brief"><li><code title="handler-onabort"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onabort" title='Read about this "onabort" reference in the full HTML5 spec.'>onabort</a></code></li>
+   <li><code title="handler-onblur"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onblur" title='Read about this "onblur" reference in the full HTML5 spec.'>onblur</a></code>*</li>
+   <li><code title="handler-oncanplay"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-oncanplay" title='Read about this "oncanplay" reference in the full HTML5 spec.'>oncanplay</a></code></li>
+   <li><code title="handler-oncanplaythrough"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-oncanplaythrough" title='Read about this "oncanplaythrough" reference in the full HTML5 spec.'>oncanplaythrough</a></code></li>
+   <li><code title="handler-onchange"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onchange" title='Read about this "onchange" reference in the full HTML5 spec.'>onchange</a></code></li>
+   <li><code title="handler-onclick"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onclick" title='Read about this "onclick" reference in the full HTML5 spec.'>onclick</a></code></li>
+   <li><code title="handler-oncontextmenu"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-oncontextmenu" title='Read about this "oncontextmenu" reference in the full HTML5 spec.'>oncontextmenu</a></code></li>
+   <li><code title="handler-ondblclick"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-ondblclick" title='Read about this "ondblclick" reference in the full HTML5 spec.'>ondblclick</a></code></li>
+   <li><code title="handler-ondrag"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-ondrag" title='Read about this "ondrag" reference in the full HTML5 spec.'>ondrag</a></code></li>
+   <li><code title="handler-ondragend"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-ondragend" title='Read about this "ondragend" reference in the full HTML5 spec.'>ondragend</a></code></li>
+   <li><code title="handler-ondragenter"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-ondragenter" title='Read about this "ondragenter" reference in the full HTML5 spec.'>ondragenter</a></code></li>
+   <li><code title="handler-ondragleave"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-ondragleave" title='Read about this "ondragleave" reference in the full HTML5 spec.'>ondragleave</a></code></li>
+   <li><code title="handler-ondragover"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-ondragover" title='Read about this "ondragover" reference in the full HTML5 spec.'>ondragover</a></code></li>
+   <li><code title="handler-ondragstart"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-ondragstart" title='Read about this "ondragstart" reference in the full HTML5 spec.'>ondragstart</a></code></li>
+   <li><code title="handler-ondrop"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-ondrop" title='Read about this "ondrop" reference in the full HTML5 spec.'>ondrop</a></code></li>
+   <li><code title="handler-ondurationchange"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-ondurationchange" title='Read about this "ondurationchange" reference in the full HTML5 spec.'>ondurationchange</a></code></li>
+   <li><code title="handler-onemptied"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onemptied" title='Read about this "onemptied" reference in the full HTML5 spec.'>onemptied</a></code></li>
+   <li><code title="handler-onended"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onended" title='Read about this "onended" reference in the full HTML5 spec.'>onended</a></code></li>
+   <li><code title="handler-onerror"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onerror" title='Read about this "onerror" reference in the full HTML5 spec.'>onerror</a></code>*</li>
+   <li><code title="handler-onfocus"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onfocus" title='Read about this "onfocus" reference in the full HTML5 spec.'>onfocus</a></code>*</li>
+   <li><code title="handler-onformchange"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onformchange" title='Read about this "onformchange" reference in the full HTML5 spec.'>onformchange</a></code></li>
+   <li><code title="handler-onforminput"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onforminput" title='Read about this "onforminput" reference in the full HTML5 spec.'>onforminput</a></code></li>
+   <li><code title="handler-oninput"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-oninput" title='Read about this "oninput" reference in the full HTML5 spec.'>oninput</a></code></li>
+   <li><code title="handler-oninvalid"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-oninvalid" title='Read about this "oninvalid" reference in the full HTML5 spec.'>oninvalid</a></code></li>
+   <li><code title="handler-onkeydown"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onkeydown" title='Read about this "onkeydown" reference in the full HTML5 spec.'>onkeydown</a></code></li>
+   <li><code title="handler-onkeypress"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onkeypress" title='Read about this "onkeypress" reference in the full HTML5 spec.'>onkeypress</a></code></li>
+   <li><code title="handler-onkeyup"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onkeyup" title='Read about this "onkeyup" reference in the full HTML5 spec.'>onkeyup</a></code></li>
+   <li><code title="handler-onload"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onload" title='Read about this "onload" reference in the full HTML5 spec.'>onload</a></code>*</li>
+   <li><code title="handler-onloadeddata"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onloadeddata" title='Read about this "onloadeddata" reference in the full HTML5 spec.'>onloadeddata</a></code></li>
+   <li><code title="handler-onloadedmetadata"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onloadedmetadata" title='Read about this "onloadedmetadata" reference in the full HTML5 spec.'>onloadedmetadata</a></code></li>
+   <li><code title="handler-onloadstart"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onloadstart" title='Read about this "onloadstart" reference in the full HTML5 spec.'>onloadstart</a></code></li>
+   <li><code title="handler-onmousedown"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onmousedown" title='Read about this "onmousedown" reference in the full HTML5 spec.'>onmousedown</a></code></li>
+   <li><code title="handler-onmousemove"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onmousemove" title='Read about this "onmousemove" reference in the full HTML5 spec.'>onmousemove</a></code></li>
+   <li><code title="handler-onmouseout"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onmouseout" title='Read about this "onmouseout" reference in the full HTML5 spec.'>onmouseout</a></code></li>
+   <li><code title="handler-onmouseover"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onmouseover" title='Read about this "onmouseover" reference in the full HTML5 spec.'>onmouseover</a></code></li>
+   <li><code title="handler-onmouseup"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onmouseup" title='Read about this "onmouseup" reference in the full HTML5 spec.'>onmouseup</a></code></li>
+   <li><code title="handler-onmousewheel"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onmousewheel" title='Read about this "onmousewheel" reference in the full HTML5 spec.'>onmousewheel</a></code></li>
+   <li><code title="handler-onpause"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onpause" title='Read about this "onpause" reference in the full HTML5 spec.'>onpause</a></code></li>
+   <li><code title="handler-onplay"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onplay" title='Read about this "onplay" reference in the full HTML5 spec.'>onplay</a></code></li>
+   <li><code title="handler-onplaying"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onplaying" title='Read about this "onplaying" reference in the full HTML5 spec.'>onplaying</a></code></li>
+   <li><code title="handler-onprogress"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onprogress" title='Read about this "onprogress" reference in the full HTML5 spec.'>onprogress</a></code></li>
+   <li><code title="handler-onratechange"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onratechange" title='Read about this "onratechange" reference in the full HTML5 spec.'>onratechange</a></code></li>
+   <li><code title="handler-onreadystatechange"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onreadystatechange" title='Read about this "onreadystatechange" reference in the full HTML5 spec.'>onreadystatechange</a></code></li>
+   <li><code title="handler-onscroll"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onscroll" title='Read about this "onscroll" reference in the full HTML5 spec.'>onscroll</a></code></li>
+   <li><code title="handler-onseeked"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onseeked" title='Read about this "onseeked" reference in the full HTML5 spec.'>onseeked</a></code></li>
+   <li><code title="handler-onseeking"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onseeking" title='Read about this "onseeking" reference in the full HTML5 spec.'>onseeking</a></code></li>
+   <li><code title="handler-onselect"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onselect" title='Read about this "onselect" reference in the full HTML5 spec.'>onselect</a></code></li>
+   <li><code title="handler-onshow"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onshow" title='Read about this "onshow" reference in the full HTML5 spec.'>onshow</a></code></li>
+   <li><code title="handler-onstalled"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onstalled" title='Read about this "onstalled" reference in the full HTML5 spec.'>onstalled</a></code></li>
+   <li><code title="handler-onsubmit"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onsubmit" title='Read about this "onsubmit" reference in the full HTML5 spec.'>onsubmit</a></code></li>
+   <li><code title="handler-onsuspend"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onsuspend" title='Read about this "onsuspend" reference in the full HTML5 spec.'>onsuspend</a></code></li>
+   <li><code title="handler-ontimeupdate"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-ontimeupdate" title='Read about this "ontimeupdate" reference in the full HTML5 spec.'>ontimeupdate</a></code></li>
+   <li><code title="handler-onvolumechange"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onvolumechange" title='Read about this "onvolumechange" reference in the full HTML5 spec.'>onvolumechange</a></code></li>
+   <li><code title="handler-onwaiting"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/webappapis.html#handler-onwaiting" title='Read about this "onwaiting" reference in the full HTML5 spec.'>onwaiting</a></code></li>
+  </ul><p class="note">The attributes marked with an asterisk have a
+  different meaning when specified on <code><a href="sections.html#the-body-element-0" id="body-6">body</a></code> elements as
+  those elements expose <a href="webappapis.html#event-handlers" id="event-handlers-0">event handlers</a> of the
+  <code><a href="browsers.html#window" id="window-0">Window</a></code> object with the same names.<p class="note">While these attributes apply to all elements, they
+  are not useful on all elements. For example, only <a href="video.html#media-element" id="media-element-0" title="media
+  element">media elements</a> will ever receive a <code title="event-media-volumechange"><a href="video.html#event-media-volumechange" id="volumechange">volumechange</a></code> event fired by
+  the user agent.<hr><p><a href="#custom-data-attribute" id="custom-data-attribute-0" title="custom data attribute">Custom data attributes</a>
+  (e.g. <code title="">data-foldername</code> or <code title="">data-msgid</code>) can be specified on any <a href="infrastructure.html#html-elements" id="html-elements-6" title="HTML elements">HTML element</a>, to store custom data
+  specific to the page.<hr><p>In <a href="dom.html#html-documents" id="html-documents-4">HTML documents</a>, elements in the <a href="urls.html#html-namespace-0" id="html-namespace-1">HTML
+  namespace</a> may have an <code title="">xmlns</code> attribute
+  specified, if, and only if, it has the exact value
+  "<code>http://www.w3.org/1999/xhtml</code>". This does not apply to
+  <a href="dom.html#xml-documents" id="xml-documents-3">XML documents</a>.<p class="note">In HTML, the <code title="">xmlns</code> attribute
+  has absolutely no effect. It is basically a talisman. It is allowed
+  merely to make migration to and from XHTML mildly easier. When
+  parsed by an <a class="full-spec-link" href="http://dev.w3.org/html5/spec/parsing.html#html-parser" title='Read about this "HTML parser" reference in the full HTML5 spec.'>HTML parser</a>, the attribute ends up in no
+  namespace, not the "<code>http://www.w3.org/2000/xmlns/</code>"
+  namespace like namespace declaration attributes in XML do.<p class="note">In XML, an <code title="">xmlns</code> attribute is
+  part of the namespace declaration mechanism, and an element cannot
+  actually have an <code title="">xmlns</code> attribute in no
+  namespace specified.<hr><p>To enable assistive technology products to expose a more
+  fine-grained interface than is otherwise possible with HTML elements
+  and attributes, a set of <a href="content-models.html#annotations-for-assistive-technology-products-aria" id="annotations-for-assistive-technology-products">annotations for assistive technology
+  products</a> can be specified (the ARIA <code title="attr-aria-role">role</code> and <code title="attr-aria-*">aria-*</code> attributes).<h5 id="the-id-attribute"><span class="secno">3.2.3.1 </span>The <dfn title="attr-id"><code>id</code></dfn> attribute</h5><p>The <code title="attr-id"><a href="#the-id-attribute" id="id-1">id</a></code> attribute specifies its
+  element's <dfn id="concept-id" title="concept-id">unique identifier (ID)</dfn>. The
+  value must be unique amongst all the IDs in the element's <a href="infrastructure.html#home-subtree" id="home-subtree-1">home
+  subtree</a> and must contain at least one character. The value
+  must not contain any <a class="full-spec-link" href="http://dev.w3.org/html5/spec/common-microsyntaxes.html#space-character" title='Read about this "space characters" reference in the full HTML5 spec.'>space
+  characters</a>.</p><!-- space characters are disallowed because space-separated lists
+  of IDs otherwise would not be able to reach all valid IDs --><p class="note">An element's <a href="#concept-id" id="concept-id-8" title="concept-id">unique
+  identifier</a> can be used for a variety of purposes, most
+  notably as a way to link to specific parts of a document using
+  fragment identifiers, as a way to target an element when scripting,
+  and as a way to style a specific element from CSS.<h5 id="the-title-attribute"><span class="secno">3.2.3.2 </span>The <dfn title="attr-title"><code>title</code></dfn> attribute</h5><p>The <code title="attr-title"><a href="#the-title-attribute" id="title-0">title</a></code> attribute
+  <a class="full-spec-link" href="http://dev.w3.org/html5/spec/rendering.html#represents" title='Read about this "represents" reference in the full HTML5 spec.'>represents</a> advisory information for the element, such
+  as would be appropriate for a tooltip. On a link, this could be the
+  title or a description of the target resource; on an image, it could
+  be the image credit or a description of the image; on a paragraph,
+  it could be a footnote or commentary on the text; on a citation, it
+  could be further information about the source; and so forth. The
+  value is text.<p>If this attribute is omitted from an element, then it implies
+  that the <code title="attr-title"><a href="#the-title-attribute" id="title-1">title</a></code> attribute of the
+  nearest ancestor <a href="infrastructure.html#html-elements" id="html-elements-7" title="HTML elements">HTML element</a>
+  with a <code title="attr-title"><a href="#the-title-attribute" id="title-2">title</a></code> attribute set is also
+  relevant to this element. Setting the attribute overrides this,
+  explicitly stating that the advisory information of any ancestors is
+  not relevant to this element. Setting the attribute to the empty
+  string indicates that the element has no advisory information.<p>If the <code title="attr-title"><a href="#the-title-attribute" id="title-3">title</a></code> attribute's value
+  contains U+000A LINE FEED (LF) characters, the content is split into
+  multiple lines. Each U+000A LINE FEED (LF) character represents a
+  line break.<div class="example">
+
+   <p>Caution is advised with respect to the use of newlines in <code title="attr-title"><a href="#the-title-attribute" id="title-4">title</a></code> attributes.</p>
+
+   <p>For instance, the following snippet actually defines an
+   abbreviation's expansion <em>with a line break in it</em>:</p>
+
+   <pre class="bad">&lt;p&gt;My logs show that there was some interest in &lt;abbr title="Hypertext
+Transport Protocol"&gt;HTTP&lt;/abbr&gt; today.&lt;/p&gt;</pre>
+
+  </div><p>Some elements, such as <code><a href="semantics.html#the-link-element" id="link-1">link</a></code>, <code><a href="text-level-semantics.html#the-abbr-element" id="abbr">abbr</a></code>, and
+  <code><a href="the-input-element.html#the-input-element" id="input-12">input</a></code>, define additional semantics for the <code title="attr-title"><a href="#the-title-attribute" id="title-5">title</a></code> attribute beyond the semantics
+  described above.<h5 id="the-lang-and-xml:lang-attributes"><span class="secno">3.2.3.3 </span>The <code title="attr-lang"><a href="#attr-lang" id="lang-2">lang</a></code> and <code title="attr-xml-lang"><a href="#attr-xml-lang" id="xml:lang-0">xml:lang</a></code> attributes</h5><p>The <dfn id="attr-lang" title="attr-lang"><code>lang</code></dfn> attribute (in
+  no namespace) specifies the primary language for the element's
+  contents and for any of the element's attributes that contain
+  text. Its value must be a valid BCP 47 language tag, or the empty
+  string. Setting the attribute to the empty string indicates that the
+  primary language is unknown<!-- UA conformance requirements for this
+  are below -->. <a href="references.html#refsBCP47">[BCP47]</a><p>The <dfn id="attr-xml-lang" title="attr-xml-lang"><code title="">lang</code></dfn>
+  attribute in the <a href="urls.html#xml-namespace" id="xml-namespace-0">XML namespace</a> is defined in XML. <a href="references.html#refsXML">[XML]</a><p>If these attributes are omitted from an element, then the
+  language of this element is the same as the language of its parent
+  element, if any.<p>The <code title="attr-lang"><a href="#attr-lang" id="lang-3">lang</a></code> attribute in no namespace
+  may be used on any <a href="infrastructure.html#html-elements" id="html-elements-8" title="HTML elements">HTML
+  element</a>.<p>The <a href="#attr-xml-lang" id="attr-xml-lang-0" title="attr-xml-lang"><code title="">lang</code>
+  attribute in the <span>XML namespace</span></a> may be used on
+  <a href="infrastructure.html#html-elements" id="html-elements-9">HTML elements</a> in <a href="dom.html#xml-documents" id="xml-documents-4">XML documents</a>, as well as
+  elements in other namespaces if the relevant specifications allow it
+  (in particular, MathML and SVG allow <a href="#attr-xml-lang" id="attr-xml-lang-1" title="attr-xml-lang"><code title="">lang</code> attributes in the
+  <span>XML namespace</span></a> to be specified on their
+  elements). If both the <code title="attr-lang"><a href="#attr-lang" id="lang-4">lang</a></code> attribute
+  in no namespace and the <a href="#attr-xml-lang" id="attr-xml-lang-2" title="attr-xml-lang"><code title="">lang</code> attribute in the <span>XML
+  namespace</span></a> are specified on the same element, they must
+  have exactly the same value when compared in an <a href="infrastructure.html#ascii-case-insensitive" id="ascii-case-insensitive-4">ASCII
+  case-insensitive</a> manner.<p>Authors must not use the <a href="#attr-xml-lang" id="attr-xml-lang-3" title="attr-xml-lang"><code title="">lang</code> attribute in the <span>XML
+  namespace</span></a> on <a href="infrastructure.html#html-elements" id="html-elements-10">HTML elements</a> in <a href="dom.html#html-documents" id="html-documents-5">HTML
+  documents</a>. To ease migration to and from XHTML, authors may
+  specify an attribute in no namespace with no prefix and with the
+  literal localname "<code title="">xml:lang</code>" on <a href="infrastructure.html#html-elements" id="html-elements-11">HTML
+  elements</a> in <a href="dom.html#html-documents" id="html-documents-6">HTML documents</a>, but such attributes
+  must only be specified if a <code title="attr-lang"><a href="#attr-lang" id="lang-5">lang</a></code>
+  attribute in no namespace is also specified, and both attributes
+  must have the same value when compared in an <a href="infrastructure.html#ascii-case-insensitive" id="ascii-case-insensitive-5">ASCII
+  case-insensitive</a> manner.<p class="note">The attribute in no namespace with no prefix and
+  with the literal localname "<code title="">xml:lang</code>" has no
+  effect on language processing.<h5 id="the-xml:base-attribute-xml-only"><span class="secno">3.2.3.4 </span>The <dfn title="attr-xml-base"><code>xml:base</code></dfn>
+  attribute (XML only)</h5><p>The <code title="attr-xml-base"><a href="#the-xml:base-attribute-xml-only" id="xml:base">xml:base</a></code> attribute is
+  defined in XML Base. <a href="references.html#refsXMLBASE">[XMLBASE]</a><p>The <code title="attr-xml-base"><a href="#the-xml:base-attribute-xml-only" id="xml:base-0">xml:base</a></code> attribute may be
+  used on elements of <a href="dom.html#xml-documents" id="xml-documents-5">XML documents</a>. Authors must not
+  use the <code title="attr-xml-base"><a href="#the-xml:base-attribute-xml-only" id="xml:base-1">xml:base</a></code> attribute in
+  <a href="dom.html#html-documents" id="html-documents-7">HTML documents</a>.<h5 id="the-dir-attribute"><span class="secno">3.2.3.5 </span>The <dfn title="attr-dir"><code>dir</code></dfn> attribute</h5><p>The <code title="attr-dir"><a href="#the-dir-attribute" id="dir-2">dir</a></code> attribute specifies the
+  element's text directionality. The attribute is an <a href="common-microsyntaxes.html#enumerated-attribute" id="enumerated-attribute-0">enumerated
+  attribute</a> with the keyword <code title="">ltr</code> mapping
+  to the state <i>ltr</i>, and the keyword <code title="">rtl</code>
+  mapping to the state <i>rtl</i>. The attribute has no <i>invalid
+  value default</i> and no <i>missing value default</i>.<p><dfn id="the-directionality">The directionality</dfn> of an element, which is used in
+  particular by the <code><a href="the-canvas-element.html#the-canvas-element">canvas</a></code> element's text rendering API,
+  is either 'ltr' or 'rtl'. If the user agent supports CSS and the
+  'direction' property on this element has a computed value of either
+  'ltr' or 'rtl', then that is <a href="#the-directionality" id="the-directionality-0">the directionality</a> of the
+  element. Otherwise, if the element is <a class="full-spec-link" href="http://dev.w3.org/html5/spec/rendering.html#being-rendered" title='Read about this "being rendered" reference in the full HTML5 spec.'>being rendered</a>,
+  then <a href="#the-directionality" id="the-directionality-1">the directionality</a> of the element is the
+  directionality used by the presentation layer, potentially
+  determined from the value of the <code title="attr-dir"><a href="#the-dir-attribute" id="dir-3">dir</a></code>
+  attribute on the element. Otherwise, if the element's <code title="attr-dir"><a href="#the-dir-attribute" id="dir-4">dir</a></code> attribute has the state <i>ltr</i>, the
+  element's directionality is 'ltr' (left-to-right); if the attribute
+  has the state <i>rtl</i>, the element's directionality is 'rtl'
+  (right-to-left); and otherwise, the element's directionality is the
+  same as its parent element, or 'ltr' if there is no parent
+  element.<hr><dl class="domintro"><dt><var title="">document</var> . <code title="dom-dir"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/elements.html#dom-dir" title='Read about this "dir" reference in the full HTML5 spec.'>dir</a></code> [ = <var title="">value</var> ]</dt>
+   <dd>
+    <p>Returns <a href="dom.html#the-html-element" id="the-html-element-3">the <code>html</code> element</a>'s <code title="attr-dir"><a href="#the-dir-attribute" id="dir-5">dir</a></code> attribute's value, if any.</p>
+    <p>Can be set, to either "<code title="">ltr</code>" or "<code title="">rtl</code>", to replace <a href="dom.html#the-html-element" id="the-html-element-4">the <code>html</code> element</a>'s <code title="attr-dir"><a href="#the-dir-attribute" id="dir-6">dir</a></code> attribute's value.</p>
+    <p>If there is no <a href="dom.html#the-html-element" id="the-html-element-5" title="the html element"><code>html</code> element</a>, returns the empty string and ignores new values.</p>
+   </dd>
+
+  </dl><p class="note">Authors are strongly encouraged to use the <code title="attr-dir"><a href="#the-dir-attribute" id="dir-7">dir</a></code> attribute to indicate text direction
+  rather than using CSS, since that way their documents will continue
+  to render correctly even in the absence of CSS (e.g. as interpreted
+  by search engines).<h5 id="classes"><span class="secno">3.2.3.6 </span>The <dfn title="attr-class"><code>class</code></dfn> attribute</h5><p>Every <a href="infrastructure.html#html-elements" id="html-elements-12" title="HTML elements">HTML element</a> may have a
+  <code title="attr-class"><a href="#classes" id="class-1">class</a></code> attribute specified.<p>The attribute, if specified, must have a value that is a
+  <a href="common-microsyntaxes.html#set-of-space-separated-tokens" id="set-of-space-separated-tokens-5">set of space-separated tokens</a> representing the various
+  classes that the element belongs to.<p class="note">Assigning classes to an element affects class
+  matching in selectors in CSS, the <code title="dom-document-getElementsByClassName"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/dom.html#dom-document-getelementsbyclassname" title='Read about this "getElementsByClassName()" reference in the full HTML5 spec.'>getElementsByClassName()</a></code>
+  method in the DOM, and other such features.<p>There are no additional restrictions on the tokens authors can
+  use in the <code title="attr-class"><a href="#classes" id="class-2">class</a></code> attribute, but
+  authors are encouraged to use values that describe the nature of the
+  content, rather than values that describe the desired presentation
+  of the content.<h5 id="the-style-attribute"><span class="secno">3.2.3.7 </span>The <dfn title="attr-style"><code>style</code></dfn> attribute</h5><p>All <a href="infrastructure.html#html-elements" id="html-elements-13">HTML elements</a> may have the <code title="attr-style"><a href="#the-style-attribute" id="style-4">style</a></code> content attribute set. This is a
+  <span>CSS styling attribute</span> as defined by the CSS Styling
+  Attribute Syntax specification. <a href="references.html#refsCSSATTR">[CSSATTR]</a><p>Documents that use <code title="attr-style"><a href="#the-style-attribute" id="style-5">style</a></code>
+  attributes on any of their elements must still be comprehensible and
+  usable if those attributes were removed.<p class="note">In particular, using the <code title="attr-style"><a href="#the-style-attribute" id="style-6">style</a></code> attribute to hide and show content,
+  or to convey meaning that is otherwise not included in the document,
+  is non-conforming. (To hide and show content, use the <code title="attr-hidden"><a href="editing.html#the-hidden-attribute" id="hidden-0">hidden</a></code> attribute.)<hr><dl class="domintro"><dt><var title="">element</var> . <code title="dom-style"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/elements.html#dom-style" title='Read about this "style" reference in the full HTML5 spec.'>style</a></code></dt>
+   <dd>
+    <p>Returns a <code>CSSStyleDeclaration</code> object for the element's <code title="attr-style"><a href="#the-style-attribute" id="style-7">style</a></code> attribute.</p>
+   </dd>
+
+  </dl><div class="example">
+
+   <p>In the following example, the words that refer to colors are
+   marked up using the <code><a href="text-level-semantics.html#the-span-element" id="span-3">span</a></code> element and the <code title="attr-style"><a href="#the-style-attribute" id="style-8">style</a></code> attribute to make those words show
+   up in the relevant colors in visual media.</p>
+
+   <pre>&lt;p&gt;My sweat suit is &lt;span style="color: green; background:
+transparent"&gt;green&lt;/span&gt; and my eyes are &lt;span style="color: blue;
+background: transparent"&gt;blue&lt;/span&gt;.&lt;/p&gt;</pre>
+
+  </div><h5 id="embedding-custom-non-visible-data"><span class="secno">3.2.3.8 </span><dfn>Embedding custom non-visible data</dfn></h5><p>A <dfn id="custom-data-attribute">custom data attribute</dfn> is an attribute in no
+  namespace whose name starts with the string "<dfn id="attr-data" title="attr-data-*"><code>data-</code></dfn>", has at least one
+  character after the hyphen, is <a href="infrastructure.html#xml-compatible" id="xml-compatible-0">XML-compatible</a>, and
+  contains no characters in the range U+0041 to U+005A (LATIN CAPITAL
+  LETTER A to LATIN CAPITAL LETTER Z).<p class="note">All attributes on <a href="infrastructure.html#html-elements" id="html-elements-14">HTML elements</a> in
+  <a href="dom.html#html-documents" id="html-documents-8">HTML documents</a> get ASCII-lowercased automatically, so
+  the restriction on ASCII uppercase letters doesn't affect such
+  documents.<p><a href="#custom-data-attribute" id="custom-data-attribute-1" title="custom data attribute">Custom data attributes</a>
+  are intended to store custom data private to the page or
+  application, for which there are no more appropriate attributes or
+  elements.<p>These attributes are not intended for use by software that is
+  independent of the site that uses the attributes.<div class="example">
+
+   <p>For instance, a site about music could annotate list items
+   representing tracks in an album with custom data attributes
+   containing the length of each track. This information could then be
+   used by the site itself to allow the user to sort the list by track
+   length, or to filter the list for tracks of certain lengths.</p>
+
+   <pre>&lt;ol&gt;
+ &lt;li data-length="2m11s"&gt;Beyond The Sea&lt;/li&gt;
+ ...
+&lt;/ol&gt;</pre>
+
+   <p>It would be inappropriate, however, for the user to use generic
+   software not associated with that music site to search for tracks
+   of a certain length by looking at this data.</p>
+
+   <p>This is because these attributes are intended for use by the
+   site's own scripts, and are not a generic extension mechanism for
+   publicly-usable metadata.</p>
+
+  </div><p>Every <a href="infrastructure.html#html-elements" id="html-elements-15" title="HTML elements">HTML element</a> may have
+  any number of <a href="#custom-data-attribute" id="custom-data-attribute-2" title="custom data attribute">custom data
+  attributes</a> specified, with any value.<hr><dl class="domintro"><dt><var title="">element</var> . <code title="dom-dataset"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/elements.html#dom-dataset" title='Read about this "dataset" reference in the full HTML5 spec.'>dataset</a></code></dt>
+   <dd>
+
+    <p>Returns a <code><a class="full-spec-link" href="http://dev.w3.org/html5/spec/common-dom-interfaces.html#domstringmap" title='Read about this "DOMStringMap" reference in the full HTML5 spec.'>DOMStringMap</a></code> object for the element's <code title="attr-data-*"><a href="#attr-data" id="data-5">data-*</a></code> attributes.</p>
+
+    <p>Hyphenated names become camel-cased. For example, <code title="">data-foo-bar=""</code> becomes <code title="">element.dataset.fooBar</code>.</p>
+
+   </dd>
+
+  </dl><div class="example">
+
+   <p>If a Web page wanted an element to represent a space ship,
+   e.g. as part of a game, it would have to use the <code title="attr-class"><a href="#classes" id="class-3">class</a></code> attribute along with <code title="attr-data-*"><a href="#attr-data" id="data-6">data-*</a></code> attributes:</p>
+
+   <pre>&lt;div class="spaceship" data-ship-id="92432"
+     data-weapons="laser 2" data-shields="50%"
+     data-x="30" data-y="10" data-z="90"&gt;
+ &lt;button class="fire"
+         onclick="spaceships[this.parentNode.dataset.shipId].fire()"&gt;
+  Fire
+ &lt;/button&gt;
+&lt;/div&gt;</pre>
+
+   <p>Notice how the hyphenated attribute name becomes capitalized in
+   the API.</p>
+
+  </div><p>Authors should carefully design such extensions so that when the
+  attributes are ignored and any associated CSS dropped, the page is
+  still usable.<p>JavaScript libraries may use the <a href="#custom-data-attribute" id="custom-data-attribute-3" title="custom data
+  attribute">custom data attributes</a>, as they are considered to
+  be part of the page on which they are used. Authors of libraries
+  that are reused by many authors are encouraged to include their name
+  in the attribute names, to reduce the risk of clashes.<div class="example">
+
+   <p>For example, a library called "DoQuery" could use attribute
+   names like <code title="">data-doquery-range</code>, and a library
+   called "jJo" could use attributes names like <code title="">data-jjo-range</code>.</p>
+
+  </div><h4 id="element-definitions"><span class="secno">3.2.4 </span>Element definitions</h4><p>Each element in this specification has a definition that includes
+  the following information:<dl><dt>Categories</dt>
+
+   <dd>A list of <a href="content-models.html#content-categories" id="content-categories-0" title="content categories">categories</a> to
+   which the element belongs. These are used when defining the
+   <a href="content-models.html#content-models" id="content-models-0">content models</a> for each element.</dd>
+
+
+   <dt>Contexts in which this element may be used</dt>
+
+   <dd>A <em>non-normative</em> description of where the element can
+   be used. This information is redundant with the content models of
+   elements that allow this one as a child, and is provided only as a
+   convenience.</dd>
+
+
+   <dt>Content model</dt>
+
+   <dd>A normative description of what content must be included as
+   children and descendants of the element.</dd>
+
+
+   <dt>Content attributes</dt>
+
+   <dd>A normative list of attributes that may be specified on the
+   element (except where otherwise disallowed).</dd>
+
+
+   <dt>DOM interface</dt>
+
+   <dd>A normative definition of a DOM interface that such elements
+   must implement.</dd>
+
+  </dl><p>This is then followed by a description of what the element
+  <a class="full-spec-link" href="http://dev.w3.org/html5/spec/rendering.html#represents" title='Read about this "represents" reference in the full HTML5 spec.'>represents</a>, along with any additional normative
+  conformance criteria that may apply to authors. Examples are sometimes
+  also included.<h5 id="attributes"><span class="secno">3.2.4.1 </span>Attributes</h5><p id="attribute-text">Except where otherwise specified, attributes
+  on <a href="infrastructure.html#html-elements" id="html-elements-16">HTML elements</a> may have any string value, including
+  the empty string. Except where explicitly stated, there is no
+  restriction on what text can be specified in such attributes.

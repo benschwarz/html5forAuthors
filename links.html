@@ -1,0 +1,1317 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"><!-- when publishing, change bits marked ZZZ --><html class="split chapter" lang="en-US-x-Hixie"><meta content="text/html; charset=ascii" http-equiv="Content-Type"><title>4.12 Links &mdash; HTML5 (Edition for Web Authors)</title><link href="whatwg.css" rel="stylesheet"><style type="text/css">
+   pre { margin-left: 2em; white-space: pre-wrap; }
+   h2 { margin: 3em 0 1em 0; }
+   h3 { margin: 2.5em 0 1em 0; }
+   h4 { margin: 2.5em 0 0.75em 0; }
+   h5, h6 { margin: 2.5em 0 1em; }
+   h1 + h2, h1 + h2 + h2 { margin: 0.75em 0 0.75em; }
+   h2 + h3, h3 + h4, h4 + h5, h5 + h6 { margin-top: 0.5em; }
+   p { margin: 1em 0; }
+   hr:not(.top) { display: block; background: none; border: none; padding: 0; margin: 2em 0; height: auto; }
+   dl, dd { margin-top: 0; margin-bottom: 0; }
+   dt { margin-top: 0.75em; margin-bottom: 0.25em; clear: left; }
+   dt + dt { margin-top: 0; }
+   dd dt { margin-top: 0.25em; margin-bottom: 0; }
+   dd p { margin-top: 0; }
+   dd dl + p { margin-top: 1em; }
+   dd table + p { margin-top: 1em; }
+   p + * > li, dd li { margin: 1em 0; }
+   dt, dfn { font-weight: bold; font-style: normal; }
+   dt dfn { font-style: italic; }
+   pre, code { font-size: inherit; font-family: monospace; font-variant: normal; }
+   pre strong { color: black; font: inherit; font-weight: bold; background: yellow; }
+   pre em { font-weight: bolder; font-style: normal; }
+   @media screen { code { color: orangered; } code :link, code :visited { color: inherit; } }
+   var sub { vertical-align: bottom; font-size: smaller; position: relative; top: 0.1em; }
+   table { border-collapse: collapse; border-style: hidden hidden none hidden; }
+   table thead, table tbody { border-bottom: solid; }
+   table tbody th:first-child { border-left: solid; }
+   table tbody th { text-align: left; }
+   table td, table th { border-left: solid; border-right: solid; border-bottom: solid thin; vertical-align: top; padding: 0.2em; }
+   blockquote { margin: 0 0 0 2em; border: 0; padding: 0; font-style: italic; }
+
+   .bad, .bad *:not(.XXX) { color: gray; border-color: gray; background: transparent; }
+   .matrix, .matrix td { border: none; text-align: right; }
+   .matrix { margin-left: 2em; }
+   .dice-example { border-collapse: collapse; border-style: hidden solid solid hidden; border-width: thin; margin-left: 3em; }
+   .dice-example caption { width: 30em; font-size: smaller; font-style: italic; padding: 0.75em 0; text-align: left; }
+   .dice-example td, .dice-example th { border: solid thin; width: 1.35em; height: 1.05em; text-align: center; padding: 0; }
+
+   .toc dfn, h1 dfn, h2 dfn, h3 dfn, h4 dfn, h5 dfn, h6 dfn { font: inherit; }
+   img.extra { float: right; }
+   pre.idl { border: solid thin; background: #EEEEEE; color: black; padding: 0.5em 1em; }
+   pre.idl :link, pre.idl :visited { color: inherit; background: transparent; }
+   pre.css { border: solid thin; background: #FFFFEE; color: black; padding: 0.5em 1em; }
+   pre.css:first-line { color: #AAAA50; }
+   dl.domintro { color: green; margin: 2em 0 2em 2em; padding: 0.5em 1em; border: none; background: #DDFFDD; }
+   hr + dl.domintro, div.impl + dl.domintro { margin-top: 2.5em; margin-bottom: 1.5em; }
+   dl.domintro dt, dl.domintro dt * { color: black; text-decoration: none; }
+   dl.domintro dd { margin: 0.5em 0 1em 2em; padding: 0; }
+   dl.domintro dd p { margin: 0.5em 0; }
+   dl.switch { padding-left: 2em; }
+   dl.switch > dt { text-indent: -1.5em; }
+   dl.switch > dt:before { content: '\21AA'; padding: 0 0.5em 0 0; display: inline-block; width: 1em; text-align: right; line-height: 0.5em; }
+   dl.triple { padding: 0 0 0 1em; }
+   dl.triple dt, dl.triple dd { margin: 0; display: inline }
+   dl.triple dt:after { content: ':'; }
+   dl.triple dd:after { content: '\A'; white-space: pre; }
+   .diff-old { text-decoration: line-through; color: silver; background: transparent; }
+   .diff-chg, .diff-new { text-decoration: underline; color: green; background: transparent; }
+   a .diff-new { border-bottom: 1px blue solid; }
+
+   h2 { page-break-before: always; }
+   h1, h2, h3, h4, h5, h6 { page-break-after: avoid; }
+   h1 + h2, hr + h2.no-toc { page-break-before: auto; }
+
+   p > span:not([title=""]):not([class="XXX"]):not([class="impl"]), li > span:not([title=""]):not([class="XXX"]):not([class="impl"]) { border-bottom: solid #9999CC; }
+
+   div.head { margin: 0 0 1em; padding: 1em 0 0 0; }
+   div.head p { margin: 0; }
+   div.head h1 { margin: 0; }
+   div.head .logo { float: right; margin: 0 1em; }
+   div.head .logo img { border: none } /* remove border from top image */
+   div.head dl { margin: 1em 0; }
+   div.head p.copyright, div.head p.alt { font-size: x-small; font-style: oblique; margin: 0; }
+
+   body > .toc > li { margin-top: 1em; margin-bottom: 1em; }
+   body > .toc.brief > li { margin-top: 0.35em; margin-bottom: 0.35em; }
+   body > .toc > li > * { margin-bottom: 0.5em; }
+   body > .toc > li > * > li > * { margin-bottom: 0.25em; }
+   .toc, .toc li { list-style: none; }
+
+   .brief { margin-top: 1em; margin-bottom: 1em; line-height: 1.1; }
+   .brief li { margin: 0; padding: 0; }
+   .brief li p { margin: 0; padding: 0; }
+
+   .category-list { margin-top: -0.75em; margin-bottom: 1em; line-height: 1.5; }
+   .category-list::before { content: '\21D2\A0'; font-size: 1.2em; font-weight: 900; }
+   .category-list li { display: inline; }
+   .category-list li:not(:last-child)::after { content: ', '; }
+   .category-list li > span, .category-list li > a { text-transform: lowercase; }
+   .category-list li * { text-transform: none; } /* don't affect <code> nested in <a> */
+
+   .XXX { color: #E50000; background: white; border: solid red; padding: 0.5em; margin: 1em 0; }
+   .XXX > :first-child { margin-top: 0; }
+   p .XXX { line-height: 3em; }
+   .annotation { border: solid thin black; background: #0C479D; color: white; position: relative; margin: 8px 0 20px 0; }
+   .annotation:before { position: absolute; left: 0; top: 0; width: 100%; height: 100%; margin: 6px -6px -6px 6px; background: #333333; z-index: -1; content: ''; }
+   .annotation :link, .annotation :visited { color: inherit; }
+   .annotation :link:hover, .annotation :visited:hover { background: transparent; }
+   .annotation span { border: none ! important; }
+   .note { color: green; background: transparent; font-family: sans-serif; }
+   .warning { color: red; background: transparent; }
+   .note, .warning { font-weight: bolder; font-style: italic; }
+   p.note, div.note { padding: 0.5em 2em; }
+   span.note { padding: 0 2em; }
+   .note p:first-child, .warning p:first-child { margin-top: 0; }
+   .note p:last-child, .warning p:last-child { margin-bottom: 0; }
+   .warning:before { font-style: normal; }
+   p.note:before { content: 'Note: '; }
+   p.warning:before { content: '\26A0 Warning! '; }
+
+   .bookkeeping:before { display: block; content: 'Bookkeeping details'; font-weight: bolder; font-style: italic; }
+   .bookkeeping { font-size: 0.8em; margin: 2em 0; }
+   .bookkeeping p { margin: 0.5em 2em; display: list-item; list-style: square; }
+   .bookkeeping dt { margin: 0.5em 2em 0; }
+   .bookkeeping dd { margin: 0 3em 0.5em; }
+
+   h4 { position: relative; z-index: 3; }
+   h4 + .element, h4 + div + .element { margin-top: -2.5em; padding-top: 2em; }
+   .element {
+     background: #EEEEFF;
+     color: black;
+     margin: 0 0 1em 0.15em;
+     padding: 0 1em 0.25em 0.75em;
+     border-left: solid #9999FF 0.25em;
+     position: relative;
+     z-index: 1;
+   }
+   .element:before {
+     position: absolute;
+     z-index: 2;
+     top: 0;
+     left: -1.15em;
+     height: 2em;
+     width: 0.9em;
+     background: #EEEEFF;
+     content: ' ';
+     border-style: none none solid solid;
+     border-color: #9999FF;
+     border-width: 0.25em;
+   }
+
+   .example { display: block; color: #222222; background: #FCFCFC; border-left: double; margin-left: 2em; padding-left: 1em; }
+   td > .example:only-child { margin: 0 0 0 0.1em; }
+
+   ul.domTree, ul.domTree ul { padding: 0 0 0 1em; margin: 0; }
+   ul.domTree li { padding: 0; margin: 0; list-style: none; position: relative; }
+   ul.domTree li li { list-style: none; }
+   ul.domTree li:first-child::before { position: absolute; top: 0; height: 0.6em; left: -0.75em; width: 0.5em; border-style: none none solid solid; content: ''; border-width: 0.1em; }
+   ul.domTree li:not(:last-child)::after { position: absolute; top: 0; bottom: -0.6em; left: -0.75em; width: 0.5em; border-style: none none solid solid; content: ''; border-width: 0.1em; }
+   ul.domTree span { font-style: italic; font-family: serif; }
+   ul.domTree .t1 code { color: purple; font-weight: bold; }
+   ul.domTree .t2 { font-style: normal; font-family: monospace; }
+   ul.domTree .t2 .name { color: black; font-weight: bold; }
+   ul.domTree .t2 .value { color: blue; font-weight: normal; }
+   ul.domTree .t3 code, .domTree .t4 code, .domTree .t5 code { color: gray; }
+   ul.domTree .t7 code, .domTree .t8 code { color: green; }
+   ul.domTree .t10 code { color: teal; }
+
+   body.dfnEnabled dfn { cursor: pointer; }
+   .dfnPanel {
+     display: inline;
+     position: absolute;
+     z-index: 10;
+     height: auto;
+     width: auto;
+     padding: 0.5em 0.75em;
+     font: small sans-serif, Droid Sans Fallback;
+     background: #DDDDDD;
+     color: black;
+     border: outset 0.2em;
+   }
+   .dfnPanel * { margin: 0; padding: 0; font: inherit; text-indent: 0; }
+   .dfnPanel :link, .dfnPanel :visited { color: black; }
+   .dfnPanel p { font-weight: bolder; }
+   .dfnPanel * + p { margin-top: 0.25em; }
+   .dfnPanel li { list-style-position: inside; }
+
+   #configUI { position: absolute; z-index: 20; top: 10em; right: 1em; width: 11em; font-size: small; }
+   #configUI p { margin: 0.5em 0; padding: 0.3em; background: #EEEEEE; color: black; border: inset thin; }
+   #configUI p label { display: block; }
+   #configUI #updateUI, #configUI .loginUI { text-align: center; }
+   #configUI input[type=button] { display: block; margin: auto; }
+
+  </style><style type="text/css">
+
+   .applies thead th > * { display: block; }
+   .applies thead code { display: block; }
+   .applies tbody th { whitespace: nowrap; }
+   .applies td { text-align: center; }
+   .applies .yes { background: yellow; }
+
+   .matrix, .matrix td { border: hidden; text-align: right; }
+   .matrix { margin-left: 2em; }
+
+   .dice-example { border-collapse: collapse; border-style: hidden solid solid hidden; border-width: thin; margin-left: 3em; }
+   .dice-example caption { width: 30em; font-size: smaller; font-style: italic; padding: 0.75em 0; text-align: left; }
+   .dice-example td, .dice-example th { border: solid thin; width: 1.35em; height: 1.05em; text-align: center; padding: 0; }
+
+   #table-example-1 { border: solid thin; border-collapse: collapse; margin-left: 3em; }
+   #table-example-1 * { font-family: "Essays1743", serif; line-height: 1.01em; }
+   #table-example-1 caption { padding-bottom: 0.5em; }
+   #table-example-1 thead, #table-example-1 tbody { border: none; }
+   #table-example-1 th, #table-example-1 td { border: solid thin; }
+   #table-example-1 th { font-weight: normal; }
+   #table-example-1 td { border-style: none solid; vertical-align: top; }
+   #table-example-1 th { padding: 0.5em; vertical-align: middle; text-align: center; }
+   #table-example-1 tbody tr:first-child td { padding-top: 0.5em; }
+   #table-example-1 tbody tr:last-child td { padding-bottom: 1.5em; }
+   #table-example-1 tbody td:first-child { padding-left: 2.5em; padding-right: 0; width: 9em; }
+   #table-example-1 tbody td:first-child::after { content: leader(". "); }
+   #table-example-1 tbody td { padding-left: 2em; padding-right: 2em; }
+   #table-example-1 tbody td:first-child + td { width: 10em; }
+   #table-example-1 tbody td:first-child + td ~ td { width: 2.5em; }
+   #table-example-1 tbody td:first-child + td + td + td ~ td { width: 1.25em; }
+
+   .apple-table-examples { border: none; border-collapse: separate; border-spacing: 1.5em 0em; width: 40em; margin-left: 3em; }
+   .apple-table-examples * { font-family: "Times", serif; }
+   .apple-table-examples td, .apple-table-examples th { border: none; white-space: nowrap; padding-top: 0; padding-bottom: 0; }
+   .apple-table-examples tbody th:first-child { border-left: none; width: 100%; }
+   .apple-table-examples thead th:first-child ~ th { font-size: smaller; font-weight: bolder; border-bottom: solid 2px; text-align: center; }
+   .apple-table-examples tbody th::after, .apple-table-examples tfoot th::after { content: leader(". ") }
+   .apple-table-examples tbody th, .apple-table-examples tfoot th { font: inherit; text-align: left; }
+   .apple-table-examples td { text-align: right; vertical-align: top; }
+   .apple-table-examples.e1 tbody tr:last-child td { border-bottom: solid 1px; }
+   .apple-table-examples.e1 tbody + tbody tr:last-child td { border-bottom: double 3px; }
+   .apple-table-examples.e2 th[scope=row] { padding-left: 1em; }
+   .apple-table-examples sup { line-height: 0; }
+
+   .details-example img { vertical-align: top; }
+
+   #named-character-references-table {
+     font-size: 0.6em;
+     column-width: 28em;
+     column-gap: 1em;
+     -moz-column-width: 28em;
+     -moz-column-gap: 1em;
+     -webkit-column-width: 28em;
+     -webkit-column-gap: 1em;
+   }
+   #named-character-references-table > table > tbody > tr > td:last-child { text-align: center; }
+   #named-character-references-table > table > tbody > tr > td:last-child:hover > span { position: absolute; top: auto; left: auto; margin-left: 0.5em; line-height: 1.2; font-size: 5em; border: outset; padding: 0.25em 0.5em; background: white; width: 1.25em; height: auto; text-align: center; }
+
+   .glyph.control { color: red; }
+
+   @font-face {
+     font-family: 'Essays1743';
+     src: url('http://www.whatwg.org/specs/web-apps/current-work/fonts/Essays1743.ttf');
+   }
+   @font-face {
+     font-family: 'Essays1743';
+     font-weight: bold;
+     src: url('http://www.whatwg.org/specs/web-apps/current-work/fonts/Essays1743-Bold.ttf');
+   }
+   @font-face {
+     font-family: 'Essays1743';
+     font-style: italic;
+     src: url('http://www.whatwg.org/specs/web-apps/current-work/fonts/Essays1743-Italic.ttf');
+   }
+   @font-face {
+     font-family: 'Essays1743';
+     font-style: italic;
+     font-weight: bold;
+     src: url('http://www.whatwg.org/specs/web-apps/current-work/fonts/Essays1743-BoldItalic.ttf');
+   }
+
+  </style><link href="data:text/css," id="complete" rel="stylesheet" title="Complete specification"><link href="data:text/css,.impl%20%7B%20display:%20none;%20%7D%0Ahtml%20%7B%20border:%20solid%20yellow;%20%7D%20.domintro:before%20%7B%20display:%20none;%20%7D" id="author" rel="alternate stylesheet" title="Author documentation only"><link href="data:text/css,.impl%20%7B%20background:%20%23FFEEEE;%20%7D%20.domintro:before%20%7B%20background:%20%23FFEEEE;%20%7D" id="highlight" rel="alternate stylesheet" title="Highlight implementation requirements"><script type="text/javascript">
+ function getCookie(name) {
+   var params = location.search.substr(1).split("&");
+   for (var index = 0; index < params.length; index++) {
+     if (params[index] == name)
+       return "1";
+     var data = params[index].split("=");
+     if (data[0] == name)
+       return unescape(data[1]);
+   }
+   var cookies = document.cookie.split("; ");
+   for (var index = 0; index < cookies.length; index++) {
+     var data = cookies[index].split("=");
+     if (data[0] == name)
+       return unescape(data[1]);
+   }
+   return null;
+ }
+ function load(script) {
+   var e = document.createElement('script');
+   e.setAttribute('src', script + '?' + encodeURIComponent(location) + '&' + encodeURIComponent(document.referrer));
+   document.body.appendChild(e);
+ }
+ function init() {
+   if (location.search == '?slow-browser')
+     return;
+   var configUI = document.createElement('div');
+   configUI.id = 'configUI';
+   document.body.appendChild(configUI);
+   if (document.getElementById('head'))
+     load('toc.js');
+   load('dfn.js');
+   if (getCookie('profile') == '1')
+     document.getElementsByTagName('h2')[0].textContent += '; load: ' + (new Date() - loadTimer) + 'ms';
+   fixBrokenLink();
+ }
+</script><link href="http://www.w3.org/StyleSheets/TR/W3C-ED" rel="stylesheet" type="text/css"><link href="style.css" rel="stylesheet"><script src="link-fixup.js"></script><link href="commands.html" rel="prev" title="4.11.5 Commands">
+  <link href="Overview.html#contents" rel="index" title="Table of contents">
+  <link href="browsers.html" rel="next" title="5 Loading Web pages">
+  <body onload="fixBrokenLink(); init()"><div class="head" id="head">
+   <p><a href="http://www.w3.org/"><img alt="W3C" height="48" src="http://www.w3.org/Icons/w3c_home" width="72"></a></p>
+
+   <h1>HTML5 (Edition for Web Authors)<span class="rcsrevision"> revision 1.4343</span></h1>
+   </div><div>
+   <a href="commands.html">&larr; 4.11.5 Commands</a> &ndash;
+   <a href="Overview.html#contents">Table of contents</a> &ndash;
+   <a href="browsers.html">5 Loading Web pages &rarr;</a>
+  <ol class="toc"><li><ol><li><a href="links.html#links"><span class="secno">4.12 </span>Links</a>
+    <ol><li><a href="links.html#introduction-2"><span class="secno">4.12.1 </span>Introduction</a><li><a href="links.html#links-created-by-a-and-area-elements"><span class="secno">4.12.2 </span>Links created by <code>a</code> and <code>area</code> elements</a><li><a href="links.html#linkTypes"><span class="secno">4.12.3 </span>Link types</a>
+      <ol><li><a href="links.html#rel-alternate" id="x4.12.3.1-link-type-alternate"><span class="secno">4.12.3.1 </span>Link type "<code>alternate</code>"</a><li><a href="links.html#rel-archives" id="x4.12.3.2-link-type-archives"><span class="secno">4.12.3.2 </span>Link type "<code>archives</code>"</a><li><a href="links.html#link-type-author" id="x4.12.3.3-link-type-author"><span class="secno">4.12.3.3 </span>Link type "<code>author</code>"</a><li><a href="links.html#link-type-bookmark" id="x4.12.3.4-link-type-bookmark"><span class="secno">4.12.3.4 </span>Link type "<code>bookmark</code>"</a><li><a href="links.html#link-type-external" id="x4.12.3.5-link-type-external"><span class="secno">4.12.3.5 </span>Link type "<code>external</code>"</a><li><a href="links.html#link-type-help" id="x4.12.3.6-link-type-help"><span class="secno">4.12.3.6 </span>Link type "<code>help</code>"</a><li><a href="links.html#rel-icon" id="x4.12.3.7-link-type-icon"><span class="secno">4.12.3.7 </span>Link type "<code>icon</code>"</a><li><a href="links.html#link-type-license" id="x4.12.3.8-link-type-license"><span class="secno">4.12.3.8 </span>Link type "<code>license</code>"</a><li><a href="links.html#link-type-nofollow" id="x4.12.3.9-link-type-nofollow"><span class="secno">4.12.3.9 </span>Link type "<code>nofollow</code>"</a><li><a href="links.html#link-type-noreferrer" id="x4.12.3.10-link-type-noreferrer"><span class="secno">4.12.3.10 </span>Link type "<code>noreferrer</code>"</a><li><a href="links.html#link-type-pingback" id="x4.12.3.11-link-type-pingback"><span class="secno">4.12.3.11 </span>Link type "<code>pingback</code>"</a><li><a href="links.html#link-type-prefetch" id="x4.12.3.12-link-type-prefetch"><span class="secno">4.12.3.12 </span>Link type "<code>prefetch</code>"</a><li><a href="links.html#link-type-search" id="x4.12.3.13-link-type-search"><span class="secno">4.12.3.13 </span>Link type "<code>search</code>"</a><li><a href="links.html#link-type-stylesheet" id="x4.12.3.14-link-type-stylesheet"><span class="secno">4.12.3.14 </span>Link type "<code>stylesheet</code>"</a><li><a href="links.html#link-type-sidebar" id="x4.12.3.15-link-type-sidebar"><span class="secno">4.12.3.15 </span>Link type "<code>sidebar</code>"</a><li><a href="links.html#link-type-tag" id="x4.12.3.16-link-type-tag"><span class="secno">4.12.3.16 </span>Link type "<code>tag</code>"</a><li><a href="links.html#hierarchical-link-types"><span class="secno">4.12.3.17 </span>Hierarchical link types</a>
+        <ol><li><a href="links.html#link-type-index" id="x4.12.3.17.1-link-type-index"><span class="secno">4.12.3.17.1 </span>Link type "<code>index</code>"</a><li><a href="links.html#link-type-up" id="x4.12.3.17.2-link-type-up"><span class="secno">4.12.3.17.2 </span>Link type "<code>up</code>"</a></ol><li><a href="links.html#sequential-link-types"><span class="secno">4.12.3.18 </span>Sequential link types</a>
+        <ol><li><a href="links.html#link-type-first" id="x4.12.3.18.1-link-type-first"><span class="secno">4.12.3.18.1 </span>Link type "<code>first</code>"</a><li><a href="links.html#link-type-last" id="x4.12.3.18.2-link-type-last"><span class="secno">4.12.3.18.2 </span>Link type "<code>last</code>"</a><li><a href="links.html#link-type-next" id="x4.12.3.18.3-link-type-next"><span class="secno">4.12.3.18.3 </span>Link type "<code>next</code>"</a><li><a href="links.html#link-type-prev" id="x4.12.3.18.4-link-type-prev"><span class="secno">4.12.3.18.4 </span>Link type "<code>prev</code>"</a></ol><li><a href="links.html#other-link-types"><span class="secno">4.12.3.19 </span>Other link types</a></ol></ol><li><a href="links.html#common-idioms-without-dedicated-elements"><span class="secno">4.13 </span>Common idioms without dedicated elements</a>
+    <ol><li><a href="links.html#the-main-part-of-the-content"><span class="secno">4.13.1 </span>The main part of the content</a><li><a href="links.html#tag-clouds"><span class="secno">4.13.2 </span>Tag clouds</a><li><a href="links.html#conversations"><span class="secno">4.13.3 </span>Conversations</a><li><a href="links.html#footnotes"><span class="secno">4.13.4 </span>Footnotes</a></ol></ol></ol></div>
+
+  <h3 id="links"><span class="secno">4.12 </span>Links</h3><h4 id="introduction-2"><span class="secno">4.12.1 </span>Introduction</h4><p>Links are a conceptual construct, created by <code><a href="text-level-semantics.html#the-a-element" id="a-26">a</a></code>,
+  <code><a href="the-map-element.html#the-area-element" id="area-20">area</a></code>, and <code><a href="semantics.html#the-link-element" id="link-27">link</a></code> elements, that <a class="full-spec-link" href="http://dev.w3.org/html5/spec/rendering.html#represents" title='Read about this "represent" reference in the full HTML5 spec.'>represent</a> a connection between two
+  resources, one of which is the current <code><a class="full-spec-link" href="http://dev.w3.org/html5/spec/infrastructure.html#document" title='Read about this "Document" reference in the full HTML5 spec.'>Document</a></code>. There
+  are two kinds of links in HTML:<dl><dt><dfn id="external-resource-link" title="external resource link">Links to external
+   resources</dfn></dt>
+
+   <dd><p>These are links to resources that are to be used to augment
+   the current document, generally automatically processed by the user
+   agent.</dd>
+
+   <dt><dfn id="hyperlink" title="hyperlink">Hyperlinks</dfn></dt>
+
+   <dd><p>These are links to other resources that are generally
+   exposed to the user by the user agent so that the user can cause
+   the user agent to <a class="full-spec-link" href="http://dev.w3.org/html5/spec/history.html#navigate" title='Read about this "navigate" reference in the full HTML5 spec.'>navigate</a> to those resources, e.g. to
+   visit them in a browser or download them.</dd>
+
+  </dl><p>For <code><a href="semantics.html#the-link-element" id="link-28">link</a></code> elements with an <code title="attr-link-href"><a href="semantics.html#attr-link-href" id="href-4">href</a></code> attribute and a <code title="attr-link-rel"><a href="semantics.html#attr-link-rel" id="rel-5">rel</a></code> attribute, links must be created
+  for the keywords of the <code title="attr-link-rel"><a href="semantics.html#attr-link-rel" id="rel-6">rel</a></code>
+  attribute, as defined for those keywords in the <a href="#linkTypes">link types</a> section.<p>Similarly, for <code><a href="text-level-semantics.html#the-a-element" id="a-27">a</a></code> and <code><a href="the-map-element.html#the-area-element" id="area-21">area</a></code> elements with
+  an <code title="attr-hyperlink-href"><a href="#attr-hyperlink-href" id="href-19">href</a></code> attribute and a
+  <code title="attr-hyperlink-rel"><a href="#attr-hyperlink-rel" id="rel-16">rel</a></code> attribute, links must be
+  created for the keywords of the <code title="attr-hyperlink-rel"><a href="#attr-hyperlink-rel" id="rel-17">rel</a></code> attribute as defined for those
+  keywords in the <a href="#linkTypes">link types</a> section. Unlike
+  <code><a href="semantics.html#the-link-element" id="link-29">link</a></code> elements, however, <code><a href="text-level-semantics.html#the-a-element" id="a-28">a</a></code> and
+  <code><a href="the-map-element.html#the-area-element" id="area-22">area</a></code> element with an <code title="attr-hyperlink-href"><a href="#attr-hyperlink-href" id="href-20">href</a></code> attribute that either do not
+  have a <code title="attr-hyperlink-rel"><a href="#attr-hyperlink-rel" id="rel-18">rel</a></code> attribute, or
+  whose <code title="attr-hyperlink-rel"><a href="#attr-hyperlink-rel" id="rel-19">rel</a></code> attribute has no
+  keywords that are defined as specifying <a href="#hyperlink" id="hyperlink-15" title="hyperlink">hyperlinks</a>, must also create a
+  <a href="#hyperlink" id="hyperlink-16">hyperlink</a>. This implied hyperlink has no special
+  meaning (it has no <a href="#linkTypes">link type</a>) beyond
+  linking the element's document to the resource given by the
+  element's <code title="attr-hyperlink-href"><a href="#attr-hyperlink-href" id="href-21">href</a></code>
+  attribute.<p>A <a href="#hyperlink" id="hyperlink-17">hyperlink</a> can have one or more <dfn id="hyperlink-annotation" title="hyperlink annotation">hyperlink annotations</dfn> that modify
+  the processing semantics of that hyperlink.<h4 id="links-created-by-a-and-area-elements"><span class="secno">4.12.2 </span>Links created by <code><a href="text-level-semantics.html#the-a-element" id="a-29">a</a></code> and <code><a href="the-map-element.html#the-area-element" id="area-23">area</a></code> elements</h4><p>The <dfn id="attr-hyperlink-href" title="attr-hyperlink-href"><code>href</code></dfn>
+  attribute on <code><a href="text-level-semantics.html#the-a-element" id="a-30">a</a></code> and <code><a href="the-map-element.html#the-area-element" id="area-24">area</a></code> elements must have
+  a value that is a <a href="urls.html#valid-url-potentially-surrounded-by-spaces" id="valid-url-potentially-surrounded-by-spaces-6">valid URL potentially surrounded by
+  spaces</a>.<p class="note">The <code title="attr-hyperlink-href"><a href="#attr-hyperlink-href" id="href-22">href</a></code>
+  attribute on <code><a href="text-level-semantics.html#the-a-element" id="a-31">a</a></code> and <code><a href="the-map-element.html#the-area-element" id="area-25">area</a></code> elements is not
+  required; when those elements do not have <code title="attr-hyperlink-href"><a href="#attr-hyperlink-href" id="href-23">href</a></code> attributes they do not
+  create hyperlinks.<p>The <dfn id="attr-hyperlink-target" title="attr-hyperlink-target"><code>target</code></dfn>
+  attribute, if present, must be a <a href="browsers.html#valid-browsing-context-name-or-keyword" id="valid-browsing-context-name-or-keyword-2">valid browsing context name
+  or keyword</a>. It gives the name of the <a href="browsers.html#browsing-context" id="browsing-context-7">browsing
+  context</a> that will be used. <p>The <dfn id="attr-hyperlink-rel" title="attr-hyperlink-rel"><code>rel</code></dfn>
+  attribute on <code><a href="text-level-semantics.html#the-a-element" id="a-32">a</a></code> and <code><a href="the-map-element.html#the-area-element" id="area-26">area</a></code> elements controls
+  what kinds of links the elements create. The attribue's value must
+  be a <a href="common-microsyntaxes.html#set-of-space-separated-tokens" id="set-of-space-separated-tokens-7">set of space-separated tokens</a>. The <a href="#linkTypes">allowed keywords and their meanings</a> are
+  defined below.<p>The <code title="attr-hyperlink-rel"><a href="#attr-hyperlink-rel" id="rel-20">rel</a></code> attribute has
+  no default value. If the attribute is omitted or if none of the
+  values in the attribute are recognized by the user agent, then the
+  document has no particular relationship with the destination
+  resource other than there being a hyperlink between the two.<p>The <dfn id="attr-hyperlink-media" title="attr-hyperlink-media"><code>media</code></dfn>
+  attribute describes for which media the target document was
+  designed. It is purely advisory. The value must be a <a href="common-microsyntaxes.html#valid-media-query" id="valid-media-query-3">valid
+  media query</a>. The default, if the <code title="attr-hyperlink-media"><a href="#attr-hyperlink-media" id="media-12">media</a></code> attribute is omitted, is
+  "<code title="">all</code>".<p>The <dfn id="attr-hyperlink-hreflang" title="attr-hyperlink-hreflang"><code>hreflang</code></dfn>
+  attribute on <code><a href="text-level-semantics.html#the-a-element" id="a-33">a</a></code> and <code><a href="the-map-element.html#the-area-element" id="area-27">area</a></code> elements that
+  create <a href="#hyperlink" id="hyperlink-18" title="hyperlink">hyperlinks</a>, if present, gives
+  the language of the linked resource. It is purely advisory. The
+  value must be a valid BCP 47 language tag. <a href="references.html#refsBCP47">[BCP47]</a> <p>The <dfn id="attr-hyperlink-type" title="attr-hyperlink-type"><code>type</code></dfn>
+  attribute, if present, gives the <a href="infrastructure.html#mime-type" id="mime-type-10">MIME type</a> of the
+  linked resource. It is purely advisory. The value must be a
+  <a href="infrastructure.html#valid-mime-type" id="valid-mime-type-7">valid MIME type</a>. <h4 id="linkTypes"><span class="secno">4.12.3 </span>Link types</h4><p>The following table summarizes the link types that are defined by
+  this specification. This table is non-normative; the actual
+  definitions for the link types are given in the next few
+  sections.<p>In this section, the term <i>referenced document</i> refers to
+  the resource identified by the element representing the link, and
+  the term <i>current document</i> refers to the resource within
+  which the element representing the link finds itself.<p>Except where otherwise specified, a keyword must not be specified
+  more than once per <code title="attr-hyperlink-rel"><a href="#attr-hyperlink-rel" id="rel-21">rel</a></code>
+  attribute.<p>The link types that contain no U+003A COLON characters (:),
+  including all those defined in this specification, are <a href="infrastructure.html#ascii-case-insensitive" id="ascii-case-insensitive-15">ASCII
+  case-insensitive</a> values.<p class="example">Thus, <code title="">rel="next"</code> is the
+  same as <code title="">rel="NEXT"</code>.<table><thead><tr><th rowspan="2">Link type</th>
+     <th colspan="2">Effect on...</th>
+     <th rowspan="2">Brief description</th>
+    <tr><th><code><a href="semantics.html#the-link-element" id="link-30">link</a></code></th>
+     <th><code><a href="text-level-semantics.html#the-a-element" id="a-34">a</a></code> and <code><a href="the-map-element.html#the-area-element" id="area-28">area</a></code></th>
+    <tbody><tr><td><code title="rel-alternate"><a href="#rel-alternate" id="alternate">alternate</a></code></td> <!-- second most used <link rel> value -->
+     <td><a href="#hyperlink" id="hyperlink-19">Hyperlink</a></td>
+     <td><a href="#hyperlink" id="hyperlink-20">Hyperlink</a></td>
+     <td>Gives alternate representations of the current document.</td>
+    <tr><td><code title="rel-archives"><a href="#rel-archives" id="archives">archives</a></code></td>
+     <td><a href="#hyperlink" id="hyperlink-21">Hyperlink</a></td>
+     <td><a href="#hyperlink" id="hyperlink-22">Hyperlink</a></td>
+     <td>Provides a link to a collection of records, documents, or other materials of historical interest.</td>
+    <tr><td><code title="rel-author"><a href="#link-type-author" id="author-0">author</a></code></td>
+     <td><a href="#hyperlink" id="hyperlink-23">Hyperlink</a></td>
+     <td><a href="#hyperlink" id="hyperlink-24">Hyperlink</a></td>
+     <td>Gives a link to the current document's author.</td>
+    <tr><td><code title="rel-bookmark"><a href="#link-type-bookmark" id="bookmark">bookmark</a></code></td> <!-- fourth most used <a rel> value -->
+     <td><em>not allowed</em></td>
+     <td><a href="#hyperlink" id="hyperlink-25">Hyperlink</a></td>
+     <td>Gives the permalink for the nearest ancestor section.</td>
+    </tr><!-- (commented out on the assumption that rel=contact is really XFN)
+    <tr>
+     <td><code title="rel-contact">contact</code></td> <!- 8th most used <a rel> value ->
+     <td><span>Hyperlink</span></td>
+     <td><span>Hyperlink</span></td>
+     <td>Gives a link to contact information for the current document.</td>
+    </tr>
+--><tr><td><code title="rel-external"><a href="#link-type-external" id="external">external</a></code></td> <!-- fifth and sixth most used <a rel> value (sixth is "external nofollow") -->
+     <td><em>not allowed</em></td>
+     <td><a href="#hyperlink" id="hyperlink-26">Hyperlink</a></td>
+     <td>Indicates that the referenced document is not part of the same site as the current document.</td>
+    <tr><td><code title="rel-first"><a href="#link-type-first" id="first">first</a></code></td>
+     <td><a href="#hyperlink" id="hyperlink-27">Hyperlink</a></td>
+     <td><a href="#hyperlink" id="hyperlink-28">Hyperlink</a></td>
+     <td>Indicates that the current document is a part of a series, and that the first document in the series is the referenced document.</td>
+    <tr><td><code title="rel-help"><a href="#link-type-help" id="help">help</a></code></td>
+     <td><a href="#hyperlink" id="hyperlink-29">Hyperlink</a></td>
+     <td><a href="#hyperlink" id="hyperlink-30">Hyperlink</a></td>
+     <td>Provides a link to context-sensitive help.</td>
+    <tr><td><code title="rel-icon"><a href="#rel-icon" id="icon-3">icon</a></code></td> <!-- link rel="shortcut icon" and its ilk are the fourth, sixth, and ninth most used values -->
+     <td><a href="#external-resource-link" id="external-resource-link-3" title="external resource link">External Resource</a></td>
+     <td><em>not allowed</em></td>
+     <td>Imports an icon to represent the current document.</td>
+    <tr><td><code title="rel-index"><a href="#link-type-index" id="index-0">index</a></code></td> <!-- used more than "top" and "contents" on <link> (though on <a>, "contents" wins) -->
+     <td><a href="#hyperlink" id="hyperlink-31">Hyperlink</a></td>
+     <td><a href="#hyperlink" id="hyperlink-32">Hyperlink</a></td>
+     <td>Gives a link to the document that provides a table of contents or index listing the current document.</td>
+    <tr><td><code title="rel-last"><a href="#link-type-last" id="last">last</a></code></td>
+     <td><a href="#hyperlink" id="hyperlink-33">Hyperlink</a></td>
+     <td><a href="#hyperlink" id="hyperlink-34">Hyperlink</a></td>
+     <td>Indicates that the current document is a part of a series, and that the last document in the series is the referenced document.</td>
+    <tr><td><code title="rel-license"><a href="#link-type-license" id="license">license</a></code></td> <!-- seventh most used <a rel> value -->
+     <td><a href="#hyperlink" id="hyperlink-35">Hyperlink</a></td>
+     <td><a href="#hyperlink" id="hyperlink-36">Hyperlink</a></td>
+     <td>Indicates that the main content of the current document is covered by the copyright license described by the referenced document.</td>
+    <tr><td><code title="rel-next"><a href="#link-type-next" id="next-0">next</a></code></td>
+     <td><a href="#hyperlink" id="hyperlink-37">Hyperlink</a></td>
+     <td><a href="#hyperlink" id="hyperlink-38">Hyperlink</a></td>
+     <td>Indicates that the current document is a part of a series, and that the next document in the series is the referenced document.</td>
+    <tr><td><code title="rel-nofollow"><a href="#link-type-nofollow" id="nofollow">nofollow</a></code></td> <!-- most used <a rel> value (and sixth most used is "external nofollow") -->
+     <td><em>not allowed</em></td>
+     <td><a href="#hyperlink-annotation" id="hyperlink-annotation-0" title="hyperlink annotation">Annotation</a></td>
+     <td>Indicates that the current document's original author or publisher does not endorse the referenced document.</td>
+    <tr><td><code title="rel-noreferrer"><a href="#link-type-noreferrer" id="noreferrer-0">noreferrer</a></code></td>
+     <td><em>not allowed</em></td>
+     <td><a href="#hyperlink-annotation" id="hyperlink-annotation-1" title="hyperlink annotation">Annotation</a></td>
+     <td>Requires that the user agent not send an HTTP <code title="http-referer">Referer</code> (sic) header if the user follows the hyperlink.</td>
+    <tr><td><code title="rel-pingback"><a href="#link-type-pingback" id="pingback">pingback</a></code></td>
+     <td><a href="#external-resource-link" id="external-resource-link-4" title="external resource link">External Resource</a></td>
+     <td><em>not allowed</em></td>
+     <td>Gives the address of the pingback server that handles pingbacks to the current document.</td>
+    <tr><td><code title="rel-prefetch"><a href="#link-type-prefetch" id="prefetch">prefetch</a></code></td>
+     <td><a href="#external-resource-link" id="external-resource-link-5" title="external resource link">External Resource</a></td>
+     <td><a href="#external-resource-link" id="external-resource-link-6" title="external resource link">External Resource</a></td>
+     <td>Specifies that the target resource should be preemptively cached.</td>
+    <tr><td><code title="rel-prev"><a href="#link-type-prev" id="prev">prev</a></code></td> <!-- prev is used more than previous -->
+     <td><a href="#hyperlink" id="hyperlink-39">Hyperlink</a></td>
+     <td><a href="#hyperlink" id="hyperlink-40">Hyperlink</a></td>
+     <td>Indicates that the current document is a part of a series, and that the previous document in the series is the referenced document.</td>
+    <tr><td><code title="rel-search"><a href="#link-type-search" id="search">search</a></code></td> <!-- used quite a bit -->
+     <td><a href="#hyperlink" id="hyperlink-41">Hyperlink</a></td>
+     <td><a href="#hyperlink" id="hyperlink-42">Hyperlink</a></td>
+     <td>Gives a link to a resource that can be used to search through the current document and its related pages.</td>
+    <tr><td><code title="rel-stylesheet"><a href="#link-type-stylesheet" id="stylesheet-0">stylesheet</a></code></td> <!-- most commonly used <link rel> value, variants came in 7th, 8th, 12th, 17th... -->
+     <td><a href="#external-resource-link" id="external-resource-link-7" title="external resource link">External Resource</a></td>
+     <td><em>not allowed</em></td>
+     <td>Imports a stylesheet.</td>
+    <tr><td><code title="rel-sidebar"><a href="#link-type-sidebar" id="sidebar">sidebar</a></code></td> <!-- used quite a bit -->
+     <td><a href="#hyperlink" id="hyperlink-43">Hyperlink</a></td>
+     <td><a href="#hyperlink" id="hyperlink-44">Hyperlink</a></td>
+     <td>Specifies that the referenced document, if retrieved, is intended to be shown in the browser's sidebar (if it has one).</td>
+    <tr><td><code title="rel-tag"><a href="#link-type-tag" id="tag">tag</a></code></td> <!-- second and third most used <a rel> value (third is technically "category tag"). -->
+     <td><a href="#hyperlink" id="hyperlink-45">Hyperlink</a></td>
+     <td><a href="#hyperlink" id="hyperlink-46">Hyperlink</a></td>
+     <td>Gives a tag (identified by the given address) that applies to the current document.</td>
+    <tr><td><code title="rel-up"><a href="#link-type-up" id="up">up</a></code></td>
+     <td><a href="#hyperlink" id="hyperlink-47">Hyperlink</a></td>
+     <td><a href="#hyperlink" id="hyperlink-48">Hyperlink</a></td>
+     <td>Provides a link to a document giving the context for the current document.</td>
+    </table><!-- v2 ideas:
+   * rel="related" // see also
+   * http://microformats.org/wiki/rel-enclosure
+  --><h5 id="rel-alternate"><span class="secno">4.12.3.1 </span>Link type "<dfn title="rel-alternate"><code>alternate</code></dfn>"</h5><p>The <code title="rel-alternate"><a href="#rel-alternate" id="alternate-0">alternate</a></code> keyword may be
+  used with <code><a href="semantics.html#the-link-element" id="link-31">link</a></code>, <code><a href="text-level-semantics.html#the-a-element" id="a-35">a</a></code>, and <code><a href="the-map-element.html#the-area-element" id="area-29">area</a></code>
+  elements.<p>The meaning of this keyword depends on the values of the other
+  attributes.<dl class="switch"><dt>If the element is a <code><a href="semantics.html#the-link-element" id="link-32">link</a></code> element and the <code title="attr-link-rel"><a href="semantics.html#attr-link-rel" id="rel-7">rel</a></code> attribute also contains the
+   keyword <code title="rel-stylesheet"><a href="#link-type-stylesheet" id="stylesheet-1">stylesheet</a></code></dt>
+
+   <dd>
+
+    <p>The <code title="rel-alternate"><a href="#rel-alternate" id="alternate-1">alternate</a></code> keyword
+    modifies the meaning of the <code title="rel-stylesheet"><a href="#link-type-stylesheet" id="stylesheet-2">stylesheet</a></code> keyword in the way
+    described for that keyword. The <code title="rel-alternate"><a href="#rel-alternate" id="alternate-2">alternate</a></code> keyword does not create a
+    link of its own.</p>
+
+   </dd>
+
+
+   <dt>The <code title="rel-alternate"><a href="#rel-alternate" id="alternate-3">alternate</a></code> keyword is
+   used with the <code title="attr-hyperlink-type"><a href="#attr-hyperlink-type" id="type-101">type</a></code>
+   attribute set to the value <code title="">application/rss+xml</code> or the value <code title="">application/atom+xml</code></dt>
+
+   <dd>
+
+    <p>The keyword creates a <a href="#hyperlink" id="hyperlink-49">hyperlink</a> referencing a
+    syndication feed (though not necessarily syndicating exactly the
+    same content as the current page).</p>
+
+    
+
+   </dd>
+
+
+   <dt>Otherwise</dt>
+
+   <dd>
+
+    <p>The keyword creates a <a href="#hyperlink" id="hyperlink-50">hyperlink</a> referencing an
+    alternate representation of the current document.</p>
+
+    <p>The nature of the referenced document is given by the <code title="attr-hyperlink-media"><a href="#attr-hyperlink-media" id="media-13">media</a></code>, <code title="attr-hyperlink-hreflang"><a href="#attr-hyperlink-hreflang" id="hreflang-5">hreflang</a></code>, and <code title="attr-hyperlink-type"><a href="#attr-hyperlink-type" id="type-102">type</a></code> attributes.</p>
+
+    <p>If the <code title="rel-alternate"><a href="#rel-alternate" id="alternate-4">alternate</a></code> keyword is
+    used with the <code title="attr-hyperlink-media"><a href="#attr-hyperlink-media" id="media-14">media</a></code>
+    attribute, it indicates that the referenced document is intended for
+    use with the media specified.</p>
+
+    <p>If the <code title="rel-alternate"><a href="#rel-alternate" id="alternate-5">alternate</a></code> keyword is
+    used with the <code title="attr-hyperlink-hreflang"><a href="#attr-hyperlink-hreflang" id="hreflang-6">hreflang</a></code>
+    attribute, and that attribute's value differs from the <a href="infrastructure.html#root-element" id="root-element-8">root
+    element</a>'s <a href="obsolete.html#language">language</a>, it indicates that the
+    referenced document is a translation.</p>
+
+    <p>If the <code title="rel-alternate"><a href="#rel-alternate" id="alternate-6">alternate</a></code> keyword is
+    used with the <code title="attr-hyperlink-type"><a href="#attr-hyperlink-type" id="type-103">type</a></code>
+    attribute, it indicates that the referenced document is a
+    reformulation of the current document in the specified format.</p>
+
+    <p>The <code title="attr-hyperlink-media"><a href="#attr-hyperlink-media" id="media-15">media</a></code>, <code title="attr-hyperlink-hreflang"><a href="#attr-hyperlink-hreflang" id="hreflang-7">hreflang</a></code>, and <code title="attr-hyperlink-type"><a href="#attr-hyperlink-type" id="type-104">type</a></code> attributes can be combined
+    when specified with the <code title="rel-alternate"><a href="#rel-alternate" id="alternate-7">alternate</a></code>
+    keyword.</p>
+
+    <div class="example">
+
+     <p>For example, the following link is a French translation that
+     uses the PDF format:</p>
+
+     <pre>&lt;link rel=alternate type=application/pdf hreflang=fr href=manual-fr&gt;</pre>
+
+    </div>
+
+    <p>This relationship is transitive &mdash; that is, if a document
+    links to two other documents with the link type "<code title="rel-alternate"><a href="#rel-alternate" id="alternate-8">alternate</a></code>", then, in addition to
+    implying that those documents are alternative representations of
+    the first document, it is also implying that those two documents
+    are alternative representations of each other.</p>
+
+   </dd>
+
+  </dl><h5 id="rel-archives"><span class="secno">4.12.3.2 </span>Link type "<dfn title="rel-archives"><code>archives</code></dfn>"</h5><p>The <code title="rel-archives"><a href="#rel-archives" id="archives-0">archives</a></code> keyword may be
+  used with <code><a href="semantics.html#the-link-element" id="link-33">link</a></code>, <code><a href="text-level-semantics.html#the-a-element" id="a-36">a</a></code>, and <code><a href="the-map-element.html#the-area-element" id="area-30">area</a></code>
+  elements. This keyword creates a <a href="#hyperlink" id="hyperlink-51">hyperlink</a>.<p>The <code title="rel-archives"><a href="#rel-archives" id="archives-1">archives</a></code> keyword indicates
+  that the referenced document describes a collection of records,
+  documents, or other materials of historical interest.<p class="example">A blog's index page could link to an index of the
+  blog's past posts with <code title="">rel="archives"</code>.<h5 id="link-type-author"><span class="secno">4.12.3.3 </span>Link type "<dfn title="rel-author"><code>author</code></dfn>"</h5><p>The <code title="rel-author"><a href="#link-type-author" id="author-1">author</a></code> keyword may be
+  used with <code><a href="semantics.html#the-link-element" id="link-34">link</a></code>, <code><a href="text-level-semantics.html#the-a-element" id="a-37">a</a></code>, and <code><a href="the-map-element.html#the-area-element" id="area-31">area</a></code>
+  elements. This keyword creates a <a href="#hyperlink" id="hyperlink-52">hyperlink</a>.<p>For <code><a href="text-level-semantics.html#the-a-element" id="a-38">a</a></code> and <code><a href="the-map-element.html#the-area-element" id="area-32">area</a></code> elements, the <code title="rel-author"><a href="#link-type-author" id="author-2">author</a></code> keyword indicates that the
+  referenced document provides further information about the author of
+  the nearest <code><a href="sections.html#the-article-element" id="article-21">article</a></code> element ancestor of the element
+  defining the hyperlink, if there is one, or of the page as a whole,
+  otherwise.<p>For <code><a href="semantics.html#the-link-element" id="link-35">link</a></code> elements, the <code title="rel-author"><a href="#link-type-author" id="author-3">author</a></code> keyword indicates that the
+  referenced document provides further information about the author
+  for the page as a whole.<p class="note">The "referenced document" can be, and often is, a
+  <code title="">mailto:</code> URL giving the e-mail address of the
+  author. <a href="references.html#refsMAILTO">[MAILTO]</a><h5 id="link-type-bookmark"><span class="secno">4.12.3.4 </span>Link type "<dfn title="rel-bookmark"><code>bookmark</code></dfn>"</h5><p>The <code title="rel-bookmark"><a href="#link-type-bookmark" id="bookmark-0">bookmark</a></code> keyword may be
+  used with <code><a href="text-level-semantics.html#the-a-element" id="a-39">a</a></code> and <code><a href="the-map-element.html#the-area-element" id="area-33">area</a></code> elements. This
+  keyword creates a <a href="#hyperlink" id="hyperlink-53">hyperlink</a>.<p>The <code title="rel-bookmark"><a href="#link-type-bookmark" id="bookmark-1">bookmark</a></code> keyword gives a
+  permalink for the nearest ancestor <code><a href="sections.html#the-article-element" id="article-22">article</a></code> element of
+  the linking element in question, or of <a class="full-spec-link" href="http://dev.w3.org/html5/spec/sections.html#associatedSection" title='Read about this "the section the linking element is most closely associated with" reference in the full HTML5 spec.'>the section the linking element is most
+  closely associated with</a>, if there are no ancestor
+  <code><a href="sections.html#the-article-element" id="article-23">article</a></code> elements.<div class="example">
+   <p>The following snippet has three permalinks. A user agent could
+   determine which permalink applies to which part of the spec by
+   looking at where the permalinks are given.</p>
+   <pre> ...
+ &lt;body&gt;
+  &lt;h1&gt;Example of permalinks&lt;/h1&gt;
+  &lt;div id="a"&gt;
+   &lt;h2&gt;First example&lt;/h2&gt;
+   &lt;p&gt;&lt;a href="a.html" rel="bookmark"&gt;This&lt;/a&gt; permalink applies to
+   only the content from the first H2 to the second H2. The DIV isn't
+   exactly that section, but it roughly corresponds to it.&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;h2&gt;Second example&lt;/h2&gt;
+  &lt;article id="b"&gt;
+   &lt;p&gt;&lt;a href="b.html" rel="bookmark"&gt;This&lt;/a&gt; permalink applies to
+   the outer ARTICLE element (which could be, e.g., a blog post).&lt;/p&gt;
+   &lt;article id="c"&gt;
+    &lt;p&gt;&lt;a href="c.html" rel="bookmark"&gt;This&lt;/a&gt; permalink applies to
+    the inner ARTICLE element (which could be, e.g., a blog comment).&lt;/p&gt;
+   &lt;/article&gt;
+  &lt;/article&gt;
+ &lt;/body&gt;
+ ...</pre>
+  </div><!-- (commented out on the assumption that rel=contact is really XFN)
+  <h5>Link type "<dfn title="rel-contact"><code>contact</code></dfn>"</h5>
+
+  <p>The <code title="rel-contact">contact</code> keyword may be used
+  with <code>link</code>, <code>a</code>, and <code>area</code>
+  elements. This keyword creates a <span>hyperlink</span>.</p>
+
+  <p>For <code>a</code> and <code>area</code> elements, the <code
+  title="rel-contact">contact</code> keyword indicates that the
+  referenced document provides further contact information for the
+  author of the nearest <code>article</code> element ancestor of the
+  element defining the hyperlink, if there is one, or of the page as a
+  whole, otherwise.</p>
+
+  <div class="impl">
+
+  <p>User agents must treat any hyperlink in an <code>address</code>
+  element as having the <code title="rel-contact">contact</code> link
+  type specified.</p>
+
+  </div>
+
+  <p>For <code>link</code> elements, the <code
+  title="rel-contact">contact</code> keyword indicates that the
+  referenced document provides further contact information for the
+  page as a whole.</p>
+--><h5 id="link-type-external"><span class="secno">4.12.3.5 </span>Link type "<dfn title="rel-external"><code>external</code></dfn>"</h5><p>The <code title="rel-external"><a href="#link-type-external" id="external-0">external</a></code> keyword may be
+  used with <code><a href="text-level-semantics.html#the-a-element" id="a-40">a</a></code> and <code><a href="the-map-element.html#the-area-element" id="area-34">area</a></code> elements. This
+  keyword creates a <a href="#hyperlink" id="hyperlink-54">hyperlink</a>.<p>The <code title="rel-external"><a href="#link-type-external" id="external-1">external</a></code> keyword indicates
+  that the link is leading to a document that is not part of the site
+  that the current document forms a part of.<h5 id="link-type-help"><span class="secno">4.12.3.6 </span>Link type "<dfn title="rel-help"><code>help</code></dfn>"</h5><p>The <code title="rel-help"><a href="#link-type-help" id="help-0">help</a></code> keyword may be used with
+  <code><a href="semantics.html#the-link-element" id="link-36">link</a></code>, <code><a href="text-level-semantics.html#the-a-element" id="a-41">a</a></code>, and <code><a href="the-map-element.html#the-area-element" id="area-35">area</a></code>
+  elements. This keyword creates a <a href="#hyperlink" id="hyperlink-55">hyperlink</a>.<p>For <code><a href="text-level-semantics.html#the-a-element" id="a-42">a</a></code> and <code><a href="the-map-element.html#the-area-element" id="area-36">area</a></code> elements, the <code title="rel-help"><a href="#link-type-help" id="help-1">help</a></code> keyword indicates that the referenced
+  document provides further help information for the parent of the
+  element defining the hyperlink, and its children.<div class="example">
+
+   <p>In the following example, the form control has associated
+   context-sensitive help. The user agent could use this information,
+   for example, displaying the referenced document if the user presses
+   the "Help" or "F1" key.</p>
+
+   <pre> &lt;p&gt;&lt;label&gt; Topic: &lt;input name=topic&gt; &lt;a href="help/topic.html" rel="help"&gt;(Help)&lt;/a&gt;&lt;/label&gt;&lt;/p&gt;</pre>
+
+  </div><p>For <code><a href="semantics.html#the-link-element" id="link-37">link</a></code> elements, the <code title="rel-help"><a href="#link-type-help" id="help-2">help</a></code> keyword indicates that the referenced
+  document provides help for the page as a whole.<h5 id="rel-icon"><span class="secno">4.12.3.7 </span>Link type "<dfn title="rel-icon"><code>icon</code></dfn>"</h5><p>The <code title="rel-icon"><a href="#rel-icon" id="icon-4">icon</a></code> keyword may be used with
+  <code><a href="semantics.html#the-link-element" id="link-38">link</a></code> elements. This keyword creates an <a href="#external-resource-link" id="external-resource-link-8" title="external resource link">external resource link</a>.<p>Icons could be auditory icons, visual icons, or other kinds of
+  icons. <p>The <dfn id="attr-link-sizes" title="attr-link-sizes"><code>sizes</code></dfn>
+  attribute gives the sizes of icons for visual media.<p>If specified, the attribute must have a value that is an
+  <a href="common-microsyntaxes.html#unordered-set-of-unique-space-separated-tokens" id="unordered-set-of-unique-space-separated-tokens-3">unordered set of unique space-separated tokens</a>. The
+  values must all be either <code title="attr-link-sizes-any"><a href="#attr-link-sizes-any" id="any">any</a></code> or a value that consists of
+  two <a href="common-microsyntaxes.html#valid-non-negative-integer" id="valid-non-negative-integer-14" title="valid non-negative integer">valid non-negative
+  integers</a> that do not have a leading U+0030 DIGIT ZERO (0)
+  character and that are separated by a single U+0078 LATIN SMALL
+  LETTER X character (x).<p>The keywords represent icon sizes.<p>The <dfn id="attr-link-sizes-any" title="attr-link-sizes-any"><code>any</code></dfn> keyword
+  represents that the resource contains a scalable icon, e.g. as
+  provided by an SVG image.<p>The keywords specified on the <code title="attr-link-sizes"><a href="#attr-link-sizes" id="sizes-1">sizes</a></code> attribute must not represent
+  icon sizes that are not actually available in the linked
+  resource.<div class="example">
+
+   <p>The following snippet shows the top part of an application with
+   several icons.</p>
+
+   <pre>&lt;!DOCTYPE HTML&gt;
+&lt;html&gt;
+ &lt;head&gt;
+  &lt;title&gt;lsForums &mdash; Inbox&lt;/title&gt;
+  &lt;link rel=icon href=favicon.png sizes="16x16" type="image/png"&gt;
+  &lt;link rel=icon href=windows.ico sizes="32x32 48x48" type="image/vnd.microsoft.icon"&gt;
+  &lt;link rel=icon href=mac.icns sizes="128x128 512x512 8192x8192 32768x32768"&gt;
+  &lt;link rel=icon href=iphone.png sizes="57x57" type="image/png"&gt;
+  &lt;link rel=icon href=gnome.svg sizes="any" type="image/svg+xml"&gt;
+  &lt;link rel=stylesheet href=lsforums.css&gt;
+  &lt;script src=lsforums.js&gt;&lt;/script&gt;
+  &lt;meta name=application-name content="lsForums"&gt;
+ &lt;/head&gt;
+ &lt;body&gt;
+  ...</pre>
+
+  </div><h5 id="link-type-license"><span class="secno">4.12.3.8 </span>Link type "<dfn title="rel-license"><code>license</code></dfn>"</h5><p>The <code title="rel-license"><a href="#link-type-license" id="license-0">license</a></code> keyword may be used
+  with <code><a href="semantics.html#the-link-element" id="link-39">link</a></code>, <code><a href="text-level-semantics.html#the-a-element" id="a-43">a</a></code>, and <code><a href="the-map-element.html#the-area-element" id="area-37">area</a></code>
+  elements. This keyword creates a <a href="#hyperlink" id="hyperlink-56">hyperlink</a>.<p>The <code title="rel-license"><a href="#link-type-license" id="license-1">license</a></code> keyword indicates
+  that the referenced document provides the copyright license terms
+  under which the main content of the current document is
+  provided.<p>This specification does not specify how to distinguish between
+  the main content of a document and content that is not deemed to be
+  part of that main content. The distinction should be made clear to
+  the user.<div class="example">
+
+   <p>Consider a photo sharing site. A page on that site might
+   describe and show a photograph, and the page might be marked up as
+   follows:</p>
+
+   <pre>&lt;!DOCTYPE HTML&gt;
+&lt;html&gt;
+ &lt;head&gt;
+  &lt;title&gt;Exampl Pictures: Kissat&lt;/title&gt;
+  &lt;link rel="stylesheet" href="/style/default"&gt;
+ &lt;/head&gt;
+ &lt;body&gt;
+  &lt;h1&gt;Kissat&lt;/h1&gt;
+  &lt;nav&gt;
+   &lt;a href="../"&gt;Return to photo index&lt;/a&gt;
+  &lt;/nav&gt;
+  &lt;figure&gt;
+   &lt;img src="/pix/39627052_fd8dcd98b5.jpg"&gt;
+   &lt;figcaption&gt;Kissat&lt;/figcaption&gt;
+  &lt;/figure&gt;
+  &lt;p&gt;One of them has six toes!&lt;/p&gt;
+  &lt;p&gt;&lt;small&gt;&lt;a rel="license" href="http://www.opensource.org/licenses/mit-license.php"&gt;MIT Licensed&lt;/a&gt;&lt;/small&gt;&lt;/p&gt;
+  &lt;footer&gt;
+   &lt;a href="/"&gt;Home&lt;/a&gt; | &lt;a href="../"&gt;Photo index&lt;/a&gt;
+   &lt;p&gt;&lt;small&gt;&copy; copyright 2009 Exampl Pictures. All Rights Reserved.&lt;/small&gt;&lt;/p&gt;
+  &lt;/footer&gt;
+ &lt;/body&gt;
+&lt;/html&gt;</pre>
+
+   <p>In this case the <code title="rel-license"><a href="#link-type-license" id="license-2">license</a></code>
+   applies to just the photo (the main content of the document), not
+   the whole document. In particular not the design of the page
+   itself, which is covered by the copyright given at the bottom of
+   the document. This could be made clearer in the styling
+   (e.g. making the license link prominently positioned near the
+   photograph, while having the page copyright in light small text at
+   the foot of the page.</p>
+
+  </div><h5 id="link-type-nofollow"><span class="secno">4.12.3.9 </span>Link type "<dfn title="rel-nofollow"><code>nofollow</code></dfn>"</h5><p>The <code title="rel-nofollow"><a href="#link-type-nofollow" id="nofollow-0">nofollow</a></code> keyword may be
+  used with <code><a href="text-level-semantics.html#the-a-element" id="a-44">a</a></code> and <code><a href="the-map-element.html#the-area-element" id="area-38">area</a></code> elements. This
+  keyword does not create a <a href="#hyperlink" id="hyperlink-57">hyperlink</a>, but <a href="#hyperlink-annotation" id="hyperlink-annotation-2" title="hyperlink annotation">annotates</a> any other hyperlinks
+  created by the element (the implied hyperlink, if no other keywords
+  create one).<p>The <code title="rel-nofollow"><a href="#link-type-nofollow" id="nofollow-1">nofollow</a></code> keyword indicates
+  that the link is not endorsed by the original author or publisher of
+  the page, or that the link to the referenced document was included
+  primarily because of a commercial relationship between people
+  affiliated with the two pages.<h5 id="link-type-noreferrer"><span class="secno">4.12.3.10 </span>Link type "<dfn title="rel-noreferrer"><code>noreferrer</code></dfn>"</h5><p>The <code title="rel-noreferrer"><a href="#link-type-noreferrer" id="noreferrer-1">noreferrer</a></code> keyword may be
+  used with <code><a href="text-level-semantics.html#the-a-element" id="a-45">a</a></code> and <code><a href="the-map-element.html#the-area-element" id="area-39">area</a></code> elements. This
+  keyword does not create a <a href="#hyperlink" id="hyperlink-58">hyperlink</a>, but <a href="#hyperlink-annotation" id="hyperlink-annotation-3" title="hyperlink annotation">annotates</a> any other hyperlinks
+  created by the element (the implied hyperlink, if no other keywords
+  create one).<p>It indicates that no referrer information is to be leaked when
+  following the link.</p><!-- v2: Would be nice to apply this to other elements too,
+  e.g. letting <img> or CSS or <video> hide the referrer --><h5 id="link-type-pingback"><span class="secno">4.12.3.11 </span>Link type "<dfn title="rel-pingback"><code>pingback</code></dfn>"</h5><p>The <code title="rel-pingback"><a href="#link-type-pingback" id="pingback-0">pingback</a></code> keyword may be
+  used with <code><a href="semantics.html#the-link-element" id="link-40">link</a></code> elements. This keyword creates an <a href="#external-resource-link" id="external-resource-link-9" title="external resource link">external resource link</a>.<p>For the semantics of the <code title="rel-pingback"><a href="#link-type-pingback" id="pingback-1">pingback</a></code> keyword, see the Pingback 1.0
+  specification. <a href="references.html#refsPINGBACK">[PINGBACK]</a><h5 id="link-type-prefetch"><span class="secno">4.12.3.12 </span>Link type "<dfn title="rel-prefetch"><code>prefetch</code></dfn>"</h5><p>The <code title="rel-prefetch"><a href="#link-type-prefetch" id="prefetch-0">prefetch</a></code> keyword may be
+  used with <code><a href="semantics.html#the-link-element" id="link-41">link</a></code>, <code><a href="text-level-semantics.html#the-a-element" id="a-46">a</a></code>, and <code><a href="the-map-element.html#the-area-element" id="area-40">area</a></code>
+  elements. This keyword creates an <a href="#external-resource-link" id="external-resource-link-10" title="external resource
+  link">external resource link</a>.<p>The <code title="rel-prefetch"><a href="#link-type-prefetch" id="prefetch-1">prefetch</a></code> keyword indicates
+  that preemptively fetching and caching the specified resource is
+  likely to be beneficial, as it is highly likely that the user will
+  require this resource.<p>There is no default type for resources given by the <code title="rel-prefetch"><a href="#link-type-prefetch" id="prefetch-2">prefetch</a></code> keyword.<h5 id="link-type-search"><span class="secno">4.12.3.13 </span>Link type "<dfn title="rel-search"><code>search</code></dfn>"</h5><p>The <code title="rel-search"><a href="#link-type-search" id="search-0">search</a></code> keyword may be used
+  with <code><a href="semantics.html#the-link-element" id="link-42">link</a></code>, <code><a href="text-level-semantics.html#the-a-element" id="a-47">a</a></code>, and <code><a href="the-map-element.html#the-area-element" id="area-41">area</a></code>
+  elements. This keyword creates a <a href="#hyperlink" id="hyperlink-59">hyperlink</a>.<p>The <code title="rel-search"><a href="#link-type-search" id="search-1">search</a></code> keyword indicates that
+  the referenced document provides an interface specifically for
+  searching the document and its related resources.<p class="note">OpenSearch description documents can be used with
+  <code><a href="semantics.html#the-link-element" id="link-43">link</a></code> elements and the <code title="rel-search"><a href="#link-type-search" id="search-2">search</a></code> link type to enable user agents to
+  autodiscover search interfaces. <a href="references.html#refsOPENSEARCH">[OPENSEARCH]</a><h5 id="link-type-stylesheet"><span class="secno">4.12.3.14 </span>Link type "<dfn title="rel-stylesheet"><code>stylesheet</code></dfn>"</h5><p>The <code title="rel-stylesheet"><a href="#link-type-stylesheet" id="stylesheet-3">stylesheet</a></code> keyword may be
+  used with <code><a href="semantics.html#the-link-element" id="link-44">link</a></code> elements. This keyword creates an <a href="#external-resource-link" id="external-resource-link-11" title="external resource link">external resource link</a> that
+  contributes to the <a href="semantics.html#styling" id="styling-processing-model-2">styling processing model</a>.<p>The specified resource is a resource that describes how to
+  present the document. Exactly how the resource is to be processed
+  depends on the actual type of the resource.<p>If the <code title="rel-alternate"><a href="#rel-alternate" id="alternate-9">alternate</a></code> keyword is
+  also specified on the <code><a href="semantics.html#the-link-element" id="link-45">link</a></code> element, then <dfn id="the-link-is-an-alternative-stylesheet">the link
+  is an alternative stylesheet</dfn>; in this case, the <code title="attr-title"><a href="elements.html#the-title-attribute" id="title-29">title</a></code> attribute must be specified on the
+  <code><a href="semantics.html#the-link-element" id="link-46">link</a></code> element, with a non-empty value.<p>The default type for resources given by the <code title="rel-stylesheet"><a href="#link-type-stylesheet" id="stylesheet-4">stylesheet</a></code> keyword is <code title="">text/css</code>.<h5 id="link-type-sidebar"><span class="secno">4.12.3.15 </span>Link type "<dfn title="rel-sidebar"><code>sidebar</code></dfn>"</h5><p>The <code title="rel-sidebar"><a href="#link-type-sidebar" id="sidebar-0">sidebar</a></code> keyword may be used
+  with <code><a href="semantics.html#the-link-element" id="link-47">link</a></code>, <code><a href="text-level-semantics.html#the-a-element" id="a-48">a</a></code>, and <code><a href="the-map-element.html#the-area-element" id="area-42">area</a></code>
+  elements. This keyword creates a <a href="#hyperlink" id="hyperlink-60">hyperlink</a>.<p>The <code title="rel-sidebar"><a href="#link-type-sidebar" id="sidebar-1">sidebar</a></code> keyword indicates
+  that the referenced document, if retrieved, is intended to be shown
+  in a <a href="browsers.html#secondary-browsing-context" id="secondary-browsing-context-0">secondary browsing context</a> (if possible), instead
+  of in the current <a href="browsers.html#browsing-context" id="browsing-context-8">browsing context</a>.<p>A <a href="#hyperlink" id="hyperlink-61">hyperlink</a> with the <code title="rel-sidebar"><a href="#link-type-sidebar" id="sidebar-2">sidebar</a></code> keyword specified is a <dfn id="rel-sidebar-hyperlink" title="rel-sidebar-hyperlink">sidebar hyperlink</dfn>.<h5 id="link-type-tag"><span class="secno">4.12.3.16 </span>Link type "<dfn title="rel-tag"><code>tag</code></dfn>"</h5><p>The <code title="rel-tag"><a href="#link-type-tag" id="tag-0">tag</a></code> keyword may be used
+  with <code><a href="semantics.html#the-link-element" id="link-48">link</a></code>, <code><a href="text-level-semantics.html#the-a-element" id="a-49">a</a></code>, and <code><a href="the-map-element.html#the-area-element" id="area-43">area</a></code>
+  elements. This keyword creates a <a href="#hyperlink" id="hyperlink-62">hyperlink</a>.<p>The <code title="rel-tag"><a href="#link-type-tag" id="tag-1">tag</a></code> keyword indicates that the
+  <em>tag</em> that the referenced document represents applies to the
+  current document.<p class="note">Since it indicates that the tag <em>applies to the
+  current document</em>, it would be inappropriate to use this keyword
+  in the markup of a <a href="#tag-cloud">tag cloud</a>, which lists
+  the popular tag across a set of pages.<h5 id="hierarchical-link-types"><span class="secno">4.12.3.17 </span>Hierarchical link types</h5><p>Some documents form part of a hierarchical structure of
+  documents.<p>A hierarchical structure of documents is one where each document
+  can have various subdocuments. The document of which a document is a
+  subdocument is said to be the document's <em>parent</em>. A document
+  with no parent forms the top of the hierarchy.<p>A document may be part of multiple hierarchies.<h6 id="link-type-index"><span class="secno">4.12.3.17.1 </span>Link type "<dfn title="rel-index"><code>index</code></dfn>"</h6><p class="XXX annotation"><span><a href="http://www.w3.org/html/wg/tracker/issues/118">ISSUE-118</a> (broken-link-types) blocks progress to Last Call</span><p>The <code title="rel-index"><a href="#link-type-index" id="index-1">index</a></code> keyword may be used with
+  <code><a href="semantics.html#the-link-element" id="link-49">link</a></code>, <code><a href="text-level-semantics.html#the-a-element" id="a-50">a</a></code>, and <code><a href="the-map-element.html#the-area-element" id="area-44">area</a></code>
+  elements. This keyword creates a <a href="#hyperlink" id="hyperlink-63">hyperlink</a>.<p>The <code title="rel-index"><a href="#link-type-index" id="index-2">index</a></code> keyword indicates that
+  the document is part of a hierarchical structure, and that the link
+  is leading to the document that is the top of the hierarchy. It
+  conveys more information when used with the <code title="rel-up"><a href="#link-type-up" id="up-0">up</a></code> keyword (q.v.).<h6 id="link-type-up"><span class="secno">4.12.3.17.2 </span>Link type "<dfn title="rel-up"><code>up</code></dfn>"</h6><p>The <code title="rel-up"><a href="#link-type-up" id="up-1">up</a></code> keyword may be used with
+  <code><a href="semantics.html#the-link-element" id="link-50">link</a></code>, <code><a href="text-level-semantics.html#the-a-element" id="a-51">a</a></code>, and <code><a href="the-map-element.html#the-area-element" id="area-45">area</a></code>
+  elements. This keyword creates a <a href="#hyperlink" id="hyperlink-64">hyperlink</a>.<p>The <code title="rel-up"><a href="#link-type-up" id="up-2">up</a></code> keyword indicates that the
+  document is part of a hierarchical structure, and that the link is
+  leading to a document that is an ancestor of the current
+  document.<p>The <code title="rel-up"><a href="#link-type-up" id="up-3">up</a></code> keyword may be repeated within
+  a <code title="attr-hyperlink-rel"><a href="#attr-hyperlink-rel" id="rel-22">rel</a></code> attribute to indicate
+  the hierarchical distance from the current document to the
+  referenced document. If it occurs only once, then the link is
+  leading to the current document's parent; each additional occurrence
+  of the keyword represents one further level. If the <code title="rel-index"><a href="#link-type-index" id="index-3">index</a></code> keyword is also present, then the
+  number of <code title="rel-up"><a href="#link-type-up" id="up-4">up</a></code> keywords is the depth of
+  the current page relative to the top of the hierarchy. Only one link
+  is created for the set of one or more <code title="rel-up"><a href="#link-type-up" id="up-5">up</a></code>
+  keywords and, if present, the <code title="rel-index"><a href="#link-type-index" id="index-4">index</a></code>
+  keyword.<p>If the page is part of multiple hierarchies, then they should be
+  described in different <a href="content-models.html#paragraph" id="paragraph-17" title="paragraph">paragraphs</a>. <div class="example">
+
+   <p>This can be used to mark up a navigation style sometimes known
+   as bread crumbs. In the following example, the current page can be
+   reached via two paths.</p>
+
+   <pre>&lt;nav&gt;
+ &lt;p&gt;
+  &lt;a href="/" rel="index up up up"&gt;Main&lt;/a&gt; &gt;
+  &lt;a href="/products/" rel="up up"&gt;Products&lt;/a&gt; &gt;
+  &lt;a href="/products/dishwashers/" rel="up"&gt;Dishwashers&lt;/a&gt; &gt;
+  &lt;a&gt;Second hand&lt;/a&gt;
+ &lt;/p&gt;
+ &lt;p&gt;
+  &lt;a href="/" rel="index up up"&gt;Main&lt;/a&gt; &gt;
+  &lt;a href="/second-hand/" rel="up"&gt;Second hand&lt;/a&gt; &gt;
+  &lt;a&gt;Dishwashers&lt;/a&gt;
+ &lt;/p&gt;
+&lt;/nav&gt;</pre>
+
+  </div><p class="note">The <code title="dom-a-relList"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/text-level-semantics.html#dom-a-rellist" title='Read about this "relList" reference in the full HTML5 spec.'>relList</a></code> IDL
+  attribute (e.g. on the <code><a href="text-level-semantics.html#the-a-element" id="a-52">a</a></code> element) does not currently
+  represent multiple <code title="rel-up"><a href="#link-type-up" id="up-6">up</a></code> keywords (the
+  interface hides duplicates).<h5 id="sequential-link-types"><span class="secno">4.12.3.18 </span>Sequential link types</h5><p>Some documents form part of a sequence of documents.<p>A sequence of documents is one where each document can have a
+  <em>previous sibling</em> and a <em>next sibling</em>. A document
+  with no previous sibling is the start of its sequence, a document
+  with no next sibling is the end of its sequence.<p>A document may be part of multiple sequences.<h6 id="link-type-first"><span class="secno">4.12.3.18.1 </span>Link type "<dfn title="rel-first"><code>first</code></dfn>"</h6><p class="XXX annotation"><span><a href="http://www.w3.org/html/wg/tracker/issues/118">ISSUE-118</a> (broken-link-types) blocks progress to Last Call</span><p>The <code title="rel-first"><a href="#link-type-first" id="first-0">first</a></code> keyword may be used with
+  <code><a href="semantics.html#the-link-element" id="link-51">link</a></code>, <code><a href="text-level-semantics.html#the-a-element" id="a-53">a</a></code>, and <code><a href="the-map-element.html#the-area-element" id="area-46">area</a></code>
+  elements. This keyword creates a <a href="#hyperlink" id="hyperlink-65">hyperlink</a>.<p>The <code title="rel-first"><a href="#link-type-first" id="first-1">first</a></code> keyword indicates that
+  the document is part of a sequence, and that the link is leading to
+  the document that is the first logical document in the sequence.<h6 id="link-type-last"><span class="secno">4.12.3.18.2 </span>Link type "<dfn title="rel-last"><code>last</code></dfn>"</h6><p>The <code title="rel-last"><a href="#link-type-last" id="last-0">last</a></code> keyword may be used with
+  <code><a href="semantics.html#the-link-element" id="link-52">link</a></code>, <code><a href="text-level-semantics.html#the-a-element" id="a-54">a</a></code>, and <code><a href="the-map-element.html#the-area-element" id="area-47">area</a></code>
+  elements. This keyword creates a <a href="#hyperlink" id="hyperlink-66">hyperlink</a>.<p>The <code title="rel-last"><a href="#link-type-last" id="last-1">last</a></code> keyword indicates that the
+  document is part of a sequence, and that the link is leading to the
+  document that is the last logical document in the sequence.<h6 id="link-type-next"><span class="secno">4.12.3.18.3 </span>Link type "<dfn title="rel-next"><code>next</code></dfn>"</h6><p>The <code title="rel-next"><a href="#link-type-next" id="next-1">next</a></code> keyword may be used with
+  <code><a href="semantics.html#the-link-element" id="link-53">link</a></code>, <code><a href="text-level-semantics.html#the-a-element" id="a-55">a</a></code>, and <code><a href="the-map-element.html#the-area-element" id="area-48">area</a></code>
+  elements. This keyword creates a <a href="#hyperlink" id="hyperlink-67">hyperlink</a>.<p>The <code title="rel-next"><a href="#link-type-next" id="next-2">next</a></code> keyword indicates that the
+  document is part of a sequence, and that the link is leading to the
+  document that is the next logical document in the sequence.<h6 id="link-type-prev"><span class="secno">4.12.3.18.4 </span>Link type "<dfn title="rel-prev"><code>prev</code></dfn>"</h6><p>The <code title="rel-prev"><a href="#link-type-prev" id="prev-0">prev</a></code> keyword may be used with
+  <code><a href="semantics.html#the-link-element" id="link-54">link</a></code>, <code><a href="text-level-semantics.html#the-a-element" id="a-56">a</a></code>, and <code><a href="the-map-element.html#the-area-element" id="area-49">area</a></code>
+  elements. This keyword creates a <a href="#hyperlink" id="hyperlink-68">hyperlink</a>.<p>The <code title="rel-prev"><a href="#link-type-prev" id="prev-1">prev</a></code> keyword indicates that the
+  document is part of a sequence, and that the link is leading to the
+  document that is the previous logical document in the sequence.<h5 id="other-link-types"><span class="secno">4.12.3.19 </span>Other link types</h5><p><span title="concept-rel-extensions">Extensions to the predefined
+  set of link types</span> may be registered in the <a href="http://wiki.whatwg.org/wiki/RelExtensions">WHATWG Wiki
+  RelExtensions page</a>. <a href="references.html#refsWHATWGWIKI">[WHATWGWIKI]</a><p>Anyone is free to edit the WHATWG Wiki RelExtensions page at any
+  time to add a type. Extension types must be specified with the
+  following information:<dl><dt>Keyword</dt>
+
+   <dd>
+
+    <p>The actual value being defined. The value should not be
+    confusingly similar to any other defined value (e.g. differing
+    only in case).</p>
+
+    <p>If the value contains a U+003A COLON character (:), it must
+    also be an <a href="urls.html#absolute-url" id="absolute-url-7">absolute URL</a>.</p>
+
+   </dd>
+
+
+   <dt>Effect on... <code><a href="semantics.html#the-link-element" id="link-55">link</a></code></dt>
+
+   <dd>
+
+    <p>One of the following:</p>
+
+    <dl><dt>Not allowed</dt>
+
+     <dd>The keyword must not be specified on <code><a href="semantics.html#the-link-element" id="link-56">link</a></code>
+     elements.</dd>
+
+     <dt>Hyperlink</dt>
+
+     <dd>The keyword may be specified on a <code><a href="semantics.html#the-link-element" id="link-57">link</a></code> element;
+     it creates a <a href="#hyperlink" id="hyperlink-69">hyperlink</a>.</dd>
+
+     <dt>External Resource</dt>
+
+     <dd>The keyword may be specified on a <code><a href="semantics.html#the-link-element" id="link-58">link</a></code> element;
+     it creates an <a href="#external-resource-link" id="external-resource-link-12">external resource link</a>.</dd>
+
+    </dl></dd>
+
+
+   <dt>Effect on... <code><a href="text-level-semantics.html#the-a-element" id="a-57">a</a></code> and <code><a href="the-map-element.html#the-area-element" id="area-50">area</a></code></dt>
+
+   <dd>
+
+    <p>One of the following:</p>
+
+    <dl><dt>Not allowed</dt>
+
+     <dd>The keyword must not be specified on <code><a href="text-level-semantics.html#the-a-element" id="a-58">a</a></code> and
+     <code><a href="the-map-element.html#the-area-element" id="area-51">area</a></code> elements.</dd>
+
+     <dt>Hyperlink</dt>
+
+     <dd>The keyword may be specified on <code><a href="text-level-semantics.html#the-a-element" id="a-59">a</a></code> and
+     <code><a href="the-map-element.html#the-area-element" id="area-52">area</a></code> elements; it creates a
+     <a href="#hyperlink" id="hyperlink-70">hyperlink</a>.</dd>
+
+     <dt>External Resource</dt>
+
+     <dd>The keyword may be specified on a <code><a href="text-level-semantics.html#the-a-element" id="a-60">a</a></code> and
+     <code><a href="the-map-element.html#the-area-element" id="area-53">area</a></code> elements; it creates an <a href="#external-resource-link" id="external-resource-link-13">external resource
+     link</a>.</dd>
+
+     <dt>Hyperlink Annotation</dt>
+
+     <dd>The keyword may be specified on a <code><a href="text-level-semantics.html#the-a-element" id="a-61">a</a></code> and
+     <code><a href="the-map-element.html#the-area-element" id="area-54">area</a></code> elements; it <a href="#hyperlink-annotation" id="hyperlink-annotation-4" title="hyperlink
+     annotation">annotates</a> other <a href="#hyperlink" id="hyperlink-71" title="hyperlink">hyperlinks</a> created by the element.</dd>
+
+    </dl></dd>
+
+
+   <dt>Brief description</dt>
+
+   <dd><p>A short non-normative description of what the keyword's
+   meaning is.</dd>
+
+
+   <dt>Specification</dt>
+
+   <dd><p>A link to a more detailed description of the keyword's
+   semantics and requirements. It could be another page on the Wiki,
+   or a link to an external page.</dd>
+
+
+   <dt>Synonyms</dt>
+
+   <dd><p>A list of other keyword values that have exactly the same
+   processing requirements. Authors should not use the values defined
+   to be synonyms, they are only intended to allow user agents to
+   support legacy content. Anyone may remove synonyms that are not
+   used in practice; only names that need to be processed as synonyms
+   for compatibility with legacy content are to be registered in this
+   way.</dd>
+
+
+   <dt>Status</dt>
+
+   <dd>
+
+    <p>One of the following:</p>
+
+    <dl><dt>Proposed</dt>
+
+     <dd>The keyword has not received wide peer review and
+     approval. Someone has proposed it and is, or soon will be, using
+     it.</dd>
+
+     <dt>Ratified</dt>
+
+     <dd>The keyword has received wide peer review and approval. It
+     has a specification that unambiguously defines how to handle
+     pages that use the keyword, including when they use it in
+     incorrect ways.</dd>
+
+     <dt>Discontinued</dt>
+
+     <dd>The keyword has received wide peer review and it has been
+     found wanting. Existing pages are using this keyword, but new
+     pages should avoid it. The "brief description" and
+     "specification" entries will give details of what authors should
+     use instead, if anything.</dd>
+
+    </dl><p>If a keyword is found to be redundant with existing values, it
+    should be removed and listed as a synonym for the existing
+    value.</p>
+
+    <p>If a keyword is registered in the "proposed" state for a
+    period of a month or more without being used or specified, then it
+    may be removed from the registry.</p>
+
+    <p>If a keyword is added with the "proposed" status and found to
+    be redundant with existing values, it should be removed and listed
+    as a synonym for the existing value. If a keyword is added with
+    the "proposed" status and found to be harmful, then it should be
+    changed to "discontinued" status.</p>
+
+    <p>Anyone can change the status at any time, but should only do so
+    in accordance with the definitions above.</p>
+
+   </dd>
+
+  </dl><p>Types defined as extensions in the <a href="http://wiki.whatwg.org/wiki/RelExtensions">WHATWG Wiki
+  RelExtensions page</a> with the status "proposed" or "ratified" may
+  be used with the <code title="">rel</code> attribute on
+  <code><a href="semantics.html#the-link-element" id="link-59">link</a></code>, <code><a href="text-level-semantics.html#the-a-element" id="a-62">a</a></code>, and <code><a href="the-map-element.html#the-area-element" id="area-55">area</a></code> elements in
+  accordance to the "Effect on..." field. <a href="references.html#refsWHATWGWIKI">[WHATWGWIKI]</a><h3 id="common-idioms-without-dedicated-elements"><span class="secno">4.13 </span>Common idioms without dedicated elements</h3><p class="XXX annotation"><span><a href="http://www.w3.org/html/wg/tracker/issues/89">ISSUE-89</a> (idioms) blocks progress to Last Call</span><h4 id="the-main-part-of-the-content"><span class="secno">4.13.1 </span>The main part of the content</h4><p>The main content of a page &mdash; not including headers and
+  footers, navigation links, sidebars, advertisements, and so forth
+  &mdash; can be marked up in a variety of ways, depending on the
+  needs of the author.<p>The simplest solution is to not mark up the main content at all,
+  and just leave it as implicit. Another way to think of this is that
+  the <code><a href="sections.html#the-body-element-0" id="body-24">body</a></code> elements marks up the main content of the
+  page, and the bits that aren't main content are excluded through the
+  use of more appropriate elements like <code><a href="sections.html#the-aside-element" id="aside-7">aside</a></code> and
+  <code><a href="sections.html#the-nav-element" id="nav-9">nav</a></code>.<div class="example">
+
+   <p>Here is a short Web page marked up along this minimalistic
+   school of thought. The main content is highlighted. Notice how all
+   the <em>other</em> content in the <code><a href="sections.html#the-body-element-0" id="body-25">body</a></code> is marked up
+   with elements to indicate that it's not part of the main content,
+   in this case <code><a href="sections.html#the-header-element" id="header-12">header</a></code>, <code><a href="sections.html#the-nav-element" id="nav-10">nav</a></code>, and
+   <code><a href="sections.html#the-footer-element" id="footer-14">footer</a></code>.</p>
+
+   <pre>&lt;!DOCTYPE HTML&gt;
+&lt;html&gt;
+ &lt;head&gt;
+  &lt;title&gt; My Toys &lt;/title&gt;
+ &lt;/head&gt;
+ &lt;body&gt;
+  &lt;header&gt;
+   &lt;h1&gt;My toys&lt;/h1&gt;
+  &lt;/header&gt;
+  &lt;nav&gt;
+   &lt;p&gt;&lt;a href="/"&gt;Home&lt;/a&gt;&lt;/p&gt;
+   &lt;p&gt;&lt;a href="/contact"&gt;Contact&lt;/a&gt;&lt;/p&gt;
+  &lt;/nav&gt;
+<strong>  &lt;p&gt;I really like my chained book and my telephone. I'm not such a
+  fan of my big ball.&lt;/p&gt;
+  &lt;p&gt;Another toy I like is my mirror.&lt;/p&gt;</strong>
+  &lt;footer&gt;
+   &lt;p&gt;&copy; copyright 2010 by the boy&lt;/p&gt;
+  &lt;/footer&gt;
+ &lt;/body&gt;
+&lt;/html&gt;</pre>
+
+  </div><p>If the main content is an independent unit of content that one
+  could imagine syndicating independently, then the
+  <code><a href="sections.html#the-article-element" id="article-24">article</a></code> element would be appropriate to mark up the
+  main content of the document.<div class="example">
+
+   <p>The document in the previous example is here recast as a blog
+   post:</p>
+
+   <pre>&lt;!DOCTYPE HTML&gt;
+&lt;html&gt;
+ &lt;head&gt;
+  &lt;title&gt; The Boy Blog: My Toys &lt;/title&gt;
+ &lt;/head&gt;
+ &lt;body&gt;
+  &lt;header&gt;
+   &lt;h1&gt;The Boy Blog&lt;/h1&gt;
+  &lt;/header&gt;
+  &lt;nav&gt;
+   &lt;p&gt;&lt;a href="/"&gt;Home&lt;/a&gt;&lt;/p&gt;
+   &lt;p&gt;&lt;a href="/contact"&gt;Contact&lt;/a&gt;&lt;/p&gt;
+  &lt;/nav&gt;
+<strong>  &lt;article&gt;
+   &lt;header&gt;
+    &lt;h1&gt;My toys&lt;/h1&gt;
+    &lt;p&gt;Published &lt;time pubdate datetime="2010-08-04"&gt;August 4th&lt;/time&gt;&lt;/p&gt;
+   &lt;/header&gt;
+   &lt;p&gt;I really like my chained book and my telephone. I'm not such a
+   fan of my big ball.&lt;/p&gt;
+   &lt;p&gt;Another toy I like is my mirror.&lt;/p&gt;
+  &lt;/article&gt;</strong>
+  &lt;footer&gt;
+   &lt;p&gt;&copy; copyright 2010 by the boy&lt;/p&gt;
+  &lt;/footer&gt;
+ &lt;/body&gt;
+&lt;/html&gt;</pre>
+
+  </div><p>If the main content is not an independent unit of content so much
+  as a section of a larger work, for instance a chapter, then the
+  <code><a href="sections.html#the-section-element" id="section-13">section</a></code> element would be appropriate to mark up the
+  main content of the document.<div class="example">
+
+   <p>Here is the same document, case as a chapter in an online
+   book:</p>
+
+   <pre>&lt;!DOCTYPE HTML&gt;
+&lt;html&gt;
+ &lt;head&gt;
+  &lt;title&gt; Chapter 2: My Toys &mdash; The Book of the Boy &lt;/title&gt;
+ &lt;/head&gt;
+ &lt;body&gt;
+  &lt;header&gt;
+   &lt;h1&gt;Chapter 2: My Toys&lt;/h1&gt;
+  &lt;/header&gt;
+  &lt;nav&gt;
+   &lt;p&gt;&lt;a href="/"&gt;Front Page&lt;/a&gt;&lt;/p&gt;
+   &lt;p&gt;&lt;a href="/toc"&gt;Table of Contents&lt;/a&gt;&lt;/p&gt;
+   &lt;p&gt;&lt;a href="/c1"&gt;Chapter 1&lt;/a&gt; &mdash; &lt;a href="/c3"&gt;Chapter 3&lt;/a&gt;&lt;/p&gt;
+  &lt;/nav&gt;
+<strong>  &lt;section&gt;
+   &lt;p&gt;I really like my chained book and my telephone. I'm not such a
+   fan of my big ball.&lt;/p&gt;
+   &lt;p&gt;Another toy I like is my mirror.&lt;/p&gt;
+  &lt;/section&gt;</strong>
+  &lt;footer&gt;
+   &lt;p&gt;&copy; copyright 2010 by the boy&lt;/p&gt;
+  &lt;/footer&gt;
+ &lt;/body&gt;
+&lt;/html&gt;</pre>
+
+  </div><p>If neither <code><a href="sections.html#the-article-element" id="article-25">article</a></code> nor <code><a href="sections.html#the-section-element" id="section-14">section</a></code> would be
+  appropriate, but the main content still needs an explicit element,
+  for example for styling purposes, then the <code><a href="grouping-content.html#the-div-element" id="div-14">div</a></code> element
+  can be used.<div class="example">
+
+   <p>This is the same as the original example, but using
+   <code><a href="grouping-content.html#the-div-element" id="div-15">div</a></code> for the main content instead of leaving it
+   implied:</p>
+
+   <pre>&lt;!DOCTYPE HTML&gt;
+&lt;html&gt;
+ &lt;head&gt;
+  &lt;title&gt; My Toys &lt;/title&gt;
+  &lt;style&gt;
+   body &gt; div { background: navy; color: yellow; }
+  &lt;/style&gt;
+ &lt;/head&gt;
+ &lt;body&gt;
+  &lt;header&gt;
+   &lt;h1&gt;My toys&lt;/h1&gt;
+  &lt;/header&gt;
+  &lt;nav&gt;
+   &lt;p&gt;&lt;a href="/"&gt;Home&lt;/a&gt;&lt;/p&gt;
+   &lt;p&gt;&lt;a href="/contact"&gt;Contact&lt;/a&gt;&lt;/p&gt;
+  &lt;/nav&gt;
+<strong>  &lt;div&gt;
+   &lt;p&gt;I really like my chained book and my telephone. I'm not such a
+   fan of my big ball.&lt;/p&gt;
+   &lt;p&gt;Another toy I like is my mirror.&lt;/p&gt;
+  &lt;/div&gt;</strong>
+  &lt;footer&gt;
+   &lt;p&gt;&copy; copyright 2010 by the boy&lt;/p&gt;
+  &lt;/footer&gt;
+ &lt;/body&gt;
+&lt;/html&gt;</pre>
+
+  </div><h4 id="tag-clouds"><span class="secno">4.13.2 </span>Tag clouds</h4><p id="tag-cloud">This specification does not define any markup
+  specifically for marking up lists of keywords that apply to a group
+  of pages (also known as <i>tag clouds</i>). In general, authors are
+  encouraged to either mark up such lists using <code><a href="grouping-content.html#the-ul-element" id="ul-12">ul</a></code>
+  elements with explicit inline counts that are then hidden and turned
+  into a presentational effect using a style sheet, or to use SVG.<div class="example">
+
+   <p>Here, three tags are included in a short tag cloud:</p>
+
+   <pre>&lt;style&gt;
+@media screen, print, handheld, tv {
+  /* should be ignored by non-visual browsers */
+  .tag-cloud &gt; li &gt; span { display: none; }
+  .tag-cloud &gt; li { display: inline; }
+  .tag-cloud-1 { font-size: 0.7em; }
+  .tag-cloud-2 { font-size: 0.9em; }
+  .tag-cloud-3 { font-size: 1.1em; }
+  .tag-cloud-4 { font-size: 1.3em; }
+  .tag-cloud-5 { font-size: 1.5em; }
+}
+&lt;/style&gt;
+...
+&lt;ul class="tag-cloud"&gt;
+ &lt;li class="tag-cloud-4"&gt;&lt;a title="28 instances" href="/t/apple"&gt;apple&lt;/a&gt; &lt;span&gt;(popular)&lt;/span&gt;
+ &lt;li class="tag-cloud-2"&gt;&lt;a title="6 instances"  href="/t/kiwi"&gt;kiwi&lt;/a&gt; &lt;span&gt;(rare)&lt;/span&gt;
+ &lt;li class="tag-cloud-5"&gt;&lt;a title="41 instances" href="/t/pear"&gt;pear&lt;/a&gt; &lt;span&gt;(very popular)&lt;/span&gt;
+&lt;/ul&gt;</pre>
+
+   <p>The actual frequency of each tag is given using the <code title="attr-title"><a href="elements.html#the-title-attribute" id="title-30">title</a></code> attribute. A CSS style sheet is
+   provided to convert the markup into a cloud of differently-sized
+   words, but for user agents that do not support CSS or are not
+   visual, the markup contains annotations like "(popular)" or
+   "(rare)" to categorize the various tags by frequency, thus enabling
+   all users to benefit from the information.</p>
+
+   <p>The <code><a href="grouping-content.html#the-ul-element" id="ul-13">ul</a></code> element is used (rather than
+   <code><a href="grouping-content.html#the-ol-element" id="ol-15">ol</a></code>) because the order is not particularly important:
+   while the list is in fact ordered alphabetically, it would convey
+   the same information if ordered by, say, the length of the tag.</p>
+
+   <p>The <code title="rel-tag"><a href="#link-type-tag" id="tag-2">tag</a></code> <code title="attr-hyperlink-rel"><a href="#attr-hyperlink-rel" id="rel-23">rel</a></code>-keyword is <em>not</em> used
+   on these <code><a href="text-level-semantics.html#the-a-element" id="a-63">a</a></code> elements because they do not represent tags
+   that apply to the page itself; they are just part of an index
+   listing the tags themselves.</p>
+
+  </div><h4 id="conversations"><span class="secno">4.13.3 </span>Conversations</h4><!-- http://lists.whatwg.org/htdig.cgi/whatwg-whatwg.org/2009-September/022576.html --><p>This specification does not define a specific element for marking
+  up conversations, meeting minutes, chat transcripts, dialogues in
+  screenplays, instant message logs, and other situations where
+  different players take turns in discourse.<p>Instead, authors are encouraged to mark up conversations using
+  <code><a href="grouping-content.html#the-p-element" id="p-18">p</a></code> elements and punctuation. Authors who need to mark
+  the speaker for styling purposes are encouraged to use
+  <code><a href="text-level-semantics.html#the-span-element" id="span-12">span</a></code> or <code><a href="text-level-semantics.html#the-b-element" id="b-15">b</a></code>. Paragraphs with their text
+  wrapped in the <code><a href="text-level-semantics.html#the-i-element" id="i-12">i</a></code> element can be used for marking up
+  stage directions.<div class="example">
+
+   <p>This example demonstrates this using an extract from Abbot and
+   Costello's famous sketch, <cite>Who's on first</cite>:</p>
+
+<pre>&lt;p&gt; Costello: Look, you gotta first baseman?
+&lt;p&gt; Abbott: Certainly.
+&lt;p&gt; Costello: Who's playing first?
+&lt;p&gt; Abbott: That's right.
+&lt;p&gt; Costello becomes exasperated.
+&lt;p&gt; Costello: When you pay off the first baseman every month, who gets the money?
+&lt;p&gt; Abbott: Every dollar of it.</pre>
+
+  </div><div class="example">
+
+   <p>The following extract shows how an IM conversation log could be
+   marked up.</p>
+
+   <pre>&lt;p&gt; &lt;time&gt;14:22&lt;/time&gt; &lt;b&gt;egof&lt;/b&gt; I'm not that nerdy, I've only seen 30% of the star trek episodes
+&lt;p&gt; &lt;time&gt;14:23&lt;/time&gt; &lt;b&gt;kaj&lt;/b&gt; if you know what percentage of the star trek episodes you have seen, you are inarguably nerdy
+&lt;p&gt; &lt;time&gt;14:23&lt;/time&gt; &lt;b&gt;egof&lt;/b&gt; it's unarguably
+&lt;p&gt; &lt;time&gt;14:23&lt;/time&gt; &lt;i&gt;* kaj blinks&lt;/i&gt;
+&lt;p&gt; &lt;time&gt;14:24&lt;/time&gt; &lt;b&gt;kaj&lt;/b&gt; you are not helping your case</pre>
+   <!-- with thanks to http://bash.org/?854262 -->
+
+  </div><h4 id="footnotes"><span class="secno">4.13.4 </span>Footnotes</h4><p>HTML does not have a dedicated mechanism for marking up
+  footnotes. Here are the recommended alternatives.<hr><p>For short inline annotations, the <code title="attr-title"><a href="elements.html#the-title-attribute" id="title-31">title</a></code> attribute should be used.<div class="example">
+
+   <p>In this example, two parts of a dialogue are annotated with
+   footnote-like content using the <code title="attr-title"><a href="elements.html#the-title-attribute" id="title-32">title</a></code> attribute.</p>
+
+   <pre>&lt;p&gt; &lt;b&gt;Customer&lt;/b&gt;: Hello! I wish to register a complaint. Hello. Miss?
+&lt;p&gt; &lt;b&gt;Shopkeeper&lt;/b&gt;: <strong>&lt;span title="Colloquial pronunciation of 'What do you'"</strong>
+&gt;Watcha&lt;/span&gt; mean, miss?
+&lt;p&gt; &lt;b&gt;Customer&lt;/b&gt;: Uh, I'm sorry, I have a cold. I wish to make a complaint.
+&lt;p&gt; &lt;b&gt;Shopkeeper&lt;/b&gt;: Sorry, &lt;span <strong>title="This is, of course, a lie."</strong>&gt;we're
+closing for lunch&lt;/span&gt;.</pre>
+
+  </div><hr><p>For longer annotations, the <code><a href="text-level-semantics.html#the-a-element" id="a-64">a</a></code> element should be
+  used, pointing to an element later in the document. The convention
+  is that the contents of the link be a number in square brackets.<div class="example">
+
+   <p>In this example, a footnote in the dialogue links to a paragraph
+   below the dialogue. The paragraph then reciprocally links back to the
+   dialogue, allowing the user to return to the location of the
+   footnote.</p>
+
+   <pre>&lt;p&gt; Announcer: Number 16: The &lt;i&gt;hand&lt;/i&gt;.
+&lt;p&gt; Interviewer: Good evening. I have with me in the studio tonight
+Mr Norman St John Polevaulter, who for the past few years has been
+contradicting people. Mr Polevaulter, why &lt;em&gt;do&lt;/em&gt; you
+contradict people?
+&lt;p&gt; Norman: I don't. &lt;sup&gt;&lt;a href="#fn1" id="r1"&gt;[1]&lt;/a&gt;&lt;/sup&gt;
+&lt;p&gt; Interviewer: You told me you did!
+<em>...</em>
+&lt;section&gt;
+ &lt;p id="fn1"&gt;&lt;a href="#r1"&gt;[1]&lt;/a&gt; This is, naturally, a lie,
+ but paradoxically if it were true he could not say so without
+ contradicting the interviewer and thus making it false.&lt;/p&gt;
+&lt;/section&gt;</pre>
+
+  </div><hr><p>For side notes, longer annotations that apply to entire sections
+  of the text rather than just specific words or sentences, the
+  <code><a href="sections.html#the-aside-element" id="aside-8">aside</a></code> element should be used.<div class="example">
+
+   <p>In this example, a sidebar is given after a dialogue, giving it
+   some context.</p>
+
+   <pre>&lt;p&gt; &lt;span class="speaker"&gt;Customer&lt;/span&gt;: I will not buy this record, it is scratched.
+&lt;p&gt; &lt;span class="speaker"&gt;Shopkeeper&lt;/span&gt;: I'm sorry?
+&lt;p&gt; &lt;span class="speaker"&gt;Customer&lt;/span&gt;: I will not buy this record, it is scratched.
+&lt;p&gt; &lt;span class="speaker"&gt;Shopkeeper&lt;/span&gt;: No no no, this's'a tobacconist's.
+&lt;aside&gt;
+ &lt;p&gt;In 1970, the British Empire lay in ruins, and foreign
+ nationalists frequented the streets &mdash; many of them Hungarians
+ (not the streets &mdash; the foreign nationals). Sadly, Alexander
+ Yalt has been publishing incompetently-written phrase books.
+&lt;/aside&gt;</pre>
+
+  </div><hr><p>For figures or tables, footnotes can be included in the relevant
+  <code><a href="grouping-content.html#the-figcaption-element" id="figcaption-13">figcaption</a></code> or <code><a href="tabular-data.html#the-caption-element" id="caption-17">caption</a></code> element, or in
+  surrounding prose.<div class="example">
+
+   <p>In this example, a <!-- round --> table has cells with footnotes
+   that are given in prose. A <code><a href="grouping-content.html#the-figure-element" id="figure-16">figure</a></code> element is used to
+   give a single legend to the combination of the table and its
+   footnotes.</p>
+
+   <pre>&lt;figure&gt;
+ &lt;figcaption&gt;Table 1. Alternative activities for knights.&lt;/figcaption&gt;
+ &lt;table&gt;
+  &lt;tr&gt;
+   &lt;th&gt; Activity
+   &lt;th&gt; Location
+   &lt;th&gt; Cost
+  &lt;tr&gt;
+   &lt;td&gt; Dance
+   &lt;td&gt; Wherever possible
+   &lt;td&gt; &pound;0&lt;sup&gt;&lt;a href="#fn1"&gt;1&lt;/a&gt;&lt;/sup&gt;
+  &lt;tr&gt;
+   &lt;td&gt; Routines, chorus scenes&lt;sup&gt;&lt;a href="#fn2"&gt;2&lt;/a&gt;&lt;/sup&gt;
+   &lt;td&gt; Undisclosed
+   &lt;td&gt; Undisclosed
+  &lt;tr&gt;
+   &lt;td&gt; Dining&lt;sup&gt;&lt;a href="#fn3"&gt;3&lt;/a&gt;&lt;/sup&gt;
+   &lt;td&gt; Camelot
+   &lt;td&gt; Cost of ham, jam, and spam&lt;sup&gt;&lt;a href="#fn4"&gt;4&lt;/a&gt;&lt;/sup&gt;
+ &lt;/table&gt;
+ &lt;p id="fn1"&gt;1. Assumed.&lt;/p&gt;
+ &lt;p id="fn2"&gt;2. Footwork impeccable.&lt;/p&gt;
+ &lt;p id="fn3"&gt;3. Quality described as "well".&lt;/p&gt;
+ &lt;p id="fn4"&gt;4. A lot.&lt;/p&gt;
+&lt;/figure&gt;</pre>
+
+  </div>

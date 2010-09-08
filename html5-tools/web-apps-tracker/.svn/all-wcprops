@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/svn/!svn/ver/175/trunk/web-apps-tracker
+END
+web-workers-tracker
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/175/trunk/web-apps-tracker/web-workers-tracker
+END
+web-apps-tracker
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/175/trunk/web-apps-tracker/web-apps-tracker
+END
+trackerlib.py
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/175/trunk/web-apps-tracker/trackerlib.py
+END
+web-forms-tracker
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/163/trunk/web-apps-tracker/web-forms-tracker
+END
+.htaccess
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/20/trunk/web-apps-tracker/.htaccess
+END

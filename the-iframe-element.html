@@ -1,0 +1,843 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"><!-- when publishing, change bits marked ZZZ --><html class="split chapter" lang="en-US-x-Hixie"><meta content="text/html; charset=ascii" http-equiv="Content-Type"><title>4.8.2 The iframe element &mdash; HTML5 (Edition for Web Authors)</title><link href="whatwg.css" rel="stylesheet"><style type="text/css">
+   pre { margin-left: 2em; white-space: pre-wrap; }
+   h2 { margin: 3em 0 1em 0; }
+   h3 { margin: 2.5em 0 1em 0; }
+   h4 { margin: 2.5em 0 0.75em 0; }
+   h5, h6 { margin: 2.5em 0 1em; }
+   h1 + h2, h1 + h2 + h2 { margin: 0.75em 0 0.75em; }
+   h2 + h3, h3 + h4, h4 + h5, h5 + h6 { margin-top: 0.5em; }
+   p { margin: 1em 0; }
+   hr:not(.top) { display: block; background: none; border: none; padding: 0; margin: 2em 0; height: auto; }
+   dl, dd { margin-top: 0; margin-bottom: 0; }
+   dt { margin-top: 0.75em; margin-bottom: 0.25em; clear: left; }
+   dt + dt { margin-top: 0; }
+   dd dt { margin-top: 0.25em; margin-bottom: 0; }
+   dd p { margin-top: 0; }
+   dd dl + p { margin-top: 1em; }
+   dd table + p { margin-top: 1em; }
+   p + * > li, dd li { margin: 1em 0; }
+   dt, dfn { font-weight: bold; font-style: normal; }
+   dt dfn { font-style: italic; }
+   pre, code { font-size: inherit; font-family: monospace; font-variant: normal; }
+   pre strong { color: black; font: inherit; font-weight: bold; background: yellow; }
+   pre em { font-weight: bolder; font-style: normal; }
+   @media screen { code { color: orangered; } code :link, code :visited { color: inherit; } }
+   var sub { vertical-align: bottom; font-size: smaller; position: relative; top: 0.1em; }
+   table { border-collapse: collapse; border-style: hidden hidden none hidden; }
+   table thead, table tbody { border-bottom: solid; }
+   table tbody th:first-child { border-left: solid; }
+   table tbody th { text-align: left; }
+   table td, table th { border-left: solid; border-right: solid; border-bottom: solid thin; vertical-align: top; padding: 0.2em; }
+   blockquote { margin: 0 0 0 2em; border: 0; padding: 0; font-style: italic; }
+
+   .bad, .bad *:not(.XXX) { color: gray; border-color: gray; background: transparent; }
+   .matrix, .matrix td { border: none; text-align: right; }
+   .matrix { margin-left: 2em; }
+   .dice-example { border-collapse: collapse; border-style: hidden solid solid hidden; border-width: thin; margin-left: 3em; }
+   .dice-example caption { width: 30em; font-size: smaller; font-style: italic; padding: 0.75em 0; text-align: left; }
+   .dice-example td, .dice-example th { border: solid thin; width: 1.35em; height: 1.05em; text-align: center; padding: 0; }
+
+   .toc dfn, h1 dfn, h2 dfn, h3 dfn, h4 dfn, h5 dfn, h6 dfn { font: inherit; }
+   img.extra { float: right; }
+   pre.idl { border: solid thin; background: #EEEEEE; color: black; padding: 0.5em 1em; }
+   pre.idl :link, pre.idl :visited { color: inherit; background: transparent; }
+   pre.css { border: solid thin; background: #FFFFEE; color: black; padding: 0.5em 1em; }
+   pre.css:first-line { color: #AAAA50; }
+   dl.domintro { color: green; margin: 2em 0 2em 2em; padding: 0.5em 1em; border: none; background: #DDFFDD; }
+   hr + dl.domintro, div.impl + dl.domintro { margin-top: 2.5em; margin-bottom: 1.5em; }
+   dl.domintro dt, dl.domintro dt * { color: black; text-decoration: none; }
+   dl.domintro dd { margin: 0.5em 0 1em 2em; padding: 0; }
+   dl.domintro dd p { margin: 0.5em 0; }
+   dl.switch { padding-left: 2em; }
+   dl.switch > dt { text-indent: -1.5em; }
+   dl.switch > dt:before { content: '\21AA'; padding: 0 0.5em 0 0; display: inline-block; width: 1em; text-align: right; line-height: 0.5em; }
+   dl.triple { padding: 0 0 0 1em; }
+   dl.triple dt, dl.triple dd { margin: 0; display: inline }
+   dl.triple dt:after { content: ':'; }
+   dl.triple dd:after { content: '\A'; white-space: pre; }
+   .diff-old { text-decoration: line-through; color: silver; background: transparent; }
+   .diff-chg, .diff-new { text-decoration: underline; color: green; background: transparent; }
+   a .diff-new { border-bottom: 1px blue solid; }
+
+   h2 { page-break-before: always; }
+   h1, h2, h3, h4, h5, h6 { page-break-after: avoid; }
+   h1 + h2, hr + h2.no-toc { page-break-before: auto; }
+
+   p > span:not([title=""]):not([class="XXX"]):not([class="impl"]), li > span:not([title=""]):not([class="XXX"]):not([class="impl"]) { border-bottom: solid #9999CC; }
+
+   div.head { margin: 0 0 1em; padding: 1em 0 0 0; }
+   div.head p { margin: 0; }
+   div.head h1 { margin: 0; }
+   div.head .logo { float: right; margin: 0 1em; }
+   div.head .logo img { border: none } /* remove border from top image */
+   div.head dl { margin: 1em 0; }
+   div.head p.copyright, div.head p.alt { font-size: x-small; font-style: oblique; margin: 0; }
+
+   body > .toc > li { margin-top: 1em; margin-bottom: 1em; }
+   body > .toc.brief > li { margin-top: 0.35em; margin-bottom: 0.35em; }
+   body > .toc > li > * { margin-bottom: 0.5em; }
+   body > .toc > li > * > li > * { margin-bottom: 0.25em; }
+   .toc, .toc li { list-style: none; }
+
+   .brief { margin-top: 1em; margin-bottom: 1em; line-height: 1.1; }
+   .brief li { margin: 0; padding: 0; }
+   .brief li p { margin: 0; padding: 0; }
+
+   .category-list { margin-top: -0.75em; margin-bottom: 1em; line-height: 1.5; }
+   .category-list::before { content: '\21D2\A0'; font-size: 1.2em; font-weight: 900; }
+   .category-list li { display: inline; }
+   .category-list li:not(:last-child)::after { content: ', '; }
+   .category-list li > span, .category-list li > a { text-transform: lowercase; }
+   .category-list li * { text-transform: none; } /* don't affect <code> nested in <a> */
+
+   .XXX { color: #E50000; background: white; border: solid red; padding: 0.5em; margin: 1em 0; }
+   .XXX > :first-child { margin-top: 0; }
+   p .XXX { line-height: 3em; }
+   .annotation { border: solid thin black; background: #0C479D; color: white; position: relative; margin: 8px 0 20px 0; }
+   .annotation:before { position: absolute; left: 0; top: 0; width: 100%; height: 100%; margin: 6px -6px -6px 6px; background: #333333; z-index: -1; content: ''; }
+   .annotation :link, .annotation :visited { color: inherit; }
+   .annotation :link:hover, .annotation :visited:hover { background: transparent; }
+   .annotation span { border: none ! important; }
+   .note { color: green; background: transparent; font-family: sans-serif; }
+   .warning { color: red; background: transparent; }
+   .note, .warning { font-weight: bolder; font-style: italic; }
+   p.note, div.note { padding: 0.5em 2em; }
+   span.note { padding: 0 2em; }
+   .note p:first-child, .warning p:first-child { margin-top: 0; }
+   .note p:last-child, .warning p:last-child { margin-bottom: 0; }
+   .warning:before { font-style: normal; }
+   p.note:before { content: 'Note: '; }
+   p.warning:before { content: '\26A0 Warning! '; }
+
+   .bookkeeping:before { display: block; content: 'Bookkeeping details'; font-weight: bolder; font-style: italic; }
+   .bookkeeping { font-size: 0.8em; margin: 2em 0; }
+   .bookkeeping p { margin: 0.5em 2em; display: list-item; list-style: square; }
+   .bookkeeping dt { margin: 0.5em 2em 0; }
+   .bookkeeping dd { margin: 0 3em 0.5em; }
+
+   h4 { position: relative; z-index: 3; }
+   h4 + .element, h4 + div + .element { margin-top: -2.5em; padding-top: 2em; }
+   .element {
+     background: #EEEEFF;
+     color: black;
+     margin: 0 0 1em 0.15em;
+     padding: 0 1em 0.25em 0.75em;
+     border-left: solid #9999FF 0.25em;
+     position: relative;
+     z-index: 1;
+   }
+   .element:before {
+     position: absolute;
+     z-index: 2;
+     top: 0;
+     left: -1.15em;
+     height: 2em;
+     width: 0.9em;
+     background: #EEEEFF;
+     content: ' ';
+     border-style: none none solid solid;
+     border-color: #9999FF;
+     border-width: 0.25em;
+   }
+
+   .example { display: block; color: #222222; background: #FCFCFC; border-left: double; margin-left: 2em; padding-left: 1em; }
+   td > .example:only-child { margin: 0 0 0 0.1em; }
+
+   ul.domTree, ul.domTree ul { padding: 0 0 0 1em; margin: 0; }
+   ul.domTree li { padding: 0; margin: 0; list-style: none; position: relative; }
+   ul.domTree li li { list-style: none; }
+   ul.domTree li:first-child::before { position: absolute; top: 0; height: 0.6em; left: -0.75em; width: 0.5em; border-style: none none solid solid; content: ''; border-width: 0.1em; }
+   ul.domTree li:not(:last-child)::after { position: absolute; top: 0; bottom: -0.6em; left: -0.75em; width: 0.5em; border-style: none none solid solid; content: ''; border-width: 0.1em; }
+   ul.domTree span { font-style: italic; font-family: serif; }
+   ul.domTree .t1 code { color: purple; font-weight: bold; }
+   ul.domTree .t2 { font-style: normal; font-family: monospace; }
+   ul.domTree .t2 .name { color: black; font-weight: bold; }
+   ul.domTree .t2 .value { color: blue; font-weight: normal; }
+   ul.domTree .t3 code, .domTree .t4 code, .domTree .t5 code { color: gray; }
+   ul.domTree .t7 code, .domTree .t8 code { color: green; }
+   ul.domTree .t10 code { color: teal; }
+
+   body.dfnEnabled dfn { cursor: pointer; }
+   .dfnPanel {
+     display: inline;
+     position: absolute;
+     z-index: 10;
+     height: auto;
+     width: auto;
+     padding: 0.5em 0.75em;
+     font: small sans-serif, Droid Sans Fallback;
+     background: #DDDDDD;
+     color: black;
+     border: outset 0.2em;
+   }
+   .dfnPanel * { margin: 0; padding: 0; font: inherit; text-indent: 0; }
+   .dfnPanel :link, .dfnPanel :visited { color: black; }
+   .dfnPanel p { font-weight: bolder; }
+   .dfnPanel * + p { margin-top: 0.25em; }
+   .dfnPanel li { list-style-position: inside; }
+
+   #configUI { position: absolute; z-index: 20; top: 10em; right: 1em; width: 11em; font-size: small; }
+   #configUI p { margin: 0.5em 0; padding: 0.3em; background: #EEEEEE; color: black; border: inset thin; }
+   #configUI p label { display: block; }
+   #configUI #updateUI, #configUI .loginUI { text-align: center; }
+   #configUI input[type=button] { display: block; margin: auto; }
+
+  </style><style type="text/css">
+
+   .applies thead th > * { display: block; }
+   .applies thead code { display: block; }
+   .applies tbody th { whitespace: nowrap; }
+   .applies td { text-align: center; }
+   .applies .yes { background: yellow; }
+
+   .matrix, .matrix td { border: hidden; text-align: right; }
+   .matrix { margin-left: 2em; }
+
+   .dice-example { border-collapse: collapse; border-style: hidden solid solid hidden; border-width: thin; margin-left: 3em; }
+   .dice-example caption { width: 30em; font-size: smaller; font-style: italic; padding: 0.75em 0; text-align: left; }
+   .dice-example td, .dice-example th { border: solid thin; width: 1.35em; height: 1.05em; text-align: center; padding: 0; }
+
+   #table-example-1 { border: solid thin; border-collapse: collapse; margin-left: 3em; }
+   #table-example-1 * { font-family: "Essays1743", serif; line-height: 1.01em; }
+   #table-example-1 caption { padding-bottom: 0.5em; }
+   #table-example-1 thead, #table-example-1 tbody { border: none; }
+   #table-example-1 th, #table-example-1 td { border: solid thin; }
+   #table-example-1 th { font-weight: normal; }
+   #table-example-1 td { border-style: none solid; vertical-align: top; }
+   #table-example-1 th { padding: 0.5em; vertical-align: middle; text-align: center; }
+   #table-example-1 tbody tr:first-child td { padding-top: 0.5em; }
+   #table-example-1 tbody tr:last-child td { padding-bottom: 1.5em; }
+   #table-example-1 tbody td:first-child { padding-left: 2.5em; padding-right: 0; width: 9em; }
+   #table-example-1 tbody td:first-child::after { content: leader(". "); }
+   #table-example-1 tbody td { padding-left: 2em; padding-right: 2em; }
+   #table-example-1 tbody td:first-child + td { width: 10em; }
+   #table-example-1 tbody td:first-child + td ~ td { width: 2.5em; }
+   #table-example-1 tbody td:first-child + td + td + td ~ td { width: 1.25em; }
+
+   .apple-table-examples { border: none; border-collapse: separate; border-spacing: 1.5em 0em; width: 40em; margin-left: 3em; }
+   .apple-table-examples * { font-family: "Times", serif; }
+   .apple-table-examples td, .apple-table-examples th { border: none; white-space: nowrap; padding-top: 0; padding-bottom: 0; }
+   .apple-table-examples tbody th:first-child { border-left: none; width: 100%; }
+   .apple-table-examples thead th:first-child ~ th { font-size: smaller; font-weight: bolder; border-bottom: solid 2px; text-align: center; }
+   .apple-table-examples tbody th::after, .apple-table-examples tfoot th::after { content: leader(". ") }
+   .apple-table-examples tbody th, .apple-table-examples tfoot th { font: inherit; text-align: left; }
+   .apple-table-examples td { text-align: right; vertical-align: top; }
+   .apple-table-examples.e1 tbody tr:last-child td { border-bottom: solid 1px; }
+   .apple-table-examples.e1 tbody + tbody tr:last-child td { border-bottom: double 3px; }
+   .apple-table-examples.e2 th[scope=row] { padding-left: 1em; }
+   .apple-table-examples sup { line-height: 0; }
+
+   .details-example img { vertical-align: top; }
+
+   #named-character-references-table {
+     font-size: 0.6em;
+     column-width: 28em;
+     column-gap: 1em;
+     -moz-column-width: 28em;
+     -moz-column-gap: 1em;
+     -webkit-column-width: 28em;
+     -webkit-column-gap: 1em;
+   }
+   #named-character-references-table > table > tbody > tr > td:last-child { text-align: center; }
+   #named-character-references-table > table > tbody > tr > td:last-child:hover > span { position: absolute; top: auto; left: auto; margin-left: 0.5em; line-height: 1.2; font-size: 5em; border: outset; padding: 0.25em 0.5em; background: white; width: 1.25em; height: auto; text-align: center; }
+
+   .glyph.control { color: red; }
+
+   @font-face {
+     font-family: 'Essays1743';
+     src: url('http://www.whatwg.org/specs/web-apps/current-work/fonts/Essays1743.ttf');
+   }
+   @font-face {
+     font-family: 'Essays1743';
+     font-weight: bold;
+     src: url('http://www.whatwg.org/specs/web-apps/current-work/fonts/Essays1743-Bold.ttf');
+   }
+   @font-face {
+     font-family: 'Essays1743';
+     font-style: italic;
+     src: url('http://www.whatwg.org/specs/web-apps/current-work/fonts/Essays1743-Italic.ttf');
+   }
+   @font-face {
+     font-family: 'Essays1743';
+     font-style: italic;
+     font-weight: bold;
+     src: url('http://www.whatwg.org/specs/web-apps/current-work/fonts/Essays1743-BoldItalic.ttf');
+   }
+
+  </style><link href="data:text/css," id="complete" rel="stylesheet" title="Complete specification"><link href="data:text/css,.impl%20%7B%20display:%20none;%20%7D%0Ahtml%20%7B%20border:%20solid%20yellow;%20%7D%20.domintro:before%20%7B%20display:%20none;%20%7D" id="author" rel="alternate stylesheet" title="Author documentation only"><link href="data:text/css,.impl%20%7B%20background:%20%23FFEEEE;%20%7D%20.domintro:before%20%7B%20background:%20%23FFEEEE;%20%7D" id="highlight" rel="alternate stylesheet" title="Highlight implementation requirements"><script type="text/javascript">
+ function getCookie(name) {
+   var params = location.search.substr(1).split("&");
+   for (var index = 0; index < params.length; index++) {
+     if (params[index] == name)
+       return "1";
+     var data = params[index].split("=");
+     if (data[0] == name)
+       return unescape(data[1]);
+   }
+   var cookies = document.cookie.split("; ");
+   for (var index = 0; index < cookies.length; index++) {
+     var data = cookies[index].split("=");
+     if (data[0] == name)
+       return unescape(data[1]);
+   }
+   return null;
+ }
+ function load(script) {
+   var e = document.createElement('script');
+   e.setAttribute('src', script + '?' + encodeURIComponent(location) + '&' + encodeURIComponent(document.referrer));
+   document.body.appendChild(e);
+ }
+ function init() {
+   if (location.search == '?slow-browser')
+     return;
+   var configUI = document.createElement('div');
+   configUI.id = 'configUI';
+   document.body.appendChild(configUI);
+   if (document.getElementById('head'))
+     load('toc.js');
+   load('dfn.js');
+   if (getCookie('profile') == '1')
+     document.getElementsByTagName('h2')[0].textContent += '; load: ' + (new Date() - loadTimer) + 'ms';
+   fixBrokenLink();
+ }
+</script><link href="http://www.w3.org/StyleSheets/TR/W3C-ED" rel="stylesheet" type="text/css"><link href="style.css" rel="stylesheet"><script src="link-fixup.js"></script><link href="embedded-content-1.html" rel="prev" title="4.8 Embedded content">
+  <link href="Overview.html#contents" rel="index" title="Table of contents">
+  <link href="video.html" rel="next" title="4.8.6 The video element">
+  <body onload="fixBrokenLink(); init()"><div class="head" id="head">
+   <p><a href="http://www.w3.org/"><img alt="W3C" height="48" src="http://www.w3.org/Icons/w3c_home" width="72"></a></p>
+
+   <h1>HTML5 (Edition for Web Authors)<span class="rcsrevision"> revision 1.4343</span></h1>
+   </div><div>
+   <a href="embedded-content-1.html">&larr; 4.8 Embedded content</a> &ndash;
+   <a href="Overview.html#contents">Table of contents</a> &ndash;
+   <a href="video.html">4.8.6 The video element &rarr;</a>
+  <ol class="toc"><li><ol><li><ol><li><a href="the-iframe-element.html#the-iframe-element" id="x4.8.2-the-iframe-element"><span class="secno">4.8.2 </span>The <code>iframe</code> element</a><li><a href="the-iframe-element.html#the-embed-element" id="x4.8.3-the-embed-element"><span class="secno">4.8.3 </span>The <code>embed</code> element</a><li><a href="the-iframe-element.html#the-object-element" id="x4.8.4-the-object-element"><span class="secno">4.8.4 </span>The <code>object</code> element</a><li><a href="the-iframe-element.html#the-param-element" id="x4.8.5-the-param-element"><span class="secno">4.8.5 </span>The <code>param</code> element</a></ol></ol></ol></div>
+
+  <h4 id="the-iframe-element"><span class="secno">4.8.2 </span>The <dfn><code>iframe</code></dfn> element</h4><p class="XXX annotation"><span><a href="http://www.w3.org/html/wg/tracker/issues/100">ISSUE-100</a> (srcdoc) and <a href="http://www.w3.org/html/wg/tracker/issues/103">ISSUE-103</a> (srcdoc-xml-escaping) block progress to Last Call</span><dl class="element"><dt>Categories</dt>
+   <dd><a href="content-models.html#flow-content" id="flow-content-88">Flow content</a>.</dd>
+   <dd><a href="content-models.html#phrasing-content" id="phrasing-content-95">Phrasing content</a>.</dd>
+   <dd><a href="content-models.html#embedded-content" id="embedded-content-8">Embedded content</a>.</dd>
+   <dd><a href="content-models.html#interactive-content" id="interactive-content-6">Interactive content</a>.</dd>
+   <dt>Contexts in which this element may be used:</dt>
+   <dd>Where <a href="content-models.html#embedded-content" id="embedded-content-9">embedded content</a> is expected.</dd>
+   <dt>Content model:</dt>
+   <dd>Text that conforms to the requirements given in the prose.</dd>
+   <dt>Content attributes:</dt>
+   <dd><a href="elements.html#global-attributes" id="global-attributes-60">Global attributes</a></dd>
+   <dd><code title="attr-iframe-src"><a href="#attr-iframe-src" id="src-17">src</a></code></dd>
+   <dd><code title="attr-iframe-srcdoc"><a href="#attr-iframe-srcdoc" id="srcdoc">srcdoc</a></code></dd>
+   <dd><code title="attr-iframe-name"><a href="#attr-iframe-name" id="name-9">name</a></code></dd>
+   <dd><code title="attr-iframe-sandbox"><a href="#attr-iframe-sandbox" id="sandbox-0">sandbox</a></code></dd>
+   <dd><code title="attr-iframe-seamless"><a href="#attr-iframe-seamless" id="seamless">seamless</a></code></dd>
+   <dd><code title="attr-dim-width"><a href="the-map-element.html#attr-dim-width" id="width-5">width</a></code></dd>
+   <dd><code title="attr-dim-height"><a href="the-map-element.html#attr-dim-height" id="height-5">height</a></code></dd>
+   <dt>DOM interface:</dt>
+   <dd>
+<pre class="idl">interface <dfn id="htmliframeelement">HTMLIFrameElement</dfn> : <a href="elements.html#htmlelement" id="htmlelement-64">HTMLElement</a> {
+           attribute DOMString <a class="full-spec-link" href="http://dev.w3.org/html5/spec/the-iframe-element.html#dom-iframe-src" title='Read about this "src" reference in the full HTML5 spec.'>src</a>;
+           attribute DOMString <a class="full-spec-link" href="http://dev.w3.org/html5/spec/the-iframe-element.html#dom-iframe-srcdoc" title='Read about this "srcdoc" reference in the full HTML5 spec.'>srcdoc</a>;
+           attribute DOMString <a class="full-spec-link" href="http://dev.w3.org/html5/spec/the-iframe-element.html#dom-iframe-name" title='Read about this "name" reference in the full HTML5 spec.'>name</a>;
+  [PutForwards=<a class="full-spec-link" href="http://dev.w3.org/html5/spec/common-dom-interfaces.html#dom-domsettabletokenlist-value" title='Read about this "value" reference in the full HTML5 spec.'>value</a>] readonly attribute <a href="urls.html#domsettabletokenlist" id="domsettabletokenlist-3">DOMSettableTokenList</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/the-iframe-element.html#dom-iframe-sandbox" title='Read about this "sandbox" reference in the full HTML5 spec.'>sandbox</a>;
+           attribute boolean <a class="full-spec-link" href="http://dev.w3.org/html5/spec/the-iframe-element.html#dom-iframe-seamless" title='Read about this "seamless" reference in the full HTML5 spec.'>seamless</a>;
+           attribute DOMString <a class="full-spec-link" href="http://dev.w3.org/html5/spec/the-map-element.html#dom-dim-width" title='Read about this "width" reference in the full HTML5 spec.'>width</a>;
+           attribute DOMString <a class="full-spec-link" href="http://dev.w3.org/html5/spec/the-map-element.html#dom-dim-height" title='Read about this "height" reference in the full HTML5 spec.'>height</a>;
+  readonly attribute Document <a class="full-spec-link" href="http://dev.w3.org/html5/spec/the-iframe-element.html#dom-iframe-contentdocument" title='Read about this "contentDocument" reference in the full HTML5 spec.'>contentDocument</a>;
+  readonly attribute <a class="full-spec-link" href="http://dev.w3.org/html5/spec/browsers.html#windowproxy" title='Read about this "WindowProxy" reference in the full HTML5 spec.'>WindowProxy</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/the-iframe-element.html#dom-iframe-contentwindow" title='Read about this "contentWindow" reference in the full HTML5 spec.'>contentWindow</a>;
+};</pre>
+   </dd>
+  </dl><p>The <code><a href="#the-iframe-element" id="iframe-9">iframe</a></code> element <a class="full-spec-link" href="http://dev.w3.org/html5/spec/rendering.html#represents" title='Read about this "represents" reference in the full HTML5 spec.'>represents</a> a
+  <a href="browsers.html#nested-browsing-context" id="nested-browsing-context-0">nested browsing context</a>.<p>The <dfn id="attr-iframe-src" title="attr-iframe-src"><code>src</code></dfn> attribute
+  gives the address of a page that the <a href="browsers.html#nested-browsing-context" id="nested-browsing-context-1">nested browsing
+  context</a> is to contain. The attribute, if present, must be a
+  <a href="urls.html#valid-non-empty-url-potentially-surrounded-by-spaces" id="valid-non-empty-url-potentially-surrounded-by-spaces-4">valid non-empty URL potentially surrounded by
+  spaces</a>.<p>The <dfn id="attr-iframe-srcdoc" title="attr-iframe-srcdoc"><code>srcdoc</code></dfn>
+  attribute gives the content of the page that the <a href="browsers.html#nested-browsing-context" id="nested-browsing-context-2">nested
+  browsing context</a> is to contain.  The value of the attribute
+  in is <dfn id="an-iframe-srcdoc-document">an <code>iframe</code> <code title="attr-iframe-srcdoc">srcdoc</code> document</dfn>.<p>For <code><a href="#the-iframe-element" id="iframe-10">iframe</a></code> elements in <a href="dom.html#html-documents" id="html-documents-20">HTML documents</a>,
+  the attribute, if present, must have a value using <a href="syntax.html#syntax" id="the-html-syntax-4">the HTML
+  syntax</a> that consists of the following syntactic components,
+  in the given order:<ol><li>Any number of <a href="syntax.html#syntax-comments" id="syntax-comments-0" title="syntax-comments">comments</a> and
+   <a class="full-spec-link" href="http://dev.w3.org/html5/spec/common-microsyntaxes.html#space-character" title='Read about this "space characters" reference in the full HTML5 spec.'>space characters</a>.</li>
+
+   <li>Optionally, a <a href="syntax.html#syntax-doctype" id="syntax-doctype-1" title="syntax-doctype">DOCTYPE</a>.
+
+   <li>Any number of <a href="syntax.html#syntax-comments" id="syntax-comments-1" title="syntax-comments">comments</a> and
+   <a class="full-spec-link" href="http://dev.w3.org/html5/spec/common-microsyntaxes.html#space-character" title='Read about this "space characters" reference in the full HTML5 spec.'>space characters</a>.</li>
+
+   <li>The root element, in the form of an <code><a href="semantics.html#the-html-element-0" id="html-10">html</a></code> <a href="syntax.html#syntax-elements" id="syntax-elements-0" title="syntax-elements">element</a>.</li>
+
+   <li>Any number of <a href="syntax.html#syntax-comments" id="syntax-comments-2" title="syntax-comments">comments</a> and
+   <a class="full-spec-link" href="http://dev.w3.org/html5/spec/common-microsyntaxes.html#space-character" title='Read about this "space characters" reference in the full HTML5 spec.'>space characters</a>.</li>
+
+  </ol><p>For <code><a href="#the-iframe-element" id="iframe-11">iframe</a></code> elements in <a href="dom.html#xml-documents" id="xml-documents-19">XML documents</a>,
+  the attribute, if present, must have a value that matches the
+  production labeled <code><a class="full-spec-link" href="http://dev.w3.org/html5/spec/infrastructure.html#document" title='Read about this "document" reference in the full HTML5 spec.'>document</a></code> in the XML
+  specification. <a href="references.html#refsXML">[XML]</a><p>If the <code title="attr-iframe-src"><a href="#attr-iframe-src" id="src-18">src</a></code> attribute and the
+  <code title="attr-iframe-srcdoc"><a href="#attr-iframe-srcdoc" id="srcdoc-0">srcdoc</a></code> attribute are both
+  specified together, the <code title="attr-iframe-srcdoc"><a href="#attr-iframe-srcdoc" id="srcdoc-1">srcdoc</a></code>
+  attribute takes priority. This allows authors to provide a fallback
+  <a href="urls.html#url" id="url-10">URL</a> for legacy user agents that do not support the
+  <code title="attr-iframe-srcdoc"><a href="#attr-iframe-srcdoc" id="srcdoc-2">srcdoc</a></code> attribute.<p class="note">If, when the element is created, the <code title="attr-iframe-srcdoc"><a href="#attr-iframe-srcdoc" id="srcdoc-3">srcdoc</a></code> attribute is not set, and
+  the <code title="attr-iframe-src"><a href="#attr-iframe-src" id="src-19">src</a></code> attribute is either
+  also not set or set but its value cannot be <a class="full-spec-link" href="http://dev.w3.org/html5/spec/urls.html#resolve-a-url" title='Read about this "resolved" reference in the full HTML5 spec.'>resolved</a>, the browsing context will remain at the
+  initial <code><a class="full-spec-link" href="http://dev.w3.org/html5/spec/fetching-resources.html#about:blank" title='Read about this "about:blank" reference in the full HTML5 spec.'>about:blank</a></code> page.<p class="note">If the user <a class="full-spec-link" href="http://dev.w3.org/html5/spec/history.html#navigate" title='Read about this "navigates" reference in the full HTML5 spec.'>navigates</a>
+  away from this page, the <code><a href="#the-iframe-element" id="iframe-12">iframe</a></code>'s corresponding
+  <code><a class="full-spec-link" href="http://dev.w3.org/html5/spec/browsers.html#windowproxy" title='Read about this "WindowProxy" reference in the full HTML5 spec.'>WindowProxy</a></code> object will proxy new <code><a href="browsers.html#window" id="window-6">Window</a></code>
+  objects for new <code><a class="full-spec-link" href="http://dev.w3.org/html5/spec/infrastructure.html#document" title='Read about this "Document" reference in the full HTML5 spec.'>Document</a></code> objects, but the <code title="attr-iframe-src"><a href="#attr-iframe-src" id="src-20">src</a></code> attribute will not change.<div class="example">
+
+   <p>Here a blog uses the <code title="attr-iframe-srcdoc"><a href="#attr-iframe-srcdoc" id="srcdoc-4">srcdoc</a></code> attribute in conjunction
+   with the <code title="attr-iframe-sandbox"><a href="#attr-iframe-sandbox" id="sandbox-1">sandbox</a></code> and <code title="attr-iframe-seamless"><a href="#attr-iframe-seamless" id="seamless-0">seamless</a></code> attributes described
+   below to provide users of user agents that support this feature
+   with an extra layer of protection from script injection in the blog
+   post comments:</p>
+
+   <pre>&lt;article&gt;
+ &lt;h1&gt;I got my own magazine!&lt;/h1&gt;
+ &lt;p&gt;After much effort, I've finally found a publisher, and so now I
+ have my own magazine! Isn't that awesome?! The first issue will come
+ out in September, and we have articles about getting food, and about
+ getting in boxes, it's going to be great!&lt;/p&gt;
+ &lt;footer&gt;
+  &lt;p&gt;Written by &lt;a href="/users/cap"&gt;cap&lt;/a&gt;.
+  &lt;time pubdate&gt;2009-08-21T23:32Z&lt;/time&gt;&lt;/p&gt;
+ &lt;/footer&gt;
+ &lt;article&gt;
+  &lt;footer&gt; At &lt;time pubdate&gt;2009-08-21T23:35Z&lt;/time&gt;, &lt;a href="/users/ch"&gt;ch&lt;/a&gt; writes: &lt;/footer&gt;
+  &lt;iframe seamless sandbox="allow-same-origin" srcdoc="&lt;p&gt;did you get a cover picture yet?"&gt;&lt;/iframe&gt;
+ &lt;/article&gt;
+ &lt;article&gt;
+  &lt;footer&gt; At &lt;time pubdate&gt;2009-08-21T23:44Z&lt;/time&gt;, &lt;a href="/users/cap"&gt;cap&lt;/a&gt; writes: &lt;/footer&gt;
+  &lt;iframe seamless sandbox="allow-same-origin" srcdoc="&lt;p&gt;Yeah, you can see it &lt;a href=&amp;quot;/gallery?mode=cover&amp;amp;amp;page=1&amp;quot;&gt;in my gallery&lt;/a&gt;."&gt;&lt;/iframe&gt;
+ &lt;/article&gt;
+ &lt;article&gt;
+  &lt;footer&gt; At &lt;time pubdate&gt;2009-08-21T23:58Z&lt;/time&gt;, &lt;a href="/users/ch"&gt;ch&lt;/a&gt; writes: &lt;/footer&gt;
+  &lt;iframe seamless sandbox="allow-same-origin" srcdoc="&lt;p&gt;hey that's earl's table.
+&lt;p&gt;you should get earl&amp;amp;amp;me on the next cover."&gt;&lt;/iframe&gt;
+ &lt;/article&gt;</pre>
+
+   <p>Notice the way that quotes have to be escaped (otherwise the
+   <code title="attr-iframe-sandbox"><a href="#attr-iframe-sandbox" id="sandbox-2">sandbox</a></code> attribute would
+   end prematurely), and the way raw ampersands (e.g. in URLs or in
+   prose) mentioned in the sandboxed content have to be
+   <em>doubly</em> escaped &mdash; once so that the ampersand is
+   preserved when originally parsing the <code title="attr-iframe-sandbox"><a href="#attr-iframe-sandbox" id="sandbox-3">sandbox</a></code> attribute, and once more
+   to prevent the ampersand from being misinterpreted when parsing the
+   sandboxed content.</p>
+
+  </div><p class="note">In <a href="syntax.html#syntax" id="the-html-syntax-5">the HTML syntax</a>, authors need only
+  remember to use U+0022 QUOTATION MARK characters (") to wrap the
+  attribute contents and then to escape all U+0022 QUOTATION MARK (")
+  and U+0026 AMPERSAND (&amp;) characters, and to specify the <code title="attr-iframe-sandbox"><a href="#attr-iframe-sandbox" id="sandbox-4">sandbox</a></code> attribute, to ensure safe
+  embedding of content.<p class="note">Due to restrictions of <span>the XML syntax</span>,
+  in XML a number of other characters need to be escaped also to
+  ensure correctness.<hr><p>The <dfn id="attr-iframe-name" title="attr-iframe-name"><code>name</code></dfn>
+  attribute, if present, must be a <a href="browsers.html#valid-browsing-context-name" id="valid-browsing-context-name-0">valid browsing context
+  name</a>. The given value is used to name the <a href="browsers.html#nested-browsing-context" id="nested-browsing-context-3">nested
+  browsing context</a>. <hr><p>The <dfn id="attr-iframe-sandbox" title="attr-iframe-sandbox"><code>sandbox</code></dfn>
+  attribute, when specified, enables a set of extra restrictions on
+  any content hosted by the <code><a href="#the-iframe-element" id="iframe-13">iframe</a></code>. Its value must be an
+  <a href="common-microsyntaxes.html#unordered-set-of-unique-space-separated-tokens" id="unordered-set-of-unique-space-separated-tokens-0">unordered set of unique space-separated tokens</a>. The
+  allowed values are <code title="attr-iframe-sandbox-allow-same-origin"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/the-iframe-element.html#attr-iframe-sandbox-allow-same-origin" title='Read about this "allow-same-origin" reference in the full HTML5 spec.'>allow-same-origin</a></code>,
+  <code title="attr-iframe-sandbox-allow-top-navigation"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/the-iframe-element.html#attr-iframe-sandbox-allow-top-navigation" title='Read about this "allow-top-navigation" reference in the full HTML5 spec.'>allow-top-navigation</a></code>,
+  <code title="attr-iframe-sandbox-allow-forms"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/the-iframe-element.html#attr-iframe-sandbox-allow-forms" title='Read about this "allow-forms" reference in the full HTML5 spec.'>allow-forms</a></code>,
+  and <code title="attr-iframe-sandbox-allow-scripts"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/the-iframe-element.html#attr-iframe-sandbox-allow-scripts" title='Read about this "allow-scripts" reference in the full HTML5 spec.'>allow-scripts</a></code>. When
+  the attribute is set, the content is treated as being from a unique
+  <a href="origin-0.html#origin" id="origin-1">origin</a>, forms and scripts are disabled, links are
+  prevented from targeting other <a href="browsers.html#browsing-context" id="browsing-context-4" title="browsing
+  context">browsing contexts</a>, and plugins are disabled. The
+  <code title="attr-iframe-sandbox-allow-same-origin"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/the-iframe-element.html#attr-iframe-sandbox-allow-same-origin" title='Read about this "allow-same-origin" reference in the full HTML5 spec.'>allow-same-origin</a></code>
+  keyword allows the content to be treated as being from the same
+  origin instead of forcing it into a unique origin, the <code title="attr-iframe-sandbox-allow-top-navigation"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/the-iframe-element.html#attr-iframe-sandbox-allow-top-navigation" title='Read about this "allow-top-navigation" reference in the full HTML5 spec.'>allow-top-navigation</a></code>
+  keyword allows the content to <a class="full-spec-link" href="http://dev.w3.org/html5/spec/history.html#navigate" title='Read about this "navigate" reference in the full HTML5 spec.'>navigate</a> its
+  <a href="browsers.html#top-level-browsing-context" id="top-level-browsing-context-0">top-level browsing context</a>, and the <code title="attr-iframe-sandbox-allow-forms"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/the-iframe-element.html#attr-iframe-sandbox-allow-forms" title='Read about this "allow-forms" reference in the full HTML5 spec.'>allow-forms</a></code> and <code title="attr-iframe-sandbox-allow-scripts"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/the-iframe-element.html#attr-iframe-sandbox-allow-scripts" title='Read about this "allow-scripts" reference in the full HTML5 spec.'>allow-scripts</a></code>
+  keywords re-enable forms and scripts respectively (though scripts
+  are still prevented from creating popups).<p class="warning">Setting both the <code title="attr-iframe-sandbox-allow-scripts"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/the-iframe-element.html#attr-iframe-sandbox-allow-scripts" title='Read about this "allow-scripts" reference in the full HTML5 spec.'>allow-scripts</a></code> and
+  <code title="attr-iframe-sandbox-allow-same-origin"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/the-iframe-element.html#attr-iframe-sandbox-allow-same-origin" title='Read about this "allow-same-origin" reference in the full HTML5 spec.'>allow-same-origin</a></code>
+  keywords together when the embedded page has the <a class="full-spec-link" href="http://dev.w3.org/html5/spec/origin-0.html#same-origin" title='Read about this "same origin" reference in the full HTML5 spec.'>same
+  origin</a> as the page containing the <code><a href="#the-iframe-element" id="iframe-14">iframe</a></code> allows
+  the embedded page to simply remove the <code title="attr-iframe-sandbox"><a href="#attr-iframe-sandbox" id="sandbox-5">sandbox</a></code> attribute.<p class="warning">Sandboxing hostile content is of minimal help if
+  an attacker can convince the user to just visit the hostile content
+  directly, rather than in the <code><a href="#the-iframe-element" id="iframe-15">iframe</a></code>. To limit the
+  damage that can be caused by hostile HTML content, it should be
+  served using the <code><a href="iana.html#text-html-sandboxed" id="text-html-sandboxed-2">text/html-sandboxed</a></code> MIME type.<div class="example">
+
+   <p>In this example, some completely-unknown, potentially hostile,
+   user-provided HTML content is embedded in a page. Because it is
+   sandboxed, it is treated by the user agent as being from a unique
+   origin, despite the content being served from the same site. Thus
+   it is affected by all the normal cross-site restrictions. In
+   addition, the embedded page has scripting disabled, plugins
+   disabled, forms disabled, and it cannot navigate any frames or
+   windows other than itself (or any frames or windows it itself
+   embeds).</p>
+
+   <pre>&lt;p&gt;We're not scared of you! Here is your content, unedited:&lt;/p&gt;
+&lt;iframe sandbox src="getusercontent.cgi?id=12193"&gt;&lt;/iframe&gt;</pre>
+
+   <p>Note that cookies are still sent to the server in the <code title="">getusercontent.cgi</code> request, though they are not
+   visible in the <code title="dom-document-cookie"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/dom.html#dom-document-cookie" title='Read about this "document.cookie" reference in the full HTML5 spec.'>document.cookie</a></code> IDL
+   attribute.</p>
+
+   <p class="warning">It is important that the server serve the
+   user-provided HTML using the <code><a href="iana.html#text-html-sandboxed" id="text-html-sandboxed-3">text/html-sandboxed</a></code> MIME
+   type so that if the attacker convinces the user to visit that page
+   directly, the page doesn't run in the context of the site's origin,
+   which would make the user vulnerable to any attack found in the
+   page.</p>
+
+  </div><div class="example">
+
+   <p>In this example, a gadget from another site is embedded. The
+   gadget has scripting and forms enabled, and the origin sandbox
+   restrictions are lifted, allowing the gadget to communicate with
+   its originating server. The sandbox is still useful, however, as it
+   disables plugins and popups, thus reducing the risk of the user
+   being exposed to malware and other annoyances.</p>
+
+   <pre>&lt;iframe sandbox="allow-same-origin allow-forms allow-scripts"
+        src="http://maps.example.com/embedded.html"&gt;&lt;/iframe&gt;</pre>
+
+  </div><div class="example">
+
+   <p>Suppose a file A contained the following fragment:</p>
+
+   <pre>&lt;iframe sandbox="allow-same-origin allow-forms" src=B&gt;&lt;/iframe&gt;</pre>
+
+   <p>Suppose that file B contained an iframe also:</p>
+
+   <pre>&lt;iframe sandbox="allow-scripts" src=C&gt;&lt;/iframe&gt;</pre>
+
+   <p>Further, suppose that file C contained a link:</p>
+
+   <pre>&lt;a href=D&gt;Link&lt;/a&gt;</pre>
+
+   <p>For this example, suppose all the files were served as
+   <code><a href="iana.html#text-html" id="text-html-3">text/html</a></code>.</p>
+
+   <p>Page C in this scenario has all the sandboxing flags
+   set. Scripts are disabled, because the <code><a href="#the-iframe-element" id="iframe-16">iframe</a></code> in A has
+   scripts disabled, and this overrides the <code title="attr-iframe-sandbox-allow-scripts"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/the-iframe-element.html#attr-iframe-sandbox-allow-scripts" title='Read about this "allow-scripts" reference in the full HTML5 spec.'>allow-scripts</a></code>
+   keyword set on the <code><a href="#the-iframe-element" id="iframe-17">iframe</a></code> in B. Forms are also
+   disabled, because the inner <code><a href="#the-iframe-element" id="iframe-18">iframe</a></code> (in B) does not
+   have the <code title="attr-iframe-sandbox-allow-forms"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/the-iframe-element.html#attr-iframe-sandbox-allow-forms" title='Read about this "allow-forms" reference in the full HTML5 spec.'>allow-forms</a></code> keyword
+   set.</p>
+
+   <p>Suppose now that a script in A removes all the <code title="attr-iframe-sandbox"><a href="#attr-iframe-sandbox" id="sandbox-6">sandbox</a></code> attributes in A and
+   B. This would change nothing immediately. If the user clicked the
+   link in C, loading page D into the <code><a href="#the-iframe-element" id="iframe-19">iframe</a></code> in B, page D
+   would now act as if the <code><a href="#the-iframe-element" id="iframe-20">iframe</a></code> in B had the <code title="attr-iframe-sandbox-allow-same-origin"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/the-iframe-element.html#attr-iframe-sandbox-allow-same-origin" title='Read about this "allow-same-origin" reference in the full HTML5 spec.'>allow-same-origin</a></code>
+   and <code title="attr-iframe-sandbox-allow-forms"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/the-iframe-element.html#attr-iframe-sandbox-allow-forms" title='Read about this "allow-forms" reference in the full HTML5 spec.'>allow-forms</a></code> keywords
+   set, because that was the state of the <a href="browsers.html#nested-browsing-context" id="nested-browsing-context-4">nested browsing
+   context</a> in the <code><a href="#the-iframe-element" id="iframe-21">iframe</a></code> in A when page B was
+   loaded.</p>
+
+   <p>Generally speaking, dynamically removing or changing the <code title="attr-iframe-sandbox"><a href="#attr-iframe-sandbox" id="sandbox-7">sandbox</a></code> attribute is
+   ill-advised, because it can make it quite hard to reason about what
+   will be allowed and what will not.</p>
+
+  </div><p class="note">Potentially hostile files can be served from the
+  same server as the file containing the <code><a href="#the-iframe-element" id="iframe-22">iframe</a></code> element
+  by labeling them as <code><a href="iana.html#text-html-sandboxed" id="text-html-sandboxed-4">text/html-sandboxed</a></code> instead of
+  <code><a href="iana.html#text-html" id="text-html-4">text/html</a></code>. This ensures that scripts in the files are
+  unable to attack the site (as if they were actually served from
+  another server), even if the user is tricked into visiting those
+  pages directly, without the protection of the <code title="attr-iframe-sandbox"><a href="#attr-iframe-sandbox" id="sandbox-8">sandbox</a></code> attribute.<p class="warning">If the <code title="attr-iframe-sandbox-allow-scripts"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/the-iframe-element.html#attr-iframe-sandbox-allow-scripts" title='Read about this "allow-scripts" reference in the full HTML5 spec.'>allow-scripts</a></code>
+  keyword is set along with <code title="attr-iframe-sandbox-allow-same-origin"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/the-iframe-element.html#attr-iframe-sandbox-allow-same-origin" title='Read about this "allow-same-origin" reference in the full HTML5 spec.'>allow-same-origin</a></code>
+  keyword, and the file is from the <a class="full-spec-link" href="http://dev.w3.org/html5/spec/origin-0.html#same-origin" title='Read about this "same origin" reference in the full HTML5 spec.'>same origin</a> as the
+  <code><a href="#the-iframe-element" id="iframe-23">iframe</a></code>'s <code><a class="full-spec-link" href="http://dev.w3.org/html5/spec/infrastructure.html#document" title='Read about this "Document" reference in the full HTML5 spec.'>Document</a></code>, then a script in the
+  "sandboxed" iframe could just reach out, remove the <code title="attr-iframe-sandbox"><a href="#attr-iframe-sandbox" id="sandbox-9">sandbox</a></code> attribute, and then
+  reload itself, effectively breaking out of the sandbox
+  altogether.<hr><!-- v2: Might be interesting to have a value on seamless that
+  allowed event propagation of some sort, maybe based on the WICD
+  work: http://www.w3.org/TR/WICD/ --><p>The <dfn id="attr-iframe-seamless" title="attr-iframe-seamless"><code>seamless</code></dfn>
+  attribute is a <a href="common-microsyntaxes.html#boolean-attribute" id="boolean-attribute-5">boolean attribute</a>. When specified, it
+  indicates that the <code><a href="#the-iframe-element" id="iframe-24">iframe</a></code> element's <a href="browsers.html#browsing-context" id="browsing-context-5">browsing
+  context</a> is to be rendered in a manner that makes it appear to
+  be part of the containing document (seamlessly included in the
+  parent document). <p class="note">The attribute can be set or removed dynamically,
+  with the rendering updating in tandem.<div class="example">
+
+   <p>In this example, the site's navigation is embedded using a
+   client-side include using an <code><a href="#the-iframe-element" id="iframe-25">iframe</a></code>. Any links in the
+   <code><a href="#the-iframe-element" id="iframe-26">iframe</a></code> will, in new user agents, be automatically
+   opened in the <code><a href="#the-iframe-element" id="iframe-27">iframe</a></code>'s parent browsing context; for
+   legacy user agents, the site could also include a <code><a href="semantics.html#the-base-element" id="base-11">base</a></code>
+   element with a <code title="attr-base-target"><a href="semantics.html#attr-base-target" id="target-2">target</a></code>
+   attribute with the value <code title="">_parent</code>. Similarly,
+   in new user agents the styles of the parent page will be
+   automatically applied to the contents of the frame, but to support
+   legacy user agents authors might wish to include the styles
+   explicitly.</p>
+
+   <pre>&lt;nav&gt;&lt;iframe seamless src="nav.include.html"&gt;&lt;/iframe&gt;&lt;/nav&gt;</pre>
+
+  </div><hr><p>The <code><a href="#the-iframe-element" id="iframe-28">iframe</a></code> element supports <a href="the-map-element.html#dimension-attributes" id="dimension-attributes-1">dimension
+  attributes</a> for cases where the embedded content has specific
+  dimensions (e.g. ad units have well-defined dimensions).<p>An <code><a href="#the-iframe-element" id="iframe-29">iframe</a></code> element never has <a href="content-models.html#fallback-content" id="fallback-content-1">fallback
+  content</a>, as it will always create a nested <a href="browsers.html#browsing-context" id="browsing-context-6">browsing
+  context</a>, regardless of whether the specified initial contents
+  are successfully used.<p>Descendants of <code><a href="#the-iframe-element" id="iframe-30">iframe</a></code> elements represent
+  nothing. (In legacy user agents that do not support
+  <code><a href="#the-iframe-element" id="iframe-31">iframe</a></code> elements, the contents would be parsed as markup
+  that could act as fallback content.)<p>When used in <a href="dom.html#html-documents" id="html-documents-21">HTML documents</a>, the allowed content
+  model of <code><a href="#the-iframe-element" id="iframe-32">iframe</a></code> elements is text, except that invoking
+  the <a class="full-spec-link" href="http://dev.w3.org/html5/spec/the-end.html#html-fragment-parsing-algorithm" title='Read about this "HTML fragment parsing algorithm" reference in the full HTML5 spec.'>HTML fragment parsing algorithm</a> with the
+  <code><a href="#the-iframe-element" id="iframe-33">iframe</a></code> element as the <var title="">context</var>
+  element and the text contents as the <var title="">input</var> must
+  result in a list of nodes that are all <a href="content-models.html#phrasing-content" id="phrasing-content-96">phrasing
+  content</a>, with no <a class="full-spec-link" href="http://dev.w3.org/html5/spec/parsing.html#parse-error" title='Read about this "parse errors" reference in the full HTML5 spec.'>parse
+  errors</a> having occurred, with no <code><a href="scripting-1.html#script" id="script-26">script</a></code> elements
+  being anywhere in the list or as descendants of elements in the
+  list, and with all the elements in the list (including their
+  descendants) being themselves conforming.<p>The <code><a href="#the-iframe-element" id="iframe-34">iframe</a></code> element must be empty in <a href="dom.html#xml-documents" id="xml-documents-20">XML
+  documents</a>.<p class="note">The <a class="full-spec-link" href="http://dev.w3.org/html5/spec/parsing.html#html-parser" title='Read about this "HTML parser" reference in the full HTML5 spec.'>HTML parser</a> treats markup inside
+  <code><a href="#the-iframe-element" id="iframe-35">iframe</a></code> elements as text.<div class="example">
+
+   <p>Here is an example of a page using an <code><a href="#the-iframe-element" id="iframe-36">iframe</a></code> to
+   include advertising from an advertising broker:</p>
+
+   <pre>&lt;iframe src="http://ads.example.com/?customerid=923513721&amp;amp;format=banner"
+        width="468" height="60"&gt;&lt;/iframe&gt;</pre>
+
+  </div><h4 id="the-embed-element"><span class="secno">4.8.3 </span>The <dfn><code>embed</code></dfn> element</h4><!-- (v2?)
+ we have all kinds of quirks we should define if they come up during
+ testing, as e.g. shown in:
+ http://mxr.mozilla.org/mozilla-central/source/layout/generic/nsObjectFrame.cpp
+ http://trac.webkit.org/browser/trunk/WebCore/html/HTMLEmbedElement.cpp
+ http://trac.webkit.org/browser/trunk/WebCore/rendering/RenderPartObject.cpp (updateWidget)
+ e.g. - 240x200 default
+      - the attributes/params are sent in a name/value pair list as follows (for Gecko):
+         + attributes of the element, in source order
+         + a synthesised 'src' attribute, if there was no 'src' but
+           there was a 'data', with the value of the 'data' attribute
+         + the params, in source order
+        (WebKit does something different still)
+      - the HIDDEN attribute (might be moot now)
+--><dl class="element"><dt>Categories</dt>
+   <dd><a href="content-models.html#flow-content" id="flow-content-89">Flow content</a>.</dd>
+   <dd><a href="content-models.html#phrasing-content" id="phrasing-content-97">Phrasing content</a>.</dd>
+   <dd><a href="content-models.html#embedded-content" id="embedded-content-10">Embedded content</a>.</dd>
+   <dd><a href="content-models.html#interactive-content" id="interactive-content-7">Interactive content</a>.</dd>
+   <dt>Contexts in which this element may be used:</dt>
+   <dd>Where <a href="content-models.html#embedded-content" id="embedded-content-11">embedded content</a> is expected.</dd>
+   <dt>Content model:</dt>
+   <dd>Empty.</dd>
+   <dt>Content attributes:</dt>
+   <dd><a href="elements.html#global-attributes" id="global-attributes-61">Global attributes</a></dd>
+   <dd><code title="attr-embed-src"><a href="#attr-embed-src" id="src-22">src</a></code></dd>
+   <dd><code title="attr-embed-type"><a href="#attr-embed-type" id="type-16">type</a></code></dd>
+   <dd><code title="attr-dim-width"><a href="the-map-element.html#attr-dim-width" id="width-6">width</a></code></dd>
+   <dd><code title="attr-dim-height"><a href="the-map-element.html#attr-dim-height" id="height-6">height</a></code></dd>
+   <dd>Any other attribute that has no namespace (see prose).</dd>
+   <dt>DOM interface:</dt>
+   <dd>
+<pre class="idl">interface <dfn id="htmlembedelement">HTMLEmbedElement</dfn> : <a href="elements.html#htmlelement" id="htmlelement-65">HTMLElement</a> {
+           attribute DOMString <a class="full-spec-link" href="http://dev.w3.org/html5/spec/the-iframe-element.html#dom-embed-src" title='Read about this "src" reference in the full HTML5 spec.'>src</a>;
+           attribute DOMString <a class="full-spec-link" href="http://dev.w3.org/html5/spec/the-iframe-element.html#dom-embed-type" title='Read about this "type" reference in the full HTML5 spec.'>type</a>;
+           attribute DOMString <a class="full-spec-link" href="http://dev.w3.org/html5/spec/the-map-element.html#dom-dim-width" title='Read about this "width" reference in the full HTML5 spec.'>width</a>;
+           attribute DOMString <a class="full-spec-link" href="http://dev.w3.org/html5/spec/the-map-element.html#dom-dim-height" title='Read about this "height" reference in the full HTML5 spec.'>height</a>;
+};</pre>
+    
+   </dd>
+  </dl><p>The <code><a href="#the-embed-element" id="embed-8">embed</a></code> element <a class="full-spec-link" href="http://dev.w3.org/html5/spec/rendering.html#represents" title='Read about this "represents" reference in the full HTML5 spec.'>represents</a> an
+  integration point for an external (typically non-HTML) application
+  or interactive content.<p>The <dfn id="attr-embed-src" title="attr-embed-src"><code>src</code></dfn> attribute
+  gives the address of the resource being embedded. The attribute, if
+  present, must contain a <a href="urls.html#valid-non-empty-url-potentially-surrounded-by-spaces" id="valid-non-empty-url-potentially-surrounded-by-spaces-5">valid non-empty URL potentially
+  surrounded by spaces</a>.<p>The <dfn id="attr-embed-type" title="attr-embed-type"><code>type</code></dfn>
+  attribute, if present, gives the <a href="infrastructure.html#mime-type" id="mime-type-5">MIME type</a> by which the
+  plugin to instantiate is selected. The value must be a <a href="infrastructure.html#valid-mime-type" id="valid-mime-type-4">valid
+  MIME type</a>. If both the <code title="attr-embed-type"><a href="#attr-embed-type" id="type-17">type</a></code> attribute and the <code title="attr-embed-src"><a href="#attr-embed-src" id="src-23">src</a></code> attribute are present, then the
+  <code title="attr-embed-type"><a href="#attr-embed-type" id="type-18">type</a></code> attribute must specify the
+  same type as the <a class="full-spec-link" href="http://dev.w3.org/html5/spec/fetching-resources.html#content-type" title='Read about this "explicit Content-Type metadata" reference in the full HTML5 spec.'>explicit Content-Type
+  metadata</a> of the resource given by the <code title="attr-embed-src"><a href="#attr-embed-src" id="src-24">src</a></code> attribute.<p>Any namespace-less attribute other than <code title="attr-embed-name"><a href="obsolete.html#attr-embed-name" id="name-57">name</a></code>, <code title="attr-embed-align"><a href="obsolete.html#attr-embed-align" id="align">align</a></code>, <code title="attr-embed-hspace"><a href="obsolete.html#attr-embed-hspace" id="hspace">hspace</a></code>, and <code title="attr-embed-vspace"><a href="obsolete.html#attr-embed-vspace" id="vspace">vspace</a></code> <!-- when editing, see also
+  note below --> may be specified on the <code><a href="#the-embed-element" id="embed-9">embed</a></code> element,
+  so long as its name is <a href="infrastructure.html#xml-compatible" id="xml-compatible-1">XML-compatible</a> and contains no
+  characters in the range U+0041 to U+005A (LATIN CAPITAL LETTER A to
+  LATIN CAPITAL LETTER Z). These attributes are then passed as
+  parameters to the <a href="infrastructure.html#plugin" id="plugin-3">plugin</a>.<p class="note">All attributes in <a href="dom.html#html-documents" id="html-documents-22">HTML documents</a> get
+  lowercased automatically, so the restriction on uppercase letters
+  doesn't affect such documents.<p class="note">The four exceptions are to exclude legacy attributes
+  that have side-effects beyond just sending parameters to the
+  <a href="infrastructure.html#plugin" id="plugin-4">plugin</a>.<p>The <code><a href="#the-embed-element" id="embed-10">embed</a></code> element supports <a href="the-map-element.html#dimension-attributes" id="dimension-attributes-2">dimension
+  attributes</a>.<div class="example">
+
+   <p>Here's a way to embed a resource that requires a proprietary
+   plug-in, like Flash:</p>
+
+   <pre>&lt;embed src="catgame.swf"&gt;</pre>
+
+   <p>If the user does not have the plug-in (for example if the
+   plug-in vendor doesn't support the user's platform), then the user
+   will be unable to use the resource.</p>
+
+   <p>To pass the plugin a parameter "quality" with the value "high",
+   an attribute can be specified:</p>
+
+   <pre>&lt;embed src="catgame.swf" quality="high"&gt;</pre>
+
+   <p>This would be equivalent to the following, when using an
+   <code><a href="#the-object-element" id="object-11">object</a></code> element instead:</p>
+
+   <pre>&lt;object data="catgame.swf"&gt;
+ &lt;param name="quality" value="high"&gt;
+&lt;/object&gt;</pre>
+
+  </div><h4 id="the-object-element"><span class="secno">4.8.4 </span>The <dfn><code>object</code></dfn> element</h4><dl class="element"><dt>Categories</dt>
+   <dd><a href="content-models.html#flow-content" id="flow-content-90">Flow content</a>.</dd>
+   <dd><a href="content-models.html#phrasing-content" id="phrasing-content-98">Phrasing content</a>.</dd>
+   <dd><a href="content-models.html#embedded-content" id="embedded-content-12">Embedded content</a>.</dd>
+   <dd>If the element has a <code title="attr-hyperlink-usemap"><a href="the-map-element.html#attr-hyperlink-usemap" id="usemap-4">usemap</a></code> attribute: <a href="content-models.html#interactive-content" id="interactive-content-8">Interactive content</a>.</dd> <!-- also when showing a plugin or a nested browsing context, but checking that statically is hard...) -->
+   <dd><a href="forms.html#category-listed" id="category-listed-1" title="category-listed">Listed</a>,  <a href="forms.html#category-submit" id="category-submit-0" title="category-submit">submittable</a>, <a href="forms.html#form-associated-element" id="form-associated-element-1">form-associated element</a>.</dd>
+   <dt>Contexts in which this element may be used:</dt>
+   <dd>Where <a href="content-models.html#embedded-content" id="embedded-content-13">embedded content</a> is expected.</dd>
+   <dt>Content model:</dt>
+   <dd>Zero or more <code><a href="#the-param-element" id="param-1">param</a></code> elements, then, <a href="content-models.html#transparent" id="transparent-6">transparent</a>.</dd>
+   <dt>Content attributes:</dt>
+   <dd><a href="elements.html#global-attributes" id="global-attributes-62">Global attributes</a></dd>
+   <dd><code title="attr-object-data"><a href="#attr-object-data" id="data">data</a></code></dd>
+   <dd><code title="attr-object-type"><a href="#attr-object-type" id="type-20">type</a></code></dd>
+   <dd><code title="attr-object-name"><a href="#attr-object-name" id="name-11">name</a></code></dd>
+   <dd><code title="attr-hyperlink-usemap"><a href="the-map-element.html#attr-hyperlink-usemap" id="usemap-5">usemap</a></code></dd>
+   <dd><code title="attr-fae-form"><a href="association-of-controls-and-forms.html#attr-fae-form" id="form-41">form</a></code></dd>
+   <dd><code title="attr-dim-width"><a href="the-map-element.html#attr-dim-width" id="width-7">width</a></code></dd>
+   <dd><code title="attr-dim-height"><a href="the-map-element.html#attr-dim-height" id="height-7">height</a></code></dd>
+   <dt>DOM interface:</dt>
+   <dd>
+<pre class="idl">interface <dfn id="htmlobjectelement">HTMLObjectElement</dfn> : <a href="elements.html#htmlelement" id="htmlelement-66">HTMLElement</a> {
+           attribute DOMString <a class="full-spec-link" href="http://dev.w3.org/html5/spec/the-iframe-element.html#dom-object-data" title='Read about this "data" reference in the full HTML5 spec.'>data</a>;
+           attribute DOMString <a class="full-spec-link" href="http://dev.w3.org/html5/spec/the-iframe-element.html#dom-object-type" title='Read about this "type" reference in the full HTML5 spec.'>type</a>;
+           attribute DOMString <a class="full-spec-link" href="http://dev.w3.org/html5/spec/the-iframe-element.html#dom-object-name" title='Read about this "name" reference in the full HTML5 spec.'>name</a>;
+           attribute DOMString <a class="full-spec-link" href="http://dev.w3.org/html5/spec/the-iframe-element.html#dom-object-usemap" title='Read about this "useMap" reference in the full HTML5 spec.'>useMap</a>;
+  readonly attribute <a href="forms.html#htmlformelement" id="htmlformelement-0">HTMLFormElement</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/association-of-controls-and-forms.html#dom-fae-form" title='Read about this "form" reference in the full HTML5 spec.'>form</a>;
+           attribute DOMString <a class="full-spec-link" href="http://dev.w3.org/html5/spec/the-map-element.html#dom-dim-width" title='Read about this "width" reference in the full HTML5 spec.'>width</a>;
+           attribute DOMString <a class="full-spec-link" href="http://dev.w3.org/html5/spec/the-map-element.html#dom-dim-height" title='Read about this "height" reference in the full HTML5 spec.'>height</a>;
+  readonly attribute Document <a class="full-spec-link" href="http://dev.w3.org/html5/spec/the-iframe-element.html#dom-object-contentdocument" title='Read about this "contentDocument" reference in the full HTML5 spec.'>contentDocument</a>;
+  readonly attribute <a class="full-spec-link" href="http://dev.w3.org/html5/spec/browsers.html#windowproxy" title='Read about this "WindowProxy" reference in the full HTML5 spec.'>WindowProxy</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/the-iframe-element.html#dom-object-contentwindow" title='Read about this "contentWindow" reference in the full HTML5 spec.'>contentWindow</a>;
+
+  readonly attribute boolean <a class="full-spec-link" href="http://dev.w3.org/html5/spec/association-of-controls-and-forms.html#dom-cva-willvalidate" title='Read about this "willValidate" reference in the full HTML5 spec.'>willValidate</a>;
+  readonly attribute <a class="full-spec-link" href="http://dev.w3.org/html5/spec/association-of-controls-and-forms.html#validitystate" title='Read about this "ValidityState" reference in the full HTML5 spec.'>ValidityState</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/association-of-controls-and-forms.html#dom-cva-validity" title='Read about this "validity" reference in the full HTML5 spec.'>validity</a>;
+  readonly attribute DOMString <a class="full-spec-link" href="http://dev.w3.org/html5/spec/association-of-controls-and-forms.html#dom-cva-validationmessage" title='Read about this "validationMessage" reference in the full HTML5 spec.'>validationMessage</a>;
+  boolean <a class="full-spec-link" href="http://dev.w3.org/html5/spec/association-of-controls-and-forms.html#dom-cva-checkvalidatity" title='Read about this "checkValidity" reference in the full HTML5 spec.'>checkValidity</a>();
+  void <a class="full-spec-link" href="http://dev.w3.org/html5/spec/association-of-controls-and-forms.html#dom-cva-setcustomvalidity" title='Read about this "setCustomValidity" reference in the full HTML5 spec.'>setCustomValidity</a>(in DOMString error);
+};</pre>
+    
+   </dd>
+  </dl><p>The <code><a href="#the-object-element" id="object-12">object</a></code> element can represent an external
+  resource, which, depending on the type of the resource, will either
+  be treated as an image, as a <a href="browsers.html#nested-browsing-context" id="nested-browsing-context-5">nested browsing context</a>,
+  or as an external resource to be processed by a
+  <a href="infrastructure.html#plugin" id="plugin-5">plugin</a>.<p>The <dfn id="attr-object-data" title="attr-object-data"><code>data</code></dfn>
+  attribute, if present, specifies the address of the resource. If
+  present, the attribute must be a <a href="urls.html#valid-non-empty-url-potentially-surrounded-by-spaces" id="valid-non-empty-url-potentially-surrounded-by-spaces-6">valid non-empty
+  URL potentially surrounded by spaces</a>.<p>The <dfn id="attr-object-type" title="attr-object-type"><code>type</code></dfn>
+  attribute, if present, specifies the type of the resource. If
+  present, the attribute must be a <a href="infrastructure.html#valid-mime-type" id="valid-mime-type-5">valid MIME type</a>.<p>At least one of either the <code title="attr-object-data"><a href="#attr-object-data" id="data-0">data</a></code> attribute or the <code title="attr-object-type"><a href="#attr-object-type" id="type-21">type</a></code> attribute must be present.<p>The <dfn id="attr-object-name" title="attr-object-name"><code>name</code></dfn>
+  attribute, if present, must be a <a href="browsers.html#valid-browsing-context-name" id="valid-browsing-context-name-1">valid browsing context
+  name</a>. The given value is used to name the <a href="browsers.html#nested-browsing-context" id="nested-browsing-context-6">nested
+  browsing context</a>, if applicable.<p>The <code title="attr-hyperlink-usemap"><a href="the-map-element.html#attr-hyperlink-usemap" id="usemap-6">usemap</a></code> attribute,
+  if present while the <code><a href="#the-object-element" id="object-13">object</a></code> element represents an
+  image, can indicate that the object has an associated <a href="the-map-element.html#image-map" id="image-map-2">image
+  map</a>. <p>The <code title="attr-fae-form"><a href="association-of-controls-and-forms.html#attr-fae-form" id="form-42">form</a></code> attribute is used to
+  explicitly associate the <code><a href="#the-object-element" id="object-14">object</a></code> element with its
+  <a href="association-of-controls-and-forms.html#form-owner" id="form-owner-0">form owner</a>.<p>The <code><a href="#the-object-element" id="object-15">object</a></code> element supports <a href="the-map-element.html#dimension-attributes" id="dimension-attributes-3">dimension
+  attributes</a>.<div class="example">
+
+   <p>In the following example, a Java applet is embedded in a page
+   using the <code><a href="#the-object-element" id="object-16">object</a></code> element. (Generally speaking, it is
+   better to avoid using applets like these and instead use native
+   JavaScript and HTML to provide the functionality, since that way
+   the application will work on all Web browsers without requiring a
+   third-party plugin. Many devices, especially embedded devices, do
+   not support third-party technologies like Java.)</p>
+
+   <pre>&lt;figure&gt;
+ &lt;object type="application/x-java-applet"&gt;
+  &lt;param name="code" value="MyJavaClass"&gt;
+  &lt;p&gt;You do not have Java available, or it is disabled.&lt;/p&gt;
+ &lt;/object&gt;
+ &lt;figcaption&gt;My Java Clock&lt;/figcaption&gt;
+&lt;/figure&gt;</pre>
+
+  </div><div class="example">
+
+   <p>In this example, an HTML page is embedded in another using the
+   <code><a href="#the-object-element" id="object-17">object</a></code> element.</p>
+
+   <pre>&lt;figure&gt;
+ &lt;object data="clock.html"&gt;&lt;/object&gt;
+ &lt;figcaption&gt;My HTML Clock&lt;/figcaption&gt;
+&lt;/figure&gt;</pre>
+
+  </div><div class="example">
+
+   <p>The following example shows how a plugin can be used in HTML (in
+   this case the Flash plugin, to show a video file). Fallback is
+   provided for users who do not have Flash enabled, in this case
+   using the <code><a href="video.html#video" id="video-12">video</a></code> element to show the video for those
+   using user agents that support <code><a href="video.html#video" id="video-13">video</a></code>, and finally
+   providing a link to the video for those who have neither Flash nor
+   a <code><a href="video.html#video" id="video-14">video</a></code>-capable browser.</p>
+
+   <pre>&lt;p&gt;Look at my video:
+ &lt;object type="application/x-shockwave-flash"&gt;
+  &lt;param name=movie value="http://video.example.com/library/watch.swf"&gt;
+  &lt;param name=allowfullscreen value=true&gt;
+  &lt;param name=flashvars value="http://video.example.com/vids/315981"&gt;
+  &lt;video controls src="http://video.example.com/vids/315981"&gt;
+   &lt;a href="http://video.example.com/vids/315981"&gt;View video&lt;/a&gt;.
+  &lt;/video&gt;
+ &lt;/object&gt;
+&lt;/p&gt;</pre>
+
+  </div><h4 id="the-param-element"><span class="secno">4.8.5 </span>The <dfn><code>param</code></dfn> element</h4><dl class="element"><dt>Categories</dt>
+   <dd>None.</dd>
+   <dt>Contexts in which this element may be used:</dt>
+   <dd>As a child of an <code><a href="#the-object-element" id="object-18">object</a></code> element, before any <a href="content-models.html#flow-content" id="flow-content-91">flow content</a>.</dd>
+   <dt>Content model:</dt>
+   <dd>Empty.</dd>
+   <dt>Content attributes:</dt>
+   <dd><a href="elements.html#global-attributes" id="global-attributes-63">Global attributes</a></dd>
+   <dd><code title="attr-param-name"><a href="#attr-param-name" id="name-13">name</a></code></dd>
+   <dd><code title="attr-param-value"><a href="#attr-param-value" id="value-1">value</a></code></dd>
+   <dt>DOM interface:</dt>
+   <dd>
+<pre class="idl">interface <dfn id="htmlparamelement">HTMLParamElement</dfn> : <a href="elements.html#htmlelement" id="htmlelement-67">HTMLElement</a> {
+           attribute DOMString <a class="full-spec-link" href="http://dev.w3.org/html5/spec/the-iframe-element.html#dom-param-name" title='Read about this "name" reference in the full HTML5 spec.'>name</a>;
+           attribute DOMString <a class="full-spec-link" href="http://dev.w3.org/html5/spec/the-iframe-element.html#dom-param-value" title='Read about this "value" reference in the full HTML5 spec.'>value</a>;
+};</pre>
+   </dd>
+  </dl><p>The <code><a href="#the-param-element" id="param-2">param</a></code> element defines parameters for plugins
+  invoked by <code><a href="#the-object-element" id="object-19">object</a></code> elements. It does not <a class="full-spec-link" href="http://dev.w3.org/html5/spec/rendering.html#represents" title='Read about this "represent" reference in the full HTML5 spec.'>represent</a> anything on its own.<p>The <dfn id="attr-param-name" title="attr-param-name"><code>name</code></dfn>
+  attribute gives the name of the parameter.<p>The <dfn id="attr-param-value" title="attr-param-value"><code>value</code></dfn>
+  attribute gives the value of the parameter.<p>Both attributes must be present. They may have any value.<div class="example">
+
+   <p>The following example shows how the <code><a href="#the-param-element" id="param-3">param</a></code> element
+   can be used to pass a parameter to a plugin, in this case the O3D
+   plugin.</p>
+
+   <pre>&lt;!DOCTYPE HTML&gt;
+&lt;html lang="en"&gt;
+  &lt;head&gt;
+   &lt;title&gt;O3D Utah Teapot&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+   &lt;p&gt;
+    &lt;object type="application/vnd.o3d.auto"&gt;
+     <strong>&lt;param name="o3d_features" value="FloatingPointTextures"&gt;</strong>
+     &lt;img src="o3d-teapot.png"
+          title="3D Utah Teapot illustration rendered using O3D."
+          alt="When O3D renders the Utah Teapot, it appears as a squat
+          teapot with a shiny metallic finish on which the
+          surroundings are reflected, with a faint shadow caused by
+          the lighting."&gt;
+     &lt;p&gt;To see the teapot actually rendered by O3D on your
+     computer, please download and install the &lt;a
+     href="http://code.google.com/apis/o3d/docs/gettingstarted.html#install"&gt;O3D plugin&lt;/a&gt;.&lt;/p&gt;
+    &lt;/object&gt;
+    &lt;script src="o3d-teapot.js"&gt;&lt;/script&gt;
+   &lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+
+  </div>

@@ -1,0 +1,1284 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"><!-- when publishing, change bits marked ZZZ --><html class="split chapter" lang="en-US-x-Hixie"><meta content="text/html; charset=ascii" http-equiv="Content-Type"><title>4.9 Tabular data &mdash; HTML5 (Edition for Web Authors)</title><link href="whatwg.css" rel="stylesheet"><style type="text/css">
+   pre { margin-left: 2em; white-space: pre-wrap; }
+   h2 { margin: 3em 0 1em 0; }
+   h3 { margin: 2.5em 0 1em 0; }
+   h4 { margin: 2.5em 0 0.75em 0; }
+   h5, h6 { margin: 2.5em 0 1em; }
+   h1 + h2, h1 + h2 + h2 { margin: 0.75em 0 0.75em; }
+   h2 + h3, h3 + h4, h4 + h5, h5 + h6 { margin-top: 0.5em; }
+   p { margin: 1em 0; }
+   hr:not(.top) { display: block; background: none; border: none; padding: 0; margin: 2em 0; height: auto; }
+   dl, dd { margin-top: 0; margin-bottom: 0; }
+   dt { margin-top: 0.75em; margin-bottom: 0.25em; clear: left; }
+   dt + dt { margin-top: 0; }
+   dd dt { margin-top: 0.25em; margin-bottom: 0; }
+   dd p { margin-top: 0; }
+   dd dl + p { margin-top: 1em; }
+   dd table + p { margin-top: 1em; }
+   p + * > li, dd li { margin: 1em 0; }
+   dt, dfn { font-weight: bold; font-style: normal; }
+   dt dfn { font-style: italic; }
+   pre, code { font-size: inherit; font-family: monospace; font-variant: normal; }
+   pre strong { color: black; font: inherit; font-weight: bold; background: yellow; }
+   pre em { font-weight: bolder; font-style: normal; }
+   @media screen { code { color: orangered; } code :link, code :visited { color: inherit; } }
+   var sub { vertical-align: bottom; font-size: smaller; position: relative; top: 0.1em; }
+   table { border-collapse: collapse; border-style: hidden hidden none hidden; }
+   table thead, table tbody { border-bottom: solid; }
+   table tbody th:first-child { border-left: solid; }
+   table tbody th { text-align: left; }
+   table td, table th { border-left: solid; border-right: solid; border-bottom: solid thin; vertical-align: top; padding: 0.2em; }
+   blockquote { margin: 0 0 0 2em; border: 0; padding: 0; font-style: italic; }
+
+   .bad, .bad *:not(.XXX) { color: gray; border-color: gray; background: transparent; }
+   .matrix, .matrix td { border: none; text-align: right; }
+   .matrix { margin-left: 2em; }
+   .dice-example { border-collapse: collapse; border-style: hidden solid solid hidden; border-width: thin; margin-left: 3em; }
+   .dice-example caption { width: 30em; font-size: smaller; font-style: italic; padding: 0.75em 0; text-align: left; }
+   .dice-example td, .dice-example th { border: solid thin; width: 1.35em; height: 1.05em; text-align: center; padding: 0; }
+
+   .toc dfn, h1 dfn, h2 dfn, h3 dfn, h4 dfn, h5 dfn, h6 dfn { font: inherit; }
+   img.extra { float: right; }
+   pre.idl { border: solid thin; background: #EEEEEE; color: black; padding: 0.5em 1em; }
+   pre.idl :link, pre.idl :visited { color: inherit; background: transparent; }
+   pre.css { border: solid thin; background: #FFFFEE; color: black; padding: 0.5em 1em; }
+   pre.css:first-line { color: #AAAA50; }
+   dl.domintro { color: green; margin: 2em 0 2em 2em; padding: 0.5em 1em; border: none; background: #DDFFDD; }
+   hr + dl.domintro, div.impl + dl.domintro { margin-top: 2.5em; margin-bottom: 1.5em; }
+   dl.domintro dt, dl.domintro dt * { color: black; text-decoration: none; }
+   dl.domintro dd { margin: 0.5em 0 1em 2em; padding: 0; }
+   dl.domintro dd p { margin: 0.5em 0; }
+   dl.switch { padding-left: 2em; }
+   dl.switch > dt { text-indent: -1.5em; }
+   dl.switch > dt:before { content: '\21AA'; padding: 0 0.5em 0 0; display: inline-block; width: 1em; text-align: right; line-height: 0.5em; }
+   dl.triple { padding: 0 0 0 1em; }
+   dl.triple dt, dl.triple dd { margin: 0; display: inline }
+   dl.triple dt:after { content: ':'; }
+   dl.triple dd:after { content: '\A'; white-space: pre; }
+   .diff-old { text-decoration: line-through; color: silver; background: transparent; }
+   .diff-chg, .diff-new { text-decoration: underline; color: green; background: transparent; }
+   a .diff-new { border-bottom: 1px blue solid; }
+
+   h2 { page-break-before: always; }
+   h1, h2, h3, h4, h5, h6 { page-break-after: avoid; }
+   h1 + h2, hr + h2.no-toc { page-break-before: auto; }
+
+   p > span:not([title=""]):not([class="XXX"]):not([class="impl"]), li > span:not([title=""]):not([class="XXX"]):not([class="impl"]) { border-bottom: solid #9999CC; }
+
+   div.head { margin: 0 0 1em; padding: 1em 0 0 0; }
+   div.head p { margin: 0; }
+   div.head h1 { margin: 0; }
+   div.head .logo { float: right; margin: 0 1em; }
+   div.head .logo img { border: none } /* remove border from top image */
+   div.head dl { margin: 1em 0; }
+   div.head p.copyright, div.head p.alt { font-size: x-small; font-style: oblique; margin: 0; }
+
+   body > .toc > li { margin-top: 1em; margin-bottom: 1em; }
+   body > .toc.brief > li { margin-top: 0.35em; margin-bottom: 0.35em; }
+   body > .toc > li > * { margin-bottom: 0.5em; }
+   body > .toc > li > * > li > * { margin-bottom: 0.25em; }
+   .toc, .toc li { list-style: none; }
+
+   .brief { margin-top: 1em; margin-bottom: 1em; line-height: 1.1; }
+   .brief li { margin: 0; padding: 0; }
+   .brief li p { margin: 0; padding: 0; }
+
+   .category-list { margin-top: -0.75em; margin-bottom: 1em; line-height: 1.5; }
+   .category-list::before { content: '\21D2\A0'; font-size: 1.2em; font-weight: 900; }
+   .category-list li { display: inline; }
+   .category-list li:not(:last-child)::after { content: ', '; }
+   .category-list li > span, .category-list li > a { text-transform: lowercase; }
+   .category-list li * { text-transform: none; } /* don't affect <code> nested in <a> */
+
+   .XXX { color: #E50000; background: white; border: solid red; padding: 0.5em; margin: 1em 0; }
+   .XXX > :first-child { margin-top: 0; }
+   p .XXX { line-height: 3em; }
+   .annotation { border: solid thin black; background: #0C479D; color: white; position: relative; margin: 8px 0 20px 0; }
+   .annotation:before { position: absolute; left: 0; top: 0; width: 100%; height: 100%; margin: 6px -6px -6px 6px; background: #333333; z-index: -1; content: ''; }
+   .annotation :link, .annotation :visited { color: inherit; }
+   .annotation :link:hover, .annotation :visited:hover { background: transparent; }
+   .annotation span { border: none ! important; }
+   .note { color: green; background: transparent; font-family: sans-serif; }
+   .warning { color: red; background: transparent; }
+   .note, .warning { font-weight: bolder; font-style: italic; }
+   p.note, div.note { padding: 0.5em 2em; }
+   span.note { padding: 0 2em; }
+   .note p:first-child, .warning p:first-child { margin-top: 0; }
+   .note p:last-child, .warning p:last-child { margin-bottom: 0; }
+   .warning:before { font-style: normal; }
+   p.note:before { content: 'Note: '; }
+   p.warning:before { content: '\26A0 Warning! '; }
+
+   .bookkeeping:before { display: block; content: 'Bookkeeping details'; font-weight: bolder; font-style: italic; }
+   .bookkeeping { font-size: 0.8em; margin: 2em 0; }
+   .bookkeeping p { margin: 0.5em 2em; display: list-item; list-style: square; }
+   .bookkeeping dt { margin: 0.5em 2em 0; }
+   .bookkeeping dd { margin: 0 3em 0.5em; }
+
+   h4 { position: relative; z-index: 3; }
+   h4 + .element, h4 + div + .element { margin-top: -2.5em; padding-top: 2em; }
+   .element {
+     background: #EEEEFF;
+     color: black;
+     margin: 0 0 1em 0.15em;
+     padding: 0 1em 0.25em 0.75em;
+     border-left: solid #9999FF 0.25em;
+     position: relative;
+     z-index: 1;
+   }
+   .element:before {
+     position: absolute;
+     z-index: 2;
+     top: 0;
+     left: -1.15em;
+     height: 2em;
+     width: 0.9em;
+     background: #EEEEFF;
+     content: ' ';
+     border-style: none none solid solid;
+     border-color: #9999FF;
+     border-width: 0.25em;
+   }
+
+   .example { display: block; color: #222222; background: #FCFCFC; border-left: double; margin-left: 2em; padding-left: 1em; }
+   td > .example:only-child { margin: 0 0 0 0.1em; }
+
+   ul.domTree, ul.domTree ul { padding: 0 0 0 1em; margin: 0; }
+   ul.domTree li { padding: 0; margin: 0; list-style: none; position: relative; }
+   ul.domTree li li { list-style: none; }
+   ul.domTree li:first-child::before { position: absolute; top: 0; height: 0.6em; left: -0.75em; width: 0.5em; border-style: none none solid solid; content: ''; border-width: 0.1em; }
+   ul.domTree li:not(:last-child)::after { position: absolute; top: 0; bottom: -0.6em; left: -0.75em; width: 0.5em; border-style: none none solid solid; content: ''; border-width: 0.1em; }
+   ul.domTree span { font-style: italic; font-family: serif; }
+   ul.domTree .t1 code { color: purple; font-weight: bold; }
+   ul.domTree .t2 { font-style: normal; font-family: monospace; }
+   ul.domTree .t2 .name { color: black; font-weight: bold; }
+   ul.domTree .t2 .value { color: blue; font-weight: normal; }
+   ul.domTree .t3 code, .domTree .t4 code, .domTree .t5 code { color: gray; }
+   ul.domTree .t7 code, .domTree .t8 code { color: green; }
+   ul.domTree .t10 code { color: teal; }
+
+   body.dfnEnabled dfn { cursor: pointer; }
+   .dfnPanel {
+     display: inline;
+     position: absolute;
+     z-index: 10;
+     height: auto;
+     width: auto;
+     padding: 0.5em 0.75em;
+     font: small sans-serif, Droid Sans Fallback;
+     background: #DDDDDD;
+     color: black;
+     border: outset 0.2em;
+   }
+   .dfnPanel * { margin: 0; padding: 0; font: inherit; text-indent: 0; }
+   .dfnPanel :link, .dfnPanel :visited { color: black; }
+   .dfnPanel p { font-weight: bolder; }
+   .dfnPanel * + p { margin-top: 0.25em; }
+   .dfnPanel li { list-style-position: inside; }
+
+   #configUI { position: absolute; z-index: 20; top: 10em; right: 1em; width: 11em; font-size: small; }
+   #configUI p { margin: 0.5em 0; padding: 0.3em; background: #EEEEEE; color: black; border: inset thin; }
+   #configUI p label { display: block; }
+   #configUI #updateUI, #configUI .loginUI { text-align: center; }
+   #configUI input[type=button] { display: block; margin: auto; }
+
+  </style><style type="text/css">
+
+   .applies thead th > * { display: block; }
+   .applies thead code { display: block; }
+   .applies tbody th { whitespace: nowrap; }
+   .applies td { text-align: center; }
+   .applies .yes { background: yellow; }
+
+   .matrix, .matrix td { border: hidden; text-align: right; }
+   .matrix { margin-left: 2em; }
+
+   .dice-example { border-collapse: collapse; border-style: hidden solid solid hidden; border-width: thin; margin-left: 3em; }
+   .dice-example caption { width: 30em; font-size: smaller; font-style: italic; padding: 0.75em 0; text-align: left; }
+   .dice-example td, .dice-example th { border: solid thin; width: 1.35em; height: 1.05em; text-align: center; padding: 0; }
+
+   #table-example-1 { border: solid thin; border-collapse: collapse; margin-left: 3em; }
+   #table-example-1 * { font-family: "Essays1743", serif; line-height: 1.01em; }
+   #table-example-1 caption { padding-bottom: 0.5em; }
+   #table-example-1 thead, #table-example-1 tbody { border: none; }
+   #table-example-1 th, #table-example-1 td { border: solid thin; }
+   #table-example-1 th { font-weight: normal; }
+   #table-example-1 td { border-style: none solid; vertical-align: top; }
+   #table-example-1 th { padding: 0.5em; vertical-align: middle; text-align: center; }
+   #table-example-1 tbody tr:first-child td { padding-top: 0.5em; }
+   #table-example-1 tbody tr:last-child td { padding-bottom: 1.5em; }
+   #table-example-1 tbody td:first-child { padding-left: 2.5em; padding-right: 0; width: 9em; }
+   #table-example-1 tbody td:first-child::after { content: leader(". "); }
+   #table-example-1 tbody td { padding-left: 2em; padding-right: 2em; }
+   #table-example-1 tbody td:first-child + td { width: 10em; }
+   #table-example-1 tbody td:first-child + td ~ td { width: 2.5em; }
+   #table-example-1 tbody td:first-child + td + td + td ~ td { width: 1.25em; }
+
+   .apple-table-examples { border: none; border-collapse: separate; border-spacing: 1.5em 0em; width: 40em; margin-left: 3em; }
+   .apple-table-examples * { font-family: "Times", serif; }
+   .apple-table-examples td, .apple-table-examples th { border: none; white-space: nowrap; padding-top: 0; padding-bottom: 0; }
+   .apple-table-examples tbody th:first-child { border-left: none; width: 100%; }
+   .apple-table-examples thead th:first-child ~ th { font-size: smaller; font-weight: bolder; border-bottom: solid 2px; text-align: center; }
+   .apple-table-examples tbody th::after, .apple-table-examples tfoot th::after { content: leader(". ") }
+   .apple-table-examples tbody th, .apple-table-examples tfoot th { font: inherit; text-align: left; }
+   .apple-table-examples td { text-align: right; vertical-align: top; }
+   .apple-table-examples.e1 tbody tr:last-child td { border-bottom: solid 1px; }
+   .apple-table-examples.e1 tbody + tbody tr:last-child td { border-bottom: double 3px; }
+   .apple-table-examples.e2 th[scope=row] { padding-left: 1em; }
+   .apple-table-examples sup { line-height: 0; }
+
+   .details-example img { vertical-align: top; }
+
+   #named-character-references-table {
+     font-size: 0.6em;
+     column-width: 28em;
+     column-gap: 1em;
+     -moz-column-width: 28em;
+     -moz-column-gap: 1em;
+     -webkit-column-width: 28em;
+     -webkit-column-gap: 1em;
+   }
+   #named-character-references-table > table > tbody > tr > td:last-child { text-align: center; }
+   #named-character-references-table > table > tbody > tr > td:last-child:hover > span { position: absolute; top: auto; left: auto; margin-left: 0.5em; line-height: 1.2; font-size: 5em; border: outset; padding: 0.25em 0.5em; background: white; width: 1.25em; height: auto; text-align: center; }
+
+   .glyph.control { color: red; }
+
+   @font-face {
+     font-family: 'Essays1743';
+     src: url('http://www.whatwg.org/specs/web-apps/current-work/fonts/Essays1743.ttf');
+   }
+   @font-face {
+     font-family: 'Essays1743';
+     font-weight: bold;
+     src: url('http://www.whatwg.org/specs/web-apps/current-work/fonts/Essays1743-Bold.ttf');
+   }
+   @font-face {
+     font-family: 'Essays1743';
+     font-style: italic;
+     src: url('http://www.whatwg.org/specs/web-apps/current-work/fonts/Essays1743-Italic.ttf');
+   }
+   @font-face {
+     font-family: 'Essays1743';
+     font-style: italic;
+     font-weight: bold;
+     src: url('http://www.whatwg.org/specs/web-apps/current-work/fonts/Essays1743-BoldItalic.ttf');
+   }
+
+  </style><link href="data:text/css," id="complete" rel="stylesheet" title="Complete specification"><link href="data:text/css,.impl%20%7B%20display:%20none;%20%7D%0Ahtml%20%7B%20border:%20solid%20yellow;%20%7D%20.domintro:before%20%7B%20display:%20none;%20%7D" id="author" rel="alternate stylesheet" title="Author documentation only"><link href="data:text/css,.impl%20%7B%20background:%20%23FFEEEE;%20%7D%20.domintro:before%20%7B%20background:%20%23FFEEEE;%20%7D" id="highlight" rel="alternate stylesheet" title="Highlight implementation requirements"><script type="text/javascript">
+ function getCookie(name) {
+   var params = location.search.substr(1).split("&");
+   for (var index = 0; index < params.length; index++) {
+     if (params[index] == name)
+       return "1";
+     var data = params[index].split("=");
+     if (data[0] == name)
+       return unescape(data[1]);
+   }
+   var cookies = document.cookie.split("; ");
+   for (var index = 0; index < cookies.length; index++) {
+     var data = cookies[index].split("=");
+     if (data[0] == name)
+       return unescape(data[1]);
+   }
+   return null;
+ }
+ function load(script) {
+   var e = document.createElement('script');
+   e.setAttribute('src', script + '?' + encodeURIComponent(location) + '&' + encodeURIComponent(document.referrer));
+   document.body.appendChild(e);
+ }
+ function init() {
+   if (location.search == '?slow-browser')
+     return;
+   var configUI = document.createElement('div');
+   configUI.id = 'configUI';
+   document.body.appendChild(configUI);
+   if (document.getElementById('head'))
+     load('toc.js');
+   load('dfn.js');
+   if (getCookie('profile') == '1')
+     document.getElementsByTagName('h2')[0].textContent += '; load: ' + (new Date() - loadTimer) + 'ms';
+   fixBrokenLink();
+ }
+</script><link href="http://www.w3.org/StyleSheets/TR/W3C-ED" rel="stylesheet" type="text/css"><link href="style.css" rel="stylesheet"><script src="link-fixup.js"></script><link href="the-map-element.html" rel="prev" title="4.8.11 The map element">
+  <link href="Overview.html#contents" rel="index" title="Table of contents">
+  <link href="forms.html" rel="next" title="4.10 Forms">
+  <body onload="fixBrokenLink(); init()"><div class="head" id="head">
+   <p><a href="http://www.w3.org/"><img alt="W3C" height="48" src="http://www.w3.org/Icons/w3c_home" width="72"></a></p>
+
+   <h1>HTML5 (Edition for Web Authors)<span class="rcsrevision"> revision 1.4343</span></h1>
+   </div><div>
+   <a href="the-map-element.html">&larr; 4.8.11 The map element</a> &ndash;
+   <a href="Overview.html#contents">Table of contents</a> &ndash;
+   <a href="forms.html">4.10 Forms &rarr;</a>
+  <ol class="toc"><li><ol><li><a href="tabular-data.html#tabular-data"><span class="secno">4.9 </span>Tabular data</a>
+    <ol><li><a href="tabular-data.html#the-table-element" id="x4.9.1-the-table-element"><span class="secno">4.9.1 </span>The <code>table</code> element</a><li><a href="tabular-data.html#the-caption-element" id="x4.9.2-the-caption-element"><span class="secno">4.9.2 </span>The <code>caption</code> element</a><li><a href="tabular-data.html#the-colgroup-element" id="x4.9.3-the-colgroup-element"><span class="secno">4.9.3 </span>The <code>colgroup</code> element</a><li><a href="tabular-data.html#the-col-element" id="x4.9.4-the-col-element"><span class="secno">4.9.4 </span>The <code>col</code> element</a><li><a href="tabular-data.html#the-tbody-element" id="x4.9.5-the-tbody-element"><span class="secno">4.9.5 </span>The <code>tbody</code> element</a><li><a href="tabular-data.html#the-thead-element" id="x4.9.6-the-thead-element"><span class="secno">4.9.6 </span>The <code>thead</code> element</a><li><a href="tabular-data.html#the-tfoot-element" id="x4.9.7-the-tfoot-element"><span class="secno">4.9.7 </span>The <code>tfoot</code> element</a><li><a href="tabular-data.html#the-tr-element" id="x4.9.8-the-tr-element"><span class="secno">4.9.8 </span>The <code>tr</code> element</a><li><a href="tabular-data.html#the-td-element" id="x4.9.9-the-td-element"><span class="secno">4.9.9 </span>The <code>td</code> element</a><li><a href="tabular-data.html#the-th-element" id="x4.9.10-the-th-element"><span class="secno">4.9.10 </span>The <code>th</code> element</a><li><a href="tabular-data.html#attributes-common-to-td-and-th-elements"><span class="secno">4.9.11 </span>Attributes common to <code>td</code> and <code>th</code> elements</a><li><a href="tabular-data.html#examples"><span class="secno">4.9.12 </span>Examples</a></ol></ol></ol></div>
+
+  <h3 id="tabular-data"><span class="secno">4.9 </span>Tabular data</h3><p class="XXX annotation"><span><a href="http://www.w3.org/html/wg/tracker/issues/32">ISSUE-32</a> (table-summary) blocks progress to Last Call</span><h4 id="the-table-element"><span class="secno">4.9.1 </span>The <dfn><code>table</code></dfn> element</h4><p class="XXX annotation"><span><a href="http://www.w3.org/html/wg/tracker/issues/92">ISSUE-92</a> (cleanuptable) blocks progress to Last Call</span><dl class="element"><dt>Categories</dt>
+   <dd><a href="content-models.html#flow-content" id="flow-content-101">Flow content</a>.</dd>
+   <dt>Contexts in which this element may be used:</dt>
+   <dd>Where <a href="content-models.html#flow-content" id="flow-content-102">flow content</a> is expected.</dd>
+   <dt>Content model:</dt>
+   <dd>In this order: optionally a <code><a href="#the-caption-element" id="caption-0">caption</a></code> element,
+   followed by zero or more <code><a href="#the-colgroup-element" id="colgroup-0">colgroup</a></code> elements, followed
+   optionally by a <code><a href="#the-thead-element" id="thead-1">thead</a></code> element, followed optionally by
+   a <code><a href="#the-tfoot-element" id="tfoot-1">tfoot</a></code> element, followed by either zero or more
+   <code><a href="#the-tbody-element" id="tbody-1">tbody</a></code> elements or one or more <code><a href="#the-tr-element" id="tr-1">tr</a></code>
+   elements, followed optionally by a <code><a href="#the-tfoot-element" id="tfoot-2">tfoot</a></code> element (but
+   there can only be one <code><a href="#the-tfoot-element" id="tfoot-3">tfoot</a></code> element child in
+   total).</dd>
+   <dt>Content attributes:</dt>
+   <dd><a href="elements.html#global-attributes" id="global-attributes-70">Global attributes</a></dd>
+   <dd><code title="attr-table-summary"><a href="#attr-table-summary" id="summary">summary</a></code> (but see prose)</dd>
+   <dt>DOM interface:</dt>
+   <dd>
+<pre class="idl">interface <dfn id="htmltableelement">HTMLTableElement</dfn> : <a href="elements.html#htmlelement" id="htmlelement-73">HTMLElement</a> {
+           attribute <a href="#htmltablecaptionelement" id="htmltablecaptionelement-0">HTMLTableCaptionElement</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-table-caption" title='Read about this "caption" reference in the full HTML5 spec.'>caption</a>;
+  <a href="elements.html#htmlelement" id="htmlelement-74">HTMLElement</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-table-createcaption" title='Read about this "createCaption" reference in the full HTML5 spec.'>createCaption</a>();
+  void <a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-table-deletecaption" title='Read about this "deleteCaption" reference in the full HTML5 spec.'>deleteCaption</a>();
+           attribute <a href="#htmltablesectionelement" id="htmltablesectionelement-0">HTMLTableSectionElement</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-table-thead" title='Read about this "tHead" reference in the full HTML5 spec.'>tHead</a>;
+  <a href="elements.html#htmlelement" id="htmlelement-75">HTMLElement</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-table-createthead" title='Read about this "createTHead" reference in the full HTML5 spec.'>createTHead</a>();
+  void <a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-table-deletethead" title='Read about this "deleteTHead" reference in the full HTML5 spec.'>deleteTHead</a>();
+           attribute <a href="#htmltablesectionelement" id="htmltablesectionelement-1">HTMLTableSectionElement</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-table-tfoot" title='Read about this "tFoot" reference in the full HTML5 spec.'>tFoot</a>;
+  <a href="elements.html#htmlelement" id="htmlelement-76">HTMLElement</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-table-createtfoot" title='Read about this "createTFoot" reference in the full HTML5 spec.'>createTFoot</a>();
+  void <a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-table-deletetfoot" title='Read about this "deleteTFoot" reference in the full HTML5 spec.'>deleteTFoot</a>();
+  readonly attribute <a href="urls.html#htmlcollection" id="htmlcollection-24">HTMLCollection</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-table-tbodies" title='Read about this "tBodies" reference in the full HTML5 spec.'>tBodies</a>;
+  <a href="elements.html#htmlelement" id="htmlelement-77">HTMLElement</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-table-createtbody" title='Read about this "createTBody" reference in the full HTML5 spec.'>createTBody</a>();
+  readonly attribute <a href="urls.html#htmlcollection" id="htmlcollection-25">HTMLCollection</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-table-rows" title='Read about this "rows" reference in the full HTML5 spec.'>rows</a>;
+  <a href="elements.html#htmlelement" id="htmlelement-78">HTMLElement</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-table-insertrow" title='Read about this "insertRow" reference in the full HTML5 spec.'>insertRow</a>(in optional long index);
+  void <a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-table-deleterow" title='Read about this "deleteRow" reference in the full HTML5 spec.'>deleteRow</a>(in long index);
+           attribute DOMString <a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-table-summary" title='Read about this "summary" reference in the full HTML5 spec.'>summary</a>;
+};</pre>
+   </dd>
+  </dl><p>The <code><a href="#the-table-element" id="table-4">table</a></code> element <a class="full-spec-link" href="http://dev.w3.org/html5/spec/rendering.html#represents" title='Read about this "represents" reference in the full HTML5 spec.'>represents</a> data with
+  more than one dimension, in the form of a <a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#concept-table" title='Read about this "table" reference in the full HTML5 spec.'>table</a>.<p>Tables must not be used as layout aids. Historically, some Web
+  authors have misused tables in HTML as a way to control their page
+  layout. This usage is non-conforming, because tools attempting to
+  extract tabular data from such documents would obtain very confusing
+  results. In particular, users of accessibility tools like screen
+  readers are likely to find it very difficult to navigate pages with
+  tables used for layout.<p class="note">There are a variety of alternatives to using HTML
+  tables for layout, primarily using CSS positioning and the CSS table
+  model.<p>Tables have rows and columns given by their descendants. A table
+  must not have an empty row or column. <!-- conformance criteria for detecting this
+  are in the table model section --><p id="table-descriptions">For tables that consist of more than just
+  a grid of cells with headers in the first row and headers in the
+  first column, and for any table in general where the reader might
+  have difficulty understanding the content, authors should include
+  explanatory information introducing the table. This information is
+  useful for all users, but is especially useful for users who cannot
+  see the table, e.g. users of screen readers.<p>Such explanatory information should introduce the purpose of the
+  table, outline its basic cell structure, highlight any trends or
+  patterns, and generally teach the user how to use the table.<div class="example">
+
+   <p>For instance, the following table:</p>
+
+   <table><caption>Characteristics with positive and negative sides</caption>
+    <thead><tr><th id="n"> Negative
+      <th> Characteristic
+      <th> Positive
+    <tbody><tr><td headers="n r1"> Sad
+      <th id="r1"> Mood
+      <td> Happy
+     <tr><td headers="n r2"> Failing
+      <th id="r2"> Grade
+      <td> Passing
+   </table><p>...might benefit from a description explaining the way the table
+   is laid out, something like "Characteristics are given in the
+   second column, with the negative side in the left column and the
+   positive side in the right column".</p>
+
+  </div><p>There are a variety of ways to include this information, such as:<dl><dt>In prose, surrounding the table</dt>
+
+   <dd>
+    <div class="example"><pre>&lt;p&gt;In the following table, characteristics are given in the second
+column, with the negative side in the left column and the positive
+side in the right column.&lt;/p&gt;
+&lt;table&gt;
+ &lt;caption&gt;Characteristics with positive and negative sides&lt;/caption&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th id="n"&gt; Negative
+   &lt;th&gt; Characteristic
+   &lt;th&gt; Positive
+ &lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td headers="n r1"&gt; Sad
+   &lt;th id="r1"&gt; Mood
+   &lt;td&gt; Happy
+  &lt;tr&gt;
+   &lt;td headers="n r2"&gt; Failing
+   &lt;th id="r2"&gt; Grade
+   &lt;td&gt; Passing
+&lt;/table&gt;</pre></div>
+   </dd>
+
+   <dt>In the table's <code><a href="#the-caption-element" id="caption-1">caption</a></code></dt>
+
+   <dd>
+    <div class="example"><pre>&lt;table&gt;
+ &lt;caption&gt;
+  &lt;strong&gt;Characteristics with positive and negative sides.&lt;/strong&gt;
+  &lt;p&gt;Characteristics are given in the second column, with the
+  negative side in the left column and the positive side in the right
+  column.&lt;/p&gt;
+ &lt;/caption&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th id="n"&gt; Negative
+   &lt;th&gt; Characteristic
+   &lt;th&gt; Positive
+ &lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td headers="n r1"&gt; Sad
+   &lt;th id="r1"&gt; Mood
+   &lt;td&gt; Happy
+  &lt;tr&gt;
+   &lt;td headers="n r2"&gt; Failing
+   &lt;th id="r2"&gt; Grade
+   &lt;td&gt; Passing
+&lt;/table&gt;</pre></div>
+   </dd>
+
+   <dt>In the table's <code><a href="#the-caption-element" id="caption-2">caption</a></code>, in a <code><a href="interactive-elements.html#the-details-element" id="details-5">details</a></code> element</dt>
+
+   <dd>
+    <div class="example"><pre>&lt;table&gt;
+ &lt;caption&gt;
+  &lt;strong&gt;Characteristics with positive and negative sides.&lt;/strong&gt;
+  &lt;details&gt;
+   &lt;summary&gt;Help&lt;/summary&gt;
+   &lt;p&gt;Characteristics are given in the second column, with the
+   negative side in the left column and the positive side in the right
+   column.&lt;/p&gt;
+  &lt;/details&gt;
+ &lt;/caption&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th id="n"&gt; Negative
+   &lt;th&gt; Characteristic
+   &lt;th&gt; Positive
+ &lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td headers="n r1"&gt; Sad
+   &lt;th id="r1"&gt; Mood
+   &lt;td&gt; Happy
+  &lt;tr&gt;
+   &lt;td headers="n r2"&gt; Failing
+   &lt;th id="r2"&gt; Grade
+   &lt;td&gt; Passing
+&lt;/table&gt;</pre></div>
+   </dd>
+
+   <dt>Next to the table, in the same <code><a href="grouping-content.html#the-figure-element" id="figure-13">figure</a></code></dt>
+
+   <dd>
+    <div class="example"><pre>&lt;figure&gt;
+ &lt;figcaption&gt;Characteristics with positive and negative sides&lt;/figcaption&gt;
+ &lt;p&gt;Characteristics are given in the second column, with the
+ negative side in the left column and the positive side in the right
+ column.&lt;/p&gt;
+ &lt;table&gt;
+  &lt;thead&gt;
+   &lt;tr&gt;
+    &lt;th id="n"&gt; Negative
+    &lt;th&gt; Characteristic
+    &lt;th&gt; Positive
+  &lt;tbody&gt;
+   &lt;tr&gt;
+    &lt;td headers="n r1"&gt; Sad
+    &lt;th id="r1"&gt; Mood
+    &lt;td&gt; Happy
+   &lt;tr&gt;
+    &lt;td headers="n r2"&gt; Failing
+    &lt;th id="r2"&gt; Grade
+    &lt;td&gt; Passing
+ &lt;/table&gt;
+&lt;/figure&gt;</pre></div>
+   </dd>
+
+   <dt>Next to the table, in a <code><a href="grouping-content.html#the-figure-element" id="figure-14">figure</a></code>'s <code><a href="grouping-content.html#the-figcaption-element" id="figcaption-10">figcaption</a></code></dt>
+
+   <dd>
+    <div class="example"><pre>&lt;figure&gt;
+ &lt;figcaption&gt;
+  &lt;strong&gt;Characteristics with positive and negative sides&lt;/strong&gt;
+  &lt;p&gt;Characteristics are given in the second column, with the
+  negative side in the left column and the positive side in the right
+  column.&lt;/p&gt;
+ &lt;/figcaption&gt;
+ &lt;table&gt;
+  &lt;thead&gt;
+   &lt;tr&gt;
+    &lt;th id="n"&gt; Negative
+    &lt;th&gt; Characteristic
+    &lt;th&gt; Positive
+  &lt;tbody&gt;
+   &lt;tr&gt;
+    &lt;td headers="n r1"&gt; Sad
+    &lt;th id="r1"&gt; Mood
+    &lt;td&gt; Happy
+   &lt;tr&gt;
+    &lt;td headers="n r2"&gt; Failing
+    &lt;th id="r2"&gt; Grade
+    &lt;td&gt; Passing
+ &lt;/table&gt;
+&lt;/figure&gt;</pre></div>
+   </dd>
+
+  </dl><p>Authors may also use other techniques, or combinations of the
+  above techniques, as appropriate.<p>The best option, of course, rather than writing a description
+  explaining the way the table is laid out, is to adjust the table
+  such that no explanation is needed.<div class="example">
+
+   <p>In the case of the table used in the examples above, a simple
+   rearrangement of the table so that the headers are on the top and
+   left sides removes the need for an explanation as well as removing
+   the need for the use of <code title="attr-tdth-headers"><a href="#attr-tdth-headers" id="headers-3">headers</a></code> attributes:</p>
+
+   <pre>&lt;table&gt;
+ &lt;caption&gt;Characteristics with positive and negative sides&lt;/caption&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th&gt; Characteristic
+   &lt;th&gt; Negative
+   &lt;th&gt; Positive
+ &lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;th&gt; Mood
+   &lt;td&gt; Sad
+   &lt;td&gt; Happy
+  &lt;tr&gt;
+   &lt;th&gt; Grade
+   &lt;td&gt; Failing
+   &lt;td&gt; Passing
+&lt;/table&gt;</pre>
+
+  </div><p>The <dfn id="attr-table-summary" title="attr-table-summary"><code>summary</code></dfn>
+  attribute on <code><a href="#the-table-element" id="table-5">table</a></code> elements was suggested in earlier
+  versions of the language as a technique for providing explanatory
+  text for complex tables for users of screen readers. One of the <a href="#table-descriptions">techniques</a> described <!--in the
+  <code>table</code> section--> above should be used
+  instead. <!--Authors should not specify the <code
+  title="attr-table-summary">summary</code> attribute on
+  <code>table</code> elements. --> <!-- 2.65% pages --><p class="note">In particular, authors are encouraged to consider
+  whether their explanatory text for tables is likely to be useful to
+  the visually impaired: if their text would not be useful, then it is
+  best to not include a <code title="attr-table-summary"><a href="#attr-table-summary" id="summary-0">summary</a></code> attribute. Similarly, if
+  their explanatory text could help someone who is not visually
+  impaired, e.g. someone who is seeing the table for the first time,
+  then the text would be more useful before the table or in the
+  <code><a href="#the-caption-element" id="caption-3">caption</a></code>. For example, describing the conclusions of the
+  data in a table is useful to everyone; explaining how to read the
+  table, if not obvious from the headers alone, is useful to everyone;
+  describing the structure of the table, if it is easy to grasp
+  visually, may not be useful to everyone, but it might also not be
+  useful to users who can quickly navigate the table with an
+  accessibility tool.</p><!--
+  <p class="note">Use of the <code
+  title="attr-table-summary">summary</code> attribute is discouraged
+  because in practice it is poorly understood. Because the attribute
+  is not exposed in visual user agents, authors who have included it
+  have typically not been able to test it, and have therefore set the
+  attribute to values that are of no use to users of accessibility
+  tools. This has lead to accessibility tools introducing heuristics
+  to try to avoid exposing such usage of the attribute to users. Even
+  the few authors who have made the best use of the attribute have
+  often misused it, for example by including text that would in fact
+  be useful for all users, or that is redundant with other information
+  on the page separate from the table.</p>
+  --><dl class="domintro"><dt><var title="">table</var> . <code title="dom-table-caption"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-table-caption" title='Read about this "caption" reference in the full HTML5 spec.'>caption</a></code> [ = <var title="">value</var> ]</dt>
+   <dd>
+    <p>Returns the table's <code><a href="#the-caption-element" id="caption-4">caption</a></code> element.</p>
+    <p>Can be set, to replace the <code><a href="#the-caption-element" id="caption-5">caption</a></code> element. If the
+    new value is not a <code><a href="#the-caption-element" id="caption-6">caption</a></code> element, throws a
+    <code><a href="urls.html#hierarchy_request_err" id="hierarchy_request_err-2">HIERARCHY_REQUEST_ERR</a></code> exception.</p>
+   </dd>
+
+   <dt><var title="">caption</var> = <var title="">table</var> . <code title="dom-table-createCaption"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-table-createcaption" title='Read about this "createCaption" reference in the full HTML5 spec.'>createCaption</a></code>()</dt>
+   <dd>
+    <p>Ensures the table has a <code><a href="#the-caption-element" id="caption-7">caption</a></code> element, and returns it.</p>
+   </dd>
+
+   <dt><var title="">table</var> . <code title="dom-table-deleteCaption"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-table-deletecaption" title='Read about this "deleteCaption" reference in the full HTML5 spec.'>deleteCaption</a></code>()</dt>
+   <dd>
+    <p>Ensures the table does not have a <code><a href="#the-caption-element" id="caption-8">caption</a></code> element.</p>
+   </dd>
+
+   <dt><var title="">table</var> . <code title="dom-table-tHead"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-table-thead" title='Read about this "tHead" reference in the full HTML5 spec.'>tHead</a></code> [ = <var title="">value</var> ]</dt>
+   <dd>
+    <p>Returns the table's <code><a href="#the-thead-element" id="thead-2">thead</a></code> element.</p>
+    <p>Can be set, to replace the <code><a href="#the-thead-element" id="thead-3">thead</a></code> element. If the
+    new value is not a <code><a href="#the-thead-element" id="thead-4">thead</a></code> element, throws a
+    <code><a href="urls.html#hierarchy_request_err" id="hierarchy_request_err-3">HIERARCHY_REQUEST_ERR</a></code> exception.</p>
+   </dd>
+
+   <dt><var title="">thead</var> = <var title="">table</var> . <code title="dom-table-createTHead"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-table-createthead" title='Read about this "createTHead" reference in the full HTML5 spec.'>createTHead</a></code>()</dt>
+   <dd>
+    <p>Ensures the table has a <code><a href="#the-thead-element" id="thead-5">thead</a></code> element, and returns it.</p>
+   </dd>
+
+   <dt><var title="">table</var> . <code title="dom-table-deleteTHead"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-table-deletethead" title='Read about this "deleteTHead" reference in the full HTML5 spec.'>deleteTHead</a></code>()</dt>
+   <dd>
+    <p>Ensures the table does not have a <code><a href="#the-thead-element" id="thead-6">thead</a></code> element.</p>
+   </dd>
+
+   <dt><var title="">table</var> . <code title="dom-table-tFoot"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-table-tfoot" title='Read about this "tFoot" reference in the full HTML5 spec.'>tFoot</a></code> [ = <var title="">value</var> ]</dt>
+   <dd>
+    <p>Returns the table's <code><a href="#the-tfoot-element" id="tfoot-4">tfoot</a></code> element.</p>
+    <p>Can be set, to replace the <code><a href="#the-tfoot-element" id="tfoot-5">tfoot</a></code> element. If the
+    new value is not a <code><a href="#the-tfoot-element" id="tfoot-6">tfoot</a></code> element, throws a
+    <code><a href="urls.html#hierarchy_request_err" id="hierarchy_request_err-4">HIERARCHY_REQUEST_ERR</a></code> exception.</p>
+   </dd>
+
+   <dt><var title="">tfoot</var> = <var title="">table</var> . <code title="dom-table-createTFoot"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-table-createtfoot" title='Read about this "createTFoot" reference in the full HTML5 spec.'>createTFoot</a></code>()</dt>
+   <dd>
+    <p>Ensures the table has a <code><a href="#the-tfoot-element" id="tfoot-7">tfoot</a></code> element, and returns it.</p>
+   </dd>
+
+   <dt><var title="">table</var> . <code title="dom-table-deleteTFoot"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-table-deletetfoot" title='Read about this "deleteTFoot" reference in the full HTML5 spec.'>deleteTFoot</a></code>()</dt>
+   <dd>
+    <p>Ensures the table does not have a <code><a href="#the-tfoot-element" id="tfoot-8">tfoot</a></code> element.</p>
+   </dd>
+
+   <dt><var title="">table</var> . <code title="dom-table-tBodies"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-table-tbodies" title='Read about this "tBodies" reference in the full HTML5 spec.'>tBodies</a></code></dt>
+   <dd>
+    <p>Returns an <code><a href="urls.html#htmlcollection" id="htmlcollection-26">HTMLCollection</a></code> of the <code><a href="#the-tbody-element" id="tbody-2">tbody</a></code> elements of the table.</p>
+   </dd>
+
+   <dt><var title="">tbody</var> = <var title="">table</var> . <code title="dom-table-createTBody"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-table-createtbody" title='Read about this "createTBody" reference in the full HTML5 spec.'>createTBody</a></code>()</dt>
+   <dd>
+    <p>Creates a <code><a href="#the-tbody-element" id="tbody-3">tbody</a></code> element, inserts it into the table, and returns it.</p>
+   </dd>
+
+   <dt><var title="">table</var> . <code title="dom-table-rows"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-table-rows" title='Read about this "rows" reference in the full HTML5 spec.'>rows</a></code></dt>
+   <dd>
+    <p>Returns an <code><a href="urls.html#htmlcollection" id="htmlcollection-27">HTMLCollection</a></code> of the <code><a href="#the-tr-element" id="tr-2">tr</a></code> elements of the table.</p>
+   </dd>
+
+   <dt><var title="">tr</var> = <var title="">table</var> . <code title="dom-table-insertRow"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-table-insertrow" title='Read about this "insertRow" reference in the full HTML5 spec.'>insertRow</a></code>(<var title="">index</var>)</dt>
+   <dd>
+    <p>Creates a <code><a href="#the-tr-element" id="tr-3">tr</a></code> element, along with a <code><a href="#the-tbody-element" id="tbody-4">tbody</a></code> if required, inserts them into the table at the position given by the argument, and returns the <code><a href="#the-tr-element" id="tr-4">tr</a></code>.</p>
+    <p>The position is relative to the rows in the table. The index &minus;1 is equivalent to inserting at the end of the table.</p>
+    <p>If the given position is less than &minus;1 or greater than the number of rows, throws an <code><a href="urls.html#index_size_err" id="index_size_err-4">INDEX_SIZE_ERR</a></code> exception.</p>
+   </dd>
+
+   <dt><var title="">table</var> . <code title="dom-table-deleteRow"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-table-deleterow" title='Read about this "deleteRow" reference in the full HTML5 spec.'>deleteRow</a></code>(<var title="">index</var>)</dt>
+   <dd>
+    <p>Removes the <code><a href="#the-tr-element" id="tr-5">tr</a></code> element with the given position in the table.</p>
+    <p>The position is relative to the rows in the table. The index &minus;1 is equivalent to deleting the last row of the table.</p>
+    <p>If the given position is less than &minus;1 or greater than the index of the last row, or if there are no rows, throws an <code><a href="urls.html#index_size_err" id="index_size_err-5">INDEX_SIZE_ERR</a></code> exception.</p>
+   </dd>
+
+  </dl><div class="example">
+
+   <p>Here is an example of a table being used to mark up a Sudoku
+   puzzle. Observe the lack of headers, which are not necessary in
+   such a table.</p>
+
+   <pre>&lt;section&gt;
+ &lt;style scoped&gt;
+  table { border-collapse: collapse; border: solid thick }
+  colgroup, tbody { border: solid medium; }
+  td { border: solid thin; height: 1.4em; width: 1.4em; text-align: center; padding: 0; }
+ &lt;/style&gt;
+ &lt;h1&gt;Today's Sudoku&lt;/h1&gt;
+ &lt;table&gt;
+  &lt;colgroup&gt;&lt;col&gt;&lt;col&gt;&lt;col&gt;
+  &lt;colgroup&gt;&lt;col&gt;&lt;col&gt;&lt;col&gt;
+  &lt;colgroup&gt;&lt;col&gt;&lt;col&gt;&lt;col&gt;
+  &lt;tbody&gt;
+   &lt;tr&gt; &lt;td&gt; 1 &lt;td&gt;   &lt;td&gt; 3 &lt;td&gt; 6 &lt;td&gt;   &lt;td&gt; 4 &lt;td&gt; 7 &lt;td&gt;   &lt;td&gt; 9
+   &lt;tr&gt; &lt;td&gt;   &lt;td&gt; 2 &lt;td&gt;   &lt;td&gt;   &lt;td&gt; 9 &lt;td&gt;   &lt;td&gt;   &lt;td&gt; 1 &lt;td&gt;
+   &lt;tr&gt; &lt;td&gt; 7 &lt;td&gt;   &lt;td&gt;   &lt;td&gt;   &lt;td&gt;   &lt;td&gt;   &lt;td&gt;   &lt;td&gt;   &lt;td&gt; 6
+  &lt;tbody&gt;
+   &lt;tr&gt; &lt;td&gt; 2 &lt;td&gt;   &lt;td&gt; 4 &lt;td&gt;   &lt;td&gt; 3 &lt;td&gt;   &lt;td&gt; 9 &lt;td&gt;   &lt;td&gt; 8
+   &lt;tr&gt; &lt;td&gt;   &lt;td&gt;   &lt;td&gt;   &lt;td&gt;   &lt;td&gt;   &lt;td&gt;   &lt;td&gt;   &lt;td&gt;   &lt;td&gt;
+   &lt;tr&gt; &lt;td&gt; 5 &lt;td&gt;   &lt;td&gt;   &lt;td&gt; 9 &lt;td&gt;   &lt;td&gt; 7 &lt;td&gt;   &lt;td&gt;   &lt;td&gt; 1
+  &lt;tbody&gt;
+   &lt;tr&gt; &lt;td&gt; 6 &lt;td&gt;   &lt;td&gt;   &lt;td&gt;   &lt;td&gt; 5 &lt;td&gt;   &lt;td&gt;   &lt;td&gt;   &lt;td&gt; 2
+   &lt;tr&gt; &lt;td&gt;   &lt;td&gt;   &lt;td&gt;   &lt;td&gt;   &lt;td&gt; 7 &lt;td&gt;   &lt;td&gt;   &lt;td&gt;   &lt;td&gt;
+   &lt;tr&gt; &lt;td&gt; 9 &lt;td&gt;   &lt;td&gt;   &lt;td&gt; 8 &lt;td&gt;   &lt;td&gt; 2 &lt;td&gt;   &lt;td&gt;   &lt;td&gt; 5
+ &lt;/table&gt;
+&lt;/section&gt;</pre>
+
+  </div><h4 id="the-caption-element"><span class="secno">4.9.2 </span>The <dfn><code>caption</code></dfn> element</h4><dl class="element"><dt>Categories</dt>
+   <dd>None.</dd>
+   <dt>Contexts in which this element may be used:</dt>
+   <dd>As the first element child of a <code><a href="#the-table-element" id="table-6">table</a></code> element.</dd>
+   <dt>Content model:</dt>
+   <dd><a href="content-models.html#flow-content" id="flow-content-103">Flow content</a>, but with no descendant <code><a href="#the-table-element" id="table-7">table</a></code> elements.</dd>
+   <dt>Content attributes:</dt>
+   <dd><a href="elements.html#global-attributes" id="global-attributes-71">Global attributes</a></dd>
+   <dt>DOM interface:</dt>
+   <dd>
+<pre class="idl">interface <dfn id="htmltablecaptionelement">HTMLTableCaptionElement</dfn> : <a href="elements.html#htmlelement" id="htmlelement-79">HTMLElement</a> {};</pre>
+   </dd>
+  </dl><p>The <code><a href="#the-caption-element" id="caption-9">caption</a></code> element <a class="full-spec-link" href="http://dev.w3.org/html5/spec/rendering.html#represents" title='Read about this "represents" reference in the full HTML5 spec.'>represents</a> the title of the
+  <code><a href="#the-table-element" id="table-8">table</a></code> that is its parent, if it has a parent and that
+  is a <code><a href="#the-table-element" id="table-9">table</a></code> element.<p>When a <code><a href="#the-table-element" id="table-10">table</a></code> element is the only content in a
+  <code><a href="grouping-content.html#the-figure-element" id="figure-15">figure</a></code> element other than the <code><a href="grouping-content.html#the-figcaption-element" id="figcaption-11">figcaption</a></code>,
+  the <code><a href="#the-caption-element" id="caption-10">caption</a></code> element should be omitted in favor of the
+  <code><a href="grouping-content.html#the-figcaption-element" id="figcaption-12">figcaption</a></code>.<p>A caption can introduce context for a table, making it
+  significantly easier to understand.<div class="example">
+
+   <p>Consider, for instance, the following table:</p>
+
+   <table class="dice-example"><tr><th>   <th> 1 <th> 2 <th> 3 <th> 4 <th> 5 <th> 6
+    <tr><th> 1 <td> 2 <td> 3 <td> 4 <td> 5 <td> 6 <td> 7
+    <tr><th> 2 <td> 3 <td> 4 <td> 5 <td> 6 <td> 7 <td> 8
+    <tr><th> 3 <td> 4 <td> 5 <td> 6 <td> 7 <td> 8 <td> 9
+    <tr><th> 4 <td> 5 <td> 6 <td> 7 <td> 8 <td> 9 <td> 10
+    <tr><th> 5 <td> 6 <td> 7 <td> 8 <td> 9 <td> 10 <td> 11
+    <tr><th> 6 <td> 7 <td> 8 <td> 9 <td> 10 <td> 11 <td> 12
+   </table><p>In the abstract, this table is not clear. However, with a
+   caption giving the table's number (for reference in the main prose)
+   and explaining its use, it makes more sense:</p>
+
+   <pre>&lt;caption&gt;
+&lt;p&gt;Table 1.
+&lt;p&gt;This table shows the total score obtained from rolling two
+six-sided dice. The first row represents the value of the first die,
+the first column the value of the second die. The total is given in
+the cell that corresponds to the values of the two dice.
+&lt;/caption&gt;</pre>
+
+
+  </div><h4 id="the-colgroup-element"><span class="secno">4.9.3 </span>The <dfn><code>colgroup</code></dfn> element</h4><dl class="element"><dt>Categories</dt>
+   <dd>None.</dd>
+   <dt>Contexts in which this element may be used:</dt>
+   <dd>As a child of a <code><a href="#the-table-element" id="table-11">table</a></code> element, after any
+   <code><a href="#the-caption-element" id="caption-11">caption</a></code> elements and before any <code><a href="#the-thead-element" id="thead-7">thead</a></code>,
+   <code><a href="#the-tbody-element" id="tbody-5">tbody</a></code>, <code><a href="#the-tfoot-element" id="tfoot-9">tfoot</a></code>, and <code><a href="#the-tr-element" id="tr-6">tr</a></code>
+   elements.</dd>
+   <dt>Content model:</dt>
+   <dd>If the <code title="attr-colgroup-span"><a href="#attr-colgroup-span" id="span-20">span</a></code> attribute is present: Empty.</dd>
+   <dd>If the <code title="attr-colgroup-span"><a href="#attr-colgroup-span" id="span-21">span</a></code> attribute is absent: Zero or more <code><a href="#the-col-element" id="col-0">col</a></code> elements.</dd>
+   <dt>Content attributes:</dt>
+   <dd><a href="elements.html#global-attributes" id="global-attributes-72">Global attributes</a></dd>
+   <dd><code title="attr-colgroup-span"><a href="#attr-colgroup-span" id="span-22">span</a></code></dd>
+   <dt>DOM interface:</dt>
+   <dd>
+<pre class="idl">interface <dfn id="htmltablecolelement">HTMLTableColElement</dfn> : <a href="elements.html#htmlelement" id="htmlelement-80">HTMLElement</a> {
+           attribute unsigned long <a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-colgroup-span" title='Read about this "span" reference in the full HTML5 spec.'>span</a>;
+};</pre>
+   </dd>
+  </dl><p>The <code><a href="#the-colgroup-element" id="colgroup-1">colgroup</a></code> element <a class="full-spec-link" href="http://dev.w3.org/html5/spec/rendering.html#represents" title='Read about this "represents" reference in the full HTML5 spec.'>represents</a> a <a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#concept-column-group" title='Read about this "group" reference in the full HTML5 spec.'>group</a> of one or more <a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#concept-column" title='Read about this "columns" reference in the full HTML5 spec.'>columns</a> in the <code><a href="#the-table-element" id="table-12">table</a></code> that
+  is its parent, if it has a parent and that is a <code><a href="#the-table-element" id="table-13">table</a></code>
+  element.<p>If the <code><a href="#the-colgroup-element" id="colgroup-2">colgroup</a></code> element contains no <code><a href="#the-col-element" id="col-1">col</a></code>
+  elements, then the element may have a <dfn id="attr-colgroup-span" title="attr-colgroup-span"><code>span</code></dfn> content attribute
+  specified, whose value must be a <a href="common-microsyntaxes.html#valid-non-negative-integer" id="valid-non-negative-integer-5">valid non-negative
+  integer</a> greater than zero.<h4 id="the-col-element"><span class="secno">4.9.4 </span>The <dfn><code>col</code></dfn> element</h4><dl class="element"><dt>Categories</dt>
+   <dd>None.</dd>
+   <dt>Contexts in which this element may be used:</dt>
+   <dd>As a child of a <code><a href="#the-colgroup-element" id="colgroup-3">colgroup</a></code> element that doesn't have
+   a <code title="attr-col-span"><a href="#attr-col-span" id="span-24">span</a></code> attribute.</dd>
+   <dt>Content model:</dt>
+   <dd>Empty.</dd>
+   <dt>Content attributes:</dt>
+   <dd><a href="elements.html#global-attributes" id="global-attributes-73">Global attributes</a></dd>
+   <dd><code title="attr-col-span"><a href="#attr-col-span" id="span-25">span</a></code></dd>
+   <!-- v2: char, to specify the decimal character used in numeric data cells in the column (not header cells) -->
+   <dt>DOM interface:</dt>
+   <dd>
+    <p><code><a href="#htmltablecolelement" id="htmltablecolelement-0">HTMLTableColElement</a></code>, same as for
+    <code><a href="#the-colgroup-element" id="colgroup-4">colgroup</a></code> elements. This interface defines one member,
+    <code title="dom-col-span"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-col-span" title='Read about this "span" reference in the full HTML5 spec.'>span</a></code>.</p>
+   </dd>
+  </dl><p>If a <code><a href="#the-col-element" id="col-2">col</a></code> element has a parent and that is a
+  <code><a href="#the-colgroup-element" id="colgroup-5">colgroup</a></code> element that itself has a parent that is a
+  <code><a href="#the-table-element" id="table-14">table</a></code> element, then the <code><a href="#the-col-element" id="col-3">col</a></code> element
+  <a class="full-spec-link" href="http://dev.w3.org/html5/spec/rendering.html#represents" title='Read about this "represents" reference in the full HTML5 spec.'>represents</a> one or more <a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#concept-column" title='Read about this "columns" reference in the full HTML5 spec.'>columns</a> in the <a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#concept-column-group" title='Read about this "column group" reference in the full HTML5 spec.'>column group</a> represented by that
+  <code><a href="#the-colgroup-element" id="colgroup-6">colgroup</a></code>.<p>The element may have a <dfn id="attr-col-span" title="attr-col-span"><code>span</code></dfn> content attribute
+  specified, whose value must be a <a href="common-microsyntaxes.html#valid-non-negative-integer" id="valid-non-negative-integer-6">valid non-negative
+  integer</a> greater than zero.<h4 id="the-tbody-element"><span class="secno">4.9.5 </span>The <dfn><code>tbody</code></dfn> element</h4><dl class="element"><dt>Categories</dt>
+   <dd>None.</dd>
+   <dt>Contexts in which this element may be used:</dt>
+   <dd>As a child of a <code><a href="#the-table-element" id="table-15">table</a></code> element, after any
+   <code><a href="#the-caption-element" id="caption-12">caption</a></code>, <code><a href="#the-colgroup-element" id="colgroup-7">colgroup</a></code>, and
+   <code><a href="#the-thead-element" id="thead-8">thead</a></code> elements, but only if there are no
+   <code><a href="#the-tr-element" id="tr-7">tr</a></code> elements that are children of the
+   <code><a href="#the-table-element" id="table-16">table</a></code> element.</dd>
+   <dt>Content model:</dt>
+   <dd>Zero or more <code><a href="#the-tr-element" id="tr-8">tr</a></code> elements</dd>
+   <dt>Content attributes:</dt>
+   <dd><a href="elements.html#global-attributes" id="global-attributes-74">Global attributes</a></dd>
+   <dt>DOM interface:</dt>
+   <dd>
+    <pre class="idl">interface <dfn id="htmltablesectionelement">HTMLTableSectionElement</dfn> : <a href="elements.html#htmlelement" id="htmlelement-81">HTMLElement</a> {
+  readonly attribute <a href="urls.html#htmlcollection" id="htmlcollection-28">HTMLCollection</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-tbody-rows" title='Read about this "rows" reference in the full HTML5 spec.'>rows</a>;
+  <a href="elements.html#htmlelement" id="htmlelement-82">HTMLElement</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-tbody-insertrow" title='Read about this "insertRow" reference in the full HTML5 spec.'>insertRow</a>(in optional long index);
+  void <a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-tbody-deleterow" title='Read about this "deleteRow" reference in the full HTML5 spec.'>deleteRow</a>(in long index);
+};</pre>
+    <p>The <code><a href="#htmltablesectionelement" id="htmltablesectionelement-2">HTMLTableSectionElement</a></code> interface is also
+    used for <code><a href="#the-thead-element" id="thead-9">thead</a></code> and <code><a href="#the-tfoot-element" id="tfoot-10">tfoot</a></code> elements.</p>
+   </dd>
+  </dl><p>The <code><a href="#the-tbody-element" id="tbody-6">tbody</a></code> element <a class="full-spec-link" href="http://dev.w3.org/html5/spec/rendering.html#represents" title='Read about this "represents" reference in the full HTML5 spec.'>represents</a> a <a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#concept-row-group" title='Read about this "block" reference in the full HTML5 spec.'>block</a> of <a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#concept-row" title='Read about this "rows" reference in the full HTML5 spec.'>rows</a> that consist of a body of data for
+  the parent <code><a href="#the-table-element" id="table-17">table</a></code> element, if the <code><a href="#the-tbody-element" id="tbody-7">tbody</a></code>
+  element has a parent and it is a <code><a href="#the-table-element" id="table-18">table</a></code>.<dl class="domintro"><dt><var title="">tbody</var> . <code title="dom-tbody-rows"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-tbody-rows" title='Read about this "rows" reference in the full HTML5 spec.'>rows</a></code></dt>
+   <dd>
+    <p>Returns an <code><a href="urls.html#htmlcollection" id="htmlcollection-29">HTMLCollection</a></code> of the <code><a href="#the-tr-element" id="tr-9">tr</a></code> elements of the table section.</p>
+   </dd>
+
+   <dt><var title="">tr</var> = <var title="">tbody</var> . <code title="dom-tbody-insertRow"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-tbody-insertrow" title='Read about this "insertRow" reference in the full HTML5 spec.'>insertRow</a></code>( [ <var title="">index</var> ] )</dt>
+   <dd>
+    <p>Creates a <code><a href="#the-tr-element" id="tr-10">tr</a></code> element, inserts it into the table section at the position given by the argument, and returns the <code><a href="#the-tr-element" id="tr-11">tr</a></code>.</p>
+    <p>The position is relative to the rows in the table section. The index &minus;1, which is the default if the argument is omitted, is equivalent to inserting at the end of the table section.</p>
+    <p>If the given position is less than &minus;1 or greater than the number of rows, throws an <code><a href="urls.html#index_size_err" id="index_size_err-6">INDEX_SIZE_ERR</a></code> exception.</p>
+   </dd>
+
+   <dt><var title="">tbody</var> . <code title="dom-tbody-deleteRow"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-tbody-deleterow" title='Read about this "deleteRow" reference in the full HTML5 spec.'>deleteRow</a></code>(<var title="">index</var>)</dt>
+   <dd>
+    <p>Removes the <code><a href="#the-tr-element" id="tr-12">tr</a></code> element with the given position in the table section.</p>
+    <p>The position is relative to the rows in the table section. The index &minus;1 is equivalent to deleting the last row of the table section.</p>
+    <p>If the given position is less than &minus;1 or greater than the index of the last row, or if there are no rows, throws an <code><a href="urls.html#index_size_err" id="index_size_err-7">INDEX_SIZE_ERR</a></code> exception.</p>
+   </dd>
+
+  </dl><h4 id="the-thead-element"><span class="secno">4.9.6 </span>The <dfn><code>thead</code></dfn> element</h4><dl class="element"><dt>Categories</dt>
+   <dd>None.</dd>
+   <dt>Contexts in which this element may be used:</dt>
+   <dd>As a child of a <code><a href="#the-table-element" id="table-19">table</a></code> element, after any
+   <code><a href="#the-caption-element" id="caption-13">caption</a></code>, and <code><a href="#the-colgroup-element" id="colgroup-8">colgroup</a></code>
+   elements and before any <code><a href="#the-tbody-element" id="tbody-8">tbody</a></code>, <code><a href="#the-tfoot-element" id="tfoot-11">tfoot</a></code>, and
+   <code><a href="#the-tr-element" id="tr-13">tr</a></code> elements, but only if there are no other
+   <code><a href="#the-thead-element" id="thead-10">thead</a></code> elements that are children of the
+   <code><a href="#the-table-element" id="table-20">table</a></code> element.</dd>
+   <dt>Content model:</dt>
+   <dd>Zero or more <code><a href="#the-tr-element" id="tr-14">tr</a></code> elements</dd>
+   <dt>Content attributes:</dt>
+   <dd><a href="elements.html#global-attributes" id="global-attributes-75">Global attributes</a></dd>
+   <dt>DOM interface:</dt>
+   <dd><code><a href="#htmltablesectionelement" id="htmltablesectionelement-3">HTMLTableSectionElement</a></code>, as defined for
+   <code><a href="#the-tbody-element" id="tbody-9">tbody</a></code> elements.</dd>
+  </dl><p>The <code><a href="#the-thead-element" id="thead-11">thead</a></code> element <a class="full-spec-link" href="http://dev.w3.org/html5/spec/rendering.html#represents" title='Read about this "represents" reference in the full HTML5 spec.'>represents</a> the <a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#concept-row-group" title='Read about this "block" reference in the full HTML5 spec.'>block</a> of <a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#concept-row" title='Read about this "rows" reference in the full HTML5 spec.'>rows</a> that consist of the column labels
+  (headers) for the parent <code><a href="#the-table-element" id="table-21">table</a></code> element, if the
+  <code><a href="#the-thead-element" id="thead-12">thead</a></code> element has a parent and it is a
+  <code><a href="#the-table-element" id="table-22">table</a></code>.<div class="example">
+
+   <p>This example shows a <code><a href="#the-thead-element" id="thead-13">thead</a></code> element being used.
+   Notice the use of both <code><a href="#the-th-element" id="th-6">th</a></code> and <code><a href="#the-td-element" id="td-7">td</a></code> elements
+   in the <code><a href="#the-thead-element" id="thead-14">thead</a></code> element: the first row is the headers,
+   and the second row is an explanation of how to fill in the
+   table.</p>
+
+   <pre>&lt;table&gt;
+ &lt;caption&gt; School auction sign-up sheet &lt;/caption&gt;
+<strong> &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th&gt;&lt;label for=e1&gt;Name&lt;/label&gt;
+   &lt;th&gt;&lt;label for=e2&gt;Product&lt;/label&gt;
+   &lt;th&gt;&lt;label for=e3&gt;Picture&lt;/label&gt;
+   &lt;th&gt;&lt;label for=e4&gt;Price&lt;/label&gt;
+  &lt;tr&gt;
+   &lt;td&gt;Your name here
+   &lt;td&gt;What are you selling?
+   &lt;td&gt;Link to a picture
+   &lt;td&gt;Your reserve price
+</strong> &lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td&gt;Ms Danus
+   &lt;td&gt;Doughnuts
+   &lt;td&gt;&lt;img src="http://example.com/mydoughnuts.png" title="Doughnuts from Ms Danus"&gt;
+   &lt;td&gt;$45
+  &lt;tr&gt;
+   &lt;td&gt;&lt;input id=e1 type=text name=who required form=f&gt;
+   &lt;td&gt;&lt;input id=e2 type=text name=what required form=f&gt;
+   &lt;td&gt;&lt;input id=e3 type=url name=pic form=f&gt;
+   &lt;td&gt;&lt;input id=e4 type=number step=0.01 min=0 value=0 required form=f&gt;
+&lt;/table&gt;
+&lt;form id=f action="/auction.cgi"&gt;
+ &lt;input type=button name=add value="Submit"&gt;
+&lt;/form&gt;</pre>
+
+  </div><h4 id="the-tfoot-element"><span class="secno">4.9.7 </span>The <dfn><code>tfoot</code></dfn> element</h4><dl class="element"><dt>Categories</dt>
+   <dd>None.</dd>
+   <dt>Contexts in which this element may be used:</dt>
+   <dd>As a child of a <code><a href="#the-table-element" id="table-23">table</a></code> element, after any
+   <code><a href="#the-caption-element" id="caption-14">caption</a></code>, <code><a href="#the-colgroup-element" id="colgroup-9">colgroup</a></code>, and <code><a href="#the-thead-element" id="thead-15">thead</a></code>
+   elements and before any <code><a href="#the-tbody-element" id="tbody-10">tbody</a></code> and <code><a href="#the-tr-element" id="tr-15">tr</a></code>
+   elements, but only if there are no other <code><a href="#the-tfoot-element" id="tfoot-12">tfoot</a></code>
+   elements that are children of the <code><a href="#the-table-element" id="table-24">table</a></code> element.</dd>
+   <dd>As a child of a <code><a href="#the-table-element" id="table-25">table</a></code> element, after any
+   <code><a href="#the-caption-element" id="caption-15">caption</a></code>, <code><a href="#the-colgroup-element" id="colgroup-10">colgroup</a></code>, <code><a href="#the-thead-element" id="thead-16">thead</a></code>,
+   <code><a href="#the-tbody-element" id="tbody-11">tbody</a></code>, and <code><a href="#the-tr-element" id="tr-16">tr</a></code> elements, but only if there
+   are no other <code><a href="#the-tfoot-element" id="tfoot-13">tfoot</a></code> elements that are children of the
+   <code><a href="#the-table-element" id="table-26">table</a></code> element.</dd>
+   <dt>Content model:</dt>
+   <dd>Zero or more <code><a href="#the-tr-element" id="tr-17">tr</a></code> elements</dd>
+   <dt>Content attributes:</dt>
+   <dd><a href="elements.html#global-attributes" id="global-attributes-76">Global attributes</a></dd>
+   <dt>DOM interface:</dt>
+   <dd><code><a href="#htmltablesectionelement" id="htmltablesectionelement-4">HTMLTableSectionElement</a></code>, as defined for
+   <code><a href="#the-tbody-element" id="tbody-12">tbody</a></code> elements.</dd>
+  </dl><p>The <code><a href="#the-tfoot-element" id="tfoot-14">tfoot</a></code> element <a class="full-spec-link" href="http://dev.w3.org/html5/spec/rendering.html#represents" title='Read about this "represents" reference in the full HTML5 spec.'>represents</a> the <a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#concept-row-group" title='Read about this "block" reference in the full HTML5 spec.'>block</a> of <a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#concept-row" title='Read about this "rows" reference in the full HTML5 spec.'>rows</a> that consist of the column summaries
+  (footers) for the parent <code><a href="#the-table-element" id="table-27">table</a></code> element, if the
+  <code><a href="#the-tfoot-element" id="tfoot-15">tfoot</a></code> element has a parent and it is a
+  <code><a href="#the-table-element" id="table-28">table</a></code>.<h4 id="the-tr-element"><span class="secno">4.9.8 </span>The <dfn><code>tr</code></dfn> element</h4><dl class="element"><dt>Categories</dt>
+   <dd>None.</dd>
+   <dt>Contexts in which this element may be used:</dt>
+   <dd>As a child of a <code><a href="#the-thead-element" id="thead-17">thead</a></code> element.</dd>
+   <dd>As a child of a <code><a href="#the-tbody-element" id="tbody-13">tbody</a></code> element.</dd>
+   <dd>As a child of a <code><a href="#the-tfoot-element" id="tfoot-16">tfoot</a></code> element.</dd>
+   <dd>As a child of a <code><a href="#the-table-element" id="table-29">table</a></code> element, after any
+   <code><a href="#the-caption-element" id="caption-16">caption</a></code>, <code><a href="#the-colgroup-element" id="colgroup-11">colgroup</a></code>, and <code><a href="#the-thead-element" id="thead-18">thead</a></code>
+   elements, but only if there are no <code><a href="#the-tbody-element" id="tbody-14">tbody</a></code> elements that
+   are children of the <code><a href="#the-table-element" id="table-30">table</a></code> element.</dd>
+   <dt>Content model:</dt>
+   <dd>Zero or more <code><a href="#the-td-element" id="td-8">td</a></code> or <code><a href="#the-th-element" id="th-7">th</a></code> elements</dd>
+   <dt>Content attributes:</dt>
+   <dd><a href="elements.html#global-attributes" id="global-attributes-77">Global attributes</a></dd>
+   <dt>DOM interface:</dt>
+   <dd>
+    <pre class="idl">interface <dfn id="htmltablerowelement">HTMLTableRowElement</dfn> : <a href="elements.html#htmlelement" id="htmlelement-83">HTMLElement</a> {
+  readonly attribute long <a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-tr-rowindex" title='Read about this "rowIndex" reference in the full HTML5 spec.'>rowIndex</a>;
+  readonly attribute long <a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-tr-sectionrowindex" title='Read about this "sectionRowIndex" reference in the full HTML5 spec.'>sectionRowIndex</a>;
+  readonly attribute <a href="urls.html#htmlcollection" id="htmlcollection-30">HTMLCollection</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-tr-cells" title='Read about this "cells" reference in the full HTML5 spec.'>cells</a>;
+  <a href="elements.html#htmlelement" id="htmlelement-84">HTMLElement</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-tr-insertcell" title='Read about this "insertCell" reference in the full HTML5 spec.'>insertCell</a>(in optional long index);
+  void <a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-tr-deletecell" title='Read about this "deleteCell" reference in the full HTML5 spec.'>deleteCell</a>(in long index);
+};</pre>
+   </dd>
+  </dl><p>The <code><a href="#the-tr-element" id="tr-18">tr</a></code> element <a class="full-spec-link" href="http://dev.w3.org/html5/spec/rendering.html#represents" title='Read about this "represents" reference in the full HTML5 spec.'>represents</a> a <a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#concept-row" title='Read about this "row" reference in the full HTML5 spec.'>row</a> of <a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#concept-cell" title='Read about this "cells" reference in the full HTML5 spec.'>cells</a> in a <a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#concept-table" title='Read about this "table" reference in the full HTML5 spec.'>table</a>.<dl class="domintro"><dt><var title="">tr</var> . <code title="dom-tr-rowIndex"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-tr-rowindex" title='Read about this "rowIndex" reference in the full HTML5 spec.'>rowIndex</a></code></dt>
+
+   <dd>
+
+    <p>Returns the position of the row in the table's <code title="dom-table-rows"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-table-rows" title='Read about this "rows" reference in the full HTML5 spec.'>rows</a></code> list.</p>
+
+    <p>Returns &minus;1 if the element isn't in a table.</p>
+
+   </dd>
+
+   <dt><var title="">tr</var> . <code title="dom-tr-sectionRowIndex"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-tr-sectionrowindex" title='Read about this "sectionRowIndex" reference in the full HTML5 spec.'>sectionRowIndex</a></code></dt>
+
+   <dd>
+
+    <p>Returns the position of the row in the table section's <code title="dom-tbody-rows"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-tbody-rows" title='Read about this "rows" reference in the full HTML5 spec.'>rows</a></code> list.</p>
+
+    <p>Returns &minus;1 if the element isn't in a table section.</p>
+
+   </dd>
+
+   <dt><var title="">tr</var> . <code title="dom-tr-cells"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-tr-cells" title='Read about this "cells" reference in the full HTML5 spec.'>cells</a></code></dt>
+   <dd>
+
+    <p>Returns an <code><a href="urls.html#htmlcollection" id="htmlcollection-31">HTMLCollection</a></code> of the <code><a href="#the-td-element" id="td-9">td</a></code> and <code><a href="#the-th-element" id="th-8">th</a></code> elements of the row.</p>
+
+   </dd>
+
+   <dt><var title="">cell</var> = <var title="">tr</var> . <code title="dom-tr-insertCell"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-tr-insertcell" title='Read about this "insertCell" reference in the full HTML5 spec.'>insertCell</a></code>( [ <var title="">index</var> ] )</dt>
+
+   <dd>
+
+    <p>Creates a <code><a href="#the-td-element" id="td-10">td</a></code> element, inserts it into the table
+    row at the position given by the argument, and returns the
+    <code><a href="#the-td-element" id="td-11">td</a></code>.</p>
+
+    <p>The position is relative to the cells in the row. The
+    index &minus;1, which is the default if the argument is omitted,
+    is equivalent to inserting at the end of the row.</p>
+
+    <p>If the given position is less than &minus;1 or greater than
+    the number of cells, throws an <code><a href="urls.html#index_size_err" id="index_size_err-8">INDEX_SIZE_ERR</a></code>
+    exception.</p>
+
+   </dd>
+
+   <dt><var title="">tr</var> . <code title="dom-tr-deleteCell"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-tr-deletecell" title='Read about this "deleteCell" reference in the full HTML5 spec.'>deleteCell</a></code>(<var title="">index</var>)</dt>
+   <dd>
+
+    <p>Removes the <code><a href="#the-td-element" id="td-12">td</a></code> or <code><a href="#the-th-element" id="th-9">th</a></code> element with the
+    given position in the row.</p>
+
+    <p>The position is relative to the cells in the row. The index
+    &minus;1 is equivalent to deleting the last cell of the row.</p>
+
+    <p>If the given position is less than &minus;1 or greater than
+    the index of the last cell, or if there are no cells, throws an
+    <code><a href="urls.html#index_size_err" id="index_size_err-9">INDEX_SIZE_ERR</a></code> exception.</p>
+
+   </dd>
+
+  </dl><h4 id="the-td-element"><span class="secno">4.9.9 </span>The <dfn><code>td</code></dfn> element</h4><dl class="element"><dt>Categories</dt>
+   <dd><a href="sections.html#sectioning-root" id="sectioning-root-8">Sectioning root</a>.</dd>
+   <dt>Contexts in which this element may be used:</dt>
+   <dd>As a child of a <code><a href="#the-tr-element" id="tr-19">tr</a></code> element.</dd>
+   <dt>Content model:</dt>
+   <dd><a href="content-models.html#flow-content" id="flow-content-104">Flow content</a>.</dd>
+   <dt>Content attributes:</dt>
+   <dd><a href="elements.html#global-attributes" id="global-attributes-78">Global attributes</a></dd>
+   <dd><code title="attr-tdth-colspan"><a href="#attr-tdth-colspan" id="colspan">colspan</a></code></dd>
+   <dd><code title="attr-tdth-rowspan"><a href="#attr-tdth-rowspan" id="rowspan">rowspan</a></code></dd>
+   <dd><code title="attr-tdth-headers"><a href="#attr-tdth-headers" id="headers-4">headers</a></code></dd>
+   <!-- v2 char, to specify the decimal character used in numeric cells -->
+   <dt>DOM interface:</dt>
+   <dd>
+    <pre class="idl">interface <dfn id="htmltabledatacellelement">HTMLTableDataCellElement</dfn> : <a href="#htmltablecellelement" id="htmltablecellelement-0">HTMLTableCellElement</a> {};</pre>
+   </dd>
+  </dl><p>The <code><a href="#the-td-element" id="td-13">td</a></code> element <a class="full-spec-link" href="http://dev.w3.org/html5/spec/rendering.html#represents" title='Read about this "represents" reference in the full HTML5 spec.'>represents</a> a data <a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#concept-cell" title='Read about this "cell" reference in the full HTML5 spec.'>cell</a> in a table.<h4 id="the-th-element"><span class="secno">4.9.10 </span>The <dfn><code>th</code></dfn> element</h4><dl class="element"><dt>Categories</dt>
+   <dd>None.</dd>
+   <dt>Contexts in which this element may be used:</dt>
+   <dd>As a child of a <code><a href="#the-tr-element" id="tr-20">tr</a></code> element.</dd>
+   <dt>Content model:</dt>
+   <dd><a href="content-models.html#phrasing-content" id="phrasing-content-110">Phrasing content</a>.</dd>
+   <dt>Content attributes:</dt>
+   <dd><a href="elements.html#global-attributes" id="global-attributes-79">Global attributes</a></dd>
+   <dd><code title="attr-tdth-colspan"><a href="#attr-tdth-colspan" id="colspan-0">colspan</a></code></dd>
+   <dd><code title="attr-tdth-rowspan"><a href="#attr-tdth-rowspan" id="rowspan-0">rowspan</a></code></dd>
+   <dd><code title="attr-tdth-headers"><a href="#attr-tdth-headers" id="headers-5">headers</a></code></dd>
+   <dd><code title="attr-th-scope"><a href="#attr-th-scope" id="scope-0">scope</a></code></dd>
+   <dt>DOM interface:</dt>
+   <dd>
+    <pre class="idl">interface <dfn id="htmltableheadercellelement">HTMLTableHeaderCellElement</dfn> : <a href="#htmltablecellelement" id="htmltablecellelement-1">HTMLTableCellElement</a> {
+           attribute DOMString <a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-th-scope" title='Read about this "scope" reference in the full HTML5 spec.'>scope</a>;
+};</pre>
+   </dd>
+  </dl><p>The <code><a href="#the-th-element" id="th-10">th</a></code> element <a class="full-spec-link" href="http://dev.w3.org/html5/spec/rendering.html#represents" title='Read about this "represents" reference in the full HTML5 spec.'>represents</a> a header <a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#concept-cell" title='Read about this "cell" reference in the full HTML5 spec.'>cell</a> in a table.<p>The <code><a href="#the-th-element" id="th-11">th</a></code> element may have a <dfn id="attr-th-scope" title="attr-th-scope"><code>scope</code></dfn> content attribute
+  specified. The <code title="attr-th-scope"><a href="#attr-th-scope" id="scope-1">scope</a></code> attribute is
+  an <a href="common-microsyntaxes.html#enumerated-attribute" id="enumerated-attribute-4">enumerated attribute</a> with five states, four of which
+  have explicit keywords:<dl><dt>The <dfn id="attr-th-scope-row" title="attr-th-scope-row"><code>row</code></dfn>
+   keyword, which maps to the <i>row</i> state</dt>
+
+   <dd>The <i>row</i> state means the header cell applies to some of
+   the subsequent cells in the same row(s).</dd>
+
+   <dt>The <dfn id="attr-th-scope-col" title="attr-th-scope-col"><code>col</code></dfn>
+   keyword, which maps to the <i>column</i> state</dt>
+
+   <dd>The <i>column</i> state means the header cell applies to some
+   of the subsequent cells in the same column(s).</dd>
+
+   <dt>The <dfn id="attr-th-scope-rowgroup" title="attr-th-scope-rowgroup"><code>rowgroup</code></dfn> keyword,
+   which maps to the <i>row group</i> state</dt>
+
+   <dd>The <i>row group</i> state means the header cell applies to all
+   the remaining cells in the row group. A <code><a href="#the-th-element" id="th-12">th</a></code> element's
+   <code title="attr-th-scope"><a href="#attr-th-scope" id="scope-2">scope</a></code> attribute must not be in
+   the <a href="#attr-th-scope-rowgroup" id="attr-th-scope-rowgroup-0" title="attr-th-scope-rowgroup">row group</a> state if
+   the element is not anchored in a <a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#concept-row-group" title='Read about this "row group" reference in the full HTML5 spec.'>row group</a>.</dd>
+
+   <dt>The <dfn id="attr-th-scope-colgroup" title="attr-th-scope-colgroup"><code>colgroup</code></dfn> keyword,
+   which maps to the <i>column group</i> state</dt>
+
+   <dd>The <i>column group</i> state means the header cell applies to
+   all the remaining cells in the column group. A <code><a href="#the-th-element" id="th-13">th</a></code>
+   element's <code title="attr-th-scope"><a href="#attr-th-scope" id="scope-3">scope</a></code> attribute must
+   not be in the <a href="#attr-th-scope-colgroup" id="attr-th-scope-colgroup-0" title="attr-th-scope-colgroup">column
+   group</a> state if the element is not anchored in a <a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#concept-column-group" title='Read about this "column group" reference in the full HTML5 spec.'>column group</a>.</dd>
+
+   <dt>The <dfn id="attr-th-scope-auto" title="attr-th-scope-auto">auto</dfn> state</dt>
+
+   <dd>The <i>auto</i> state makes the header cell apply to a set of
+   cells selected based on context.</dd>
+
+  </dl><p>The <code title="attr-th-scope"><a href="#attr-th-scope" id="scope-4">scope</a></code> attribute's
+  <i>missing value default</i> is the <i>auto</i> state.<div class="example">
+
+   <p>The following example shows how the <code title="attr-th-scope"><a href="#attr-th-scope" id="scope-5">scope</a></code> attribute's <code title="attr-th-scope-rowgroup"><a href="#attr-th-scope-rowgroup" id="rowgroup">rowgroup</a></code> value affects which
+   data cells a header cell applies to.</p>
+
+   <p>Here is a markup fragment showing a table:</p>
+
+   <pre>&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt; &lt;th&gt; ID &lt;th&gt; Measurement &lt;th&gt; Average &lt;th&gt; Maximum
+ &lt;tbody&gt;
+  &lt;tr&gt; &lt;td&gt; &lt;th scope=rowgroup&gt; Cats &lt;td&gt; &lt;td&gt;
+  &lt;tr&gt; &lt;td&gt; 93 &lt;th&gt; Legs &lt;td&gt; 3.5 &lt;td&gt; 4
+  &lt;tr&gt; &lt;td&gt; 10 &lt;th&gt; Tails &lt;td&gt; 1 &lt;td&gt; 1
+ &lt;tbody&gt;
+  &lt;tr&gt; &lt;td&gt; &lt;th scope=rowgroup&gt; English speakers &lt;td&gt; &lt;td&gt;
+  &lt;tr&gt; &lt;td&gt; 32 &lt;th&gt; Legs &lt;td&gt; 2.67 &lt;td&gt; 4
+  &lt;tr&gt; &lt;td&gt; 35 &lt;th&gt; Tails &lt;td&gt; 0.33 &lt;td&gt; 1
+&lt;/table&gt;</pre>
+
+   <p>This would result in the following table:</p>
+
+   <table><thead><tr><th> ID <th> Measurement <th> Average <th> Maximum
+    <tbody><tr><td> <th scope="rowgroup"> Cats <td> <td>
+     <tr><td> 93 <th> Legs <td> 3.5 <td> 4
+     <tr><td> 10 <th> Tails <td> 1 <td> 1
+    <tbody><tr><td> <th scope="rowgroup"> English speakers <td> <td>
+     <tr><td> 32 <th> Legs <td> 2.67 <td> 4
+     <tr><td> 35 <th> Tails <td> 0.33 <td> 1
+   </table><p>The headers in the first row all apply directly down to the rows
+   in their column.</p>
+
+   <p>The headers with the explicit <code title="attr-th-scope"><a href="#attr-th-scope" id="scope-6">scope</a></code> attributes apply to all the
+   cells in their row group other than the cells in the first column.</p>
+
+   <p>The remaining headers apply just to the cells to the right of
+   them.</p>
+
+   <!-- image source: http://software.hixie.ch/utilities/js/live-dom-viewer/saved/151 -->
+   <img alt="" src="http://dev.w3.org/html5/spec/images/table-scope-diagram.png"><!-- (alt is empty because the diagram is completely described by the previous paragraphs) --></div><h4 id="attributes-common-to-td-and-th-elements"><span class="secno">4.9.11 </span>Attributes common to <code><a href="#the-td-element" id="td-14">td</a></code> and <code><a href="#the-th-element" id="th-14">th</a></code> elements</h4><p>The <code><a href="#the-td-element" id="td-15">td</a></code> and <code><a href="#the-th-element" id="th-15">th</a></code> elements may have a <dfn id="attr-tdth-colspan" title="attr-tdth-colspan"><code>colspan</code></dfn> content
+  attribute specified, whose value must be a <a href="common-microsyntaxes.html#valid-non-negative-integer" id="valid-non-negative-integer-7">valid non-negative
+  integer</a> greater than zero.<p>The <code><a href="#the-td-element" id="td-16">td</a></code> and <code><a href="#the-th-element" id="th-16">th</a></code> elements may also have a
+  <dfn id="attr-tdth-rowspan" title="attr-tdth-rowspan"><code>rowspan</code></dfn> content
+  attribute specified, whose value must be a <a href="common-microsyntaxes.html#valid-non-negative-integer" id="valid-non-negative-integer-8">valid non-negative
+  integer</a>.<p>These attributes give the number of columns and rows respectively
+  that the cell is to span. These attributes must not be used to
+  overlap cells.</p><!-- conformance criteria
+  for determining when this is violated are given in the processing
+  model --><hr><p>The <code><a href="#the-td-element" id="td-17">td</a></code> and <code><a href="#the-th-element" id="th-17">th</a></code> element may have a <dfn id="attr-tdth-headers" title="attr-tdth-headers"><code>headers</code></dfn> content
+  attribute specified. The <code title="attr-tdth-headers"><a href="#attr-tdth-headers" id="headers-6">headers</a></code> attribute, if specified,
+  must contain a string consisting of an <a href="common-microsyntaxes.html#unordered-set-of-unique-space-separated-tokens" id="unordered-set-of-unique-space-separated-tokens-1">unordered set of unique
+  space-separated tokens</a>, each of which must have the value of
+  an <a href="elements.html#concept-id" id="concept-id-9" title="concept-id">ID</a> of a <code><a href="#the-th-element" id="th-18">th</a></code> element taking part in the same <a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#concept-table" title='Read about this "table" reference in the full HTML5 spec.'>table</a> as the <code><a href="#the-td-element" id="td-18">td</a></code> or
+  <code><a href="#the-th-element" id="th-19">th</a></code> element.<p>A <code><a href="#the-th-element" id="th-20">th</a></code> element with <a href="elements.html#concept-id" id="concept-id-10" title="concept-id">ID</a> <var title="">id</var> is said
+  to be <i>directly targeted</i> by all <code><a href="#the-td-element" id="td-19">td</a></code> and
+  <code><a href="#the-th-element" id="th-21">th</a></code> elements in the same <a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#concept-table" title='Read about this "table" reference in the full HTML5 spec.'>table</a> that have <code title="attr-tdth-headers"><a href="#attr-tdth-headers" id="headers-7">headers</a></code> attributes whose values
+  include as one of their tokens the <a href="elements.html#concept-id" id="concept-id-11" title="concept-id">ID</a> <var title="">id</var>. A
+  <code><a href="#the-th-element" id="th-22">th</a></code> element <var title="">A</var> is said to be
+  <i>targeted</i> by a <code><a href="#the-th-element" id="th-23">th</a></code> or <code><a href="#the-td-element" id="td-20">td</a></code> element
+  <var title="">B</var> if either <var title="">A</var> is <i>directly
+  targeted</i> by <var title="">B</var> or if there exists an element
+  <var title="">C</var> that is itself <i>targeted</i> by the element
+  <var title="">B</var> and <var title="">A</var> is <i>directly
+  targeted</i> by <var title="">C</var>.<p>A <code><a href="#the-th-element" id="th-24">th</a></code> element must not be <i>targeted</i> by
+  itself.<hr><p>The <code><a href="#the-td-element" id="td-21">td</a></code> and <code><a href="#the-th-element" id="th-25">th</a></code> elements implement
+  interfaces that inherit from the <code><a href="#htmltablecellelement" id="htmltablecellelement-2">HTMLTableCellElement</a></code>
+  interface:<pre class="idl">interface <dfn id="htmltablecellelement">HTMLTableCellElement</dfn> : <a href="elements.html#htmlelement" id="htmlelement-85">HTMLElement</a> {
+           attribute unsigned long <a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-tdth-colspan" title='Read about this "colSpan" reference in the full HTML5 spec.'>colSpan</a>;
+           attribute unsigned long <a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-tdth-rowspan" title='Read about this "rowSpan" reference in the full HTML5 spec.'>rowSpan</a>;
+  [PutForwards=<a class="full-spec-link" href="http://dev.w3.org/html5/spec/common-dom-interfaces.html#dom-domsettabletokenlist-value" title='Read about this "value" reference in the full HTML5 spec.'>value</a>] readonly attribute <a href="urls.html#domsettabletokenlist" id="domsettabletokenlist-4">DOMSettableTokenList</a> <a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-tdth-headers" title='Read about this "headers" reference in the full HTML5 spec.'>headers</a>;
+  readonly attribute long <a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-tdth-cellindex" title='Read about this "cellIndex" reference in the full HTML5 spec.'>cellIndex</a>;
+};</pre><dl class="domintro"><dt><var title="">cell</var> . <code title="dom-tdth-cellIndex"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-tdth-cellindex" title='Read about this "cellIndex" reference in the full HTML5 spec.'>cellIndex</a></code></dt>
+
+   <dd>
+
+    <p>Returns the position of the cell in the row's <code title="dom-tr-cells"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/tabular-data.html#dom-tr-cells" title='Read about this "cells" reference in the full HTML5 spec.'>cells</a></code> list. This does not necessarily
+    correspond to the <var title="">x</var>-position of the cell in
+    the table, since earlier cells might cover multiple rows or
+    columns.</p>
+
+    <p>Returns 0 if the element isn't in a row.</p>
+
+   </dd>
+
+  </dl><h4 id="examples"><span class="secno">4.9.12 </span>Examples</h4><p><i>This section is non-normative.</i><p>The following shows how might one mark up the bottom part of
+  table 45 of the <cite>Smithsonian physical tables, Volume
+  71</cite>:</p><!-- Smithsonian physical tables, Volume 71: By Smithsonian Institution, Frederick Eugene Fowle; page 76 --><!-- from the reprint of the seventh revised edition; publication 2539, published 1921 --><pre>&lt;table&gt;
+ &lt;caption&gt;Specification values: &lt;b&gt;Steel&lt;/b&gt;, &lt;b&gt;Castings&lt;/b&gt;,
+ Ann. A.S.T.M. A27-16, Class B;* P max. 0.06; S max. 0.05.&lt;/caption&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th rowspan=2&gt;Grade.&lt;/th&gt;
+   &lt;th rowspan=2&gt;Yield Point.&lt;/th&gt;
+   &lt;th colspan=2&gt;Ultimate tensile strength&lt;/th&gt;
+   &lt;th rowspan=2&gt;Per cent elong. 50.8mm or 2 in.&lt;/th&gt;
+   &lt;th rowspan=2&gt;Per cent reduct. area.&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;th&gt;kg/mm&lt;sup&gt;2&lt;/sup&gt;&lt;/th&gt;
+   &lt;th&gt;lb/in&lt;sup&gt;2&lt;/sup&gt;&lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td&gt;Hard&lt;/td&gt;
+   &lt;td&gt;0.45 ultimate&lt;/td&gt;
+   &lt;td&gt;56.2&lt;/td&gt;
+   &lt;td&gt;80,000&lt;/td&gt;
+   &lt;td&gt;15&lt;/td&gt;
+   &lt;td&gt;20&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td&gt;Medium&lt;/td&gt;
+   &lt;td&gt;0.45 ultimate&lt;/td&gt;
+   &lt;td&gt;49.2&lt;/td&gt;
+   &lt;td&gt;70,000&lt;/td&gt;
+   &lt;td&gt;18&lt;/td&gt;
+   &lt;td&gt;25&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td&gt;Soft&lt;/td&gt;
+   &lt;td&gt;0.45 ultimate&lt;/td&gt;
+   &lt;td&gt;42.2&lt;/td&gt;
+   &lt;td&gt;60,000&lt;/td&gt;
+   &lt;td&gt;22&lt;/td&gt;
+   &lt;td&gt;30&lt;/td&gt;
+  &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;</pre><p>This table could look like this:<table id="table-example-1"><caption>Specification values: <b>Steel</b>, <b>Castings</b>,
+   Ann. A.S.T.M. A27-16, Class B;* P max. 0.06; S max. 0.05.</caption>
+   <thead><tr><th rowspan="2">Grade.</th>
+     <th rowspan="2">Yield Point.</th>
+     <th colspan="2">Ultimate tensile strength</th>
+     <th rowspan="2">Per cent elong. 50.8&nbsp;mm or&nbsp;2&nbsp;in.</th>
+     <th rowspan="2">Per cent reduct. area.</th>
+    <tr><th>kg/mm<sup>2</sup></th>
+     <th>lb/in<sup>2</sup></th>
+    <tbody><tr><td>Hard</td>
+     <td>0.45 ultimate</td>
+     <td>56.2</td>
+     <td>80,000</td>
+     <td>15</td>
+     <td>20</td>
+    <tr><td>Medium</td>
+     <td>0.45 ultimate</td>
+     <td>49.2</td>
+     <td>70,000</td>
+     <td>18</td>
+     <td>25</td>
+    <tr><td>Soft</td>
+     <td>0.45 ultimate</td>
+     <td>42.2</td>
+     <td>60,000</td>
+     <td>22</td>
+     <td>30</td>
+    </table><hr><p>The following shows how one might mark up the gross margin table
+  on page 46 of Apple, Inc's 10-K filing for fiscal year 2008:<pre>&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th&gt;
+   &lt;th&gt;2008
+   &lt;th&gt;2007
+   &lt;th&gt;2006
+ &lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;th&gt;Net sales
+   &lt;td&gt;$ 32,479
+   &lt;td&gt;$ 24,006
+   &lt;td&gt;$ 19,315
+  &lt;tr&gt;
+   &lt;th&gt;Cost of sales
+   &lt;td&gt;  21,334
+   &lt;td&gt;  15,852
+   &lt;td&gt;  13,717
+ &lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;th&gt;Gross margin
+   &lt;td&gt;$ 11,145
+   &lt;td&gt;$  8,154
+   &lt;td&gt;$  5,598
+ &lt;tfoot&gt;
+  &lt;tr&gt;
+   &lt;th&gt;Gross margin percentage
+   &lt;td&gt;34.3%
+   &lt;td&gt;34.0%
+   &lt;td&gt;29.0%
+&lt;/table&gt;</pre><hr><p>The following shows how one might mark up the operating expenses
+  table from lower on the same page of that document:<pre>&lt;table&gt;
+ &lt;colgroup&gt; &lt;col&gt;
+ &lt;colgroup&gt; &lt;col&gt; &lt;col&gt; &lt;col&gt;
+ &lt;thead&gt;
+  &lt;tr&gt; &lt;th&gt; &lt;th&gt;2008 &lt;th&gt;2007 &lt;th&gt;2006
+ &lt;tbody&gt;
+  &lt;tr&gt; &lt;th scope=rowgroup&gt; Research and development
+       &lt;td&gt; $ 1,109 &lt;td&gt; $ 782 &lt;td&gt; $ 712
+  &lt;tr&gt; &lt;th scope=row&gt; Percentage of net sales
+       &lt;td&gt; 3.4% &lt;td&gt; 3.3% &lt;td&gt; 3.7%
+ &lt;tbody&gt;
+  &lt;tr&gt; &lt;th scope=rowgroup&gt; Selling, general, and administrative
+       &lt;td&gt; $ 3,761 &lt;td&gt; $ 2,963 &lt;td&gt; $ 2,433
+  &lt;tr&gt; &lt;th scope=row&gt; Percentage of net sales
+       &lt;td&gt; 11.6% &lt;td&gt; 12.3% &lt;td&gt; 12.6%
+&lt;/table&gt;</pre><p>This table could look like this:<table class="apple-table-examples e2"><thead><tr><th> <th>2008 <th>2007 <th>2006
+   <tbody><tr><th scope="rowgroup"> Research and development
+         <td> $ 1,109 <td> $ 782 <td> $ 712
+    <tr><th scope="row"> Percentage of net sales
+         <td> 3.4% <td> 3.3% <td> 3.7%
+   <tbody><tr><th scope="rowgroup"> Selling, general, and administrative
+         <td> $ 3,761 <td> $ 2,963 <td> $ 2,433
+    <tr><th scope="row"> Percentage of net sales
+         <td> 11.6% <td> 12.3% <td> 12.6%
+  </table>

@@ -1,0 +1,572 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"><!-- when publishing, change bits marked ZZZ --><html class="split chapter" lang="en-US-x-Hixie"><meta content="text/html; charset=ascii" http-equiv="Content-Type"><title>3.3 APIs in HTML documents &mdash; HTML5 (Edition for Web Authors)</title><link href="whatwg.css" rel="stylesheet"><style type="text/css">
+   pre { margin-left: 2em; white-space: pre-wrap; }
+   h2 { margin: 3em 0 1em 0; }
+   h3 { margin: 2.5em 0 1em 0; }
+   h4 { margin: 2.5em 0 0.75em 0; }
+   h5, h6 { margin: 2.5em 0 1em; }
+   h1 + h2, h1 + h2 + h2 { margin: 0.75em 0 0.75em; }
+   h2 + h3, h3 + h4, h4 + h5, h5 + h6 { margin-top: 0.5em; }
+   p { margin: 1em 0; }
+   hr:not(.top) { display: block; background: none; border: none; padding: 0; margin: 2em 0; height: auto; }
+   dl, dd { margin-top: 0; margin-bottom: 0; }
+   dt { margin-top: 0.75em; margin-bottom: 0.25em; clear: left; }
+   dt + dt { margin-top: 0; }
+   dd dt { margin-top: 0.25em; margin-bottom: 0; }
+   dd p { margin-top: 0; }
+   dd dl + p { margin-top: 1em; }
+   dd table + p { margin-top: 1em; }
+   p + * > li, dd li { margin: 1em 0; }
+   dt, dfn { font-weight: bold; font-style: normal; }
+   dt dfn { font-style: italic; }
+   pre, code { font-size: inherit; font-family: monospace; font-variant: normal; }
+   pre strong { color: black; font: inherit; font-weight: bold; background: yellow; }
+   pre em { font-weight: bolder; font-style: normal; }
+   @media screen { code { color: orangered; } code :link, code :visited { color: inherit; } }
+   var sub { vertical-align: bottom; font-size: smaller; position: relative; top: 0.1em; }
+   table { border-collapse: collapse; border-style: hidden hidden none hidden; }
+   table thead, table tbody { border-bottom: solid; }
+   table tbody th:first-child { border-left: solid; }
+   table tbody th { text-align: left; }
+   table td, table th { border-left: solid; border-right: solid; border-bottom: solid thin; vertical-align: top; padding: 0.2em; }
+   blockquote { margin: 0 0 0 2em; border: 0; padding: 0; font-style: italic; }
+
+   .bad, .bad *:not(.XXX) { color: gray; border-color: gray; background: transparent; }
+   .matrix, .matrix td { border: none; text-align: right; }
+   .matrix { margin-left: 2em; }
+   .dice-example { border-collapse: collapse; border-style: hidden solid solid hidden; border-width: thin; margin-left: 3em; }
+   .dice-example caption { width: 30em; font-size: smaller; font-style: italic; padding: 0.75em 0; text-align: left; }
+   .dice-example td, .dice-example th { border: solid thin; width: 1.35em; height: 1.05em; text-align: center; padding: 0; }
+
+   .toc dfn, h1 dfn, h2 dfn, h3 dfn, h4 dfn, h5 dfn, h6 dfn { font: inherit; }
+   img.extra { float: right; }
+   pre.idl { border: solid thin; background: #EEEEEE; color: black; padding: 0.5em 1em; }
+   pre.idl :link, pre.idl :visited { color: inherit; background: transparent; }
+   pre.css { border: solid thin; background: #FFFFEE; color: black; padding: 0.5em 1em; }
+   pre.css:first-line { color: #AAAA50; }
+   dl.domintro { color: green; margin: 2em 0 2em 2em; padding: 0.5em 1em; border: none; background: #DDFFDD; }
+   hr + dl.domintro, div.impl + dl.domintro { margin-top: 2.5em; margin-bottom: 1.5em; }
+   dl.domintro dt, dl.domintro dt * { color: black; text-decoration: none; }
+   dl.domintro dd { margin: 0.5em 0 1em 2em; padding: 0; }
+   dl.domintro dd p { margin: 0.5em 0; }
+   dl.switch { padding-left: 2em; }
+   dl.switch > dt { text-indent: -1.5em; }
+   dl.switch > dt:before { content: '\21AA'; padding: 0 0.5em 0 0; display: inline-block; width: 1em; text-align: right; line-height: 0.5em; }
+   dl.triple { padding: 0 0 0 1em; }
+   dl.triple dt, dl.triple dd { margin: 0; display: inline }
+   dl.triple dt:after { content: ':'; }
+   dl.triple dd:after { content: '\A'; white-space: pre; }
+   .diff-old { text-decoration: line-through; color: silver; background: transparent; }
+   .diff-chg, .diff-new { text-decoration: underline; color: green; background: transparent; }
+   a .diff-new { border-bottom: 1px blue solid; }
+
+   h2 { page-break-before: always; }
+   h1, h2, h3, h4, h5, h6 { page-break-after: avoid; }
+   h1 + h2, hr + h2.no-toc { page-break-before: auto; }
+
+   p > span:not([title=""]):not([class="XXX"]):not([class="impl"]), li > span:not([title=""]):not([class="XXX"]):not([class="impl"]) { border-bottom: solid #9999CC; }
+
+   div.head { margin: 0 0 1em; padding: 1em 0 0 0; }
+   div.head p { margin: 0; }
+   div.head h1 { margin: 0; }
+   div.head .logo { float: right; margin: 0 1em; }
+   div.head .logo img { border: none } /* remove border from top image */
+   div.head dl { margin: 1em 0; }
+   div.head p.copyright, div.head p.alt { font-size: x-small; font-style: oblique; margin: 0; }
+
+   body > .toc > li { margin-top: 1em; margin-bottom: 1em; }
+   body > .toc.brief > li { margin-top: 0.35em; margin-bottom: 0.35em; }
+   body > .toc > li > * { margin-bottom: 0.5em; }
+   body > .toc > li > * > li > * { margin-bottom: 0.25em; }
+   .toc, .toc li { list-style: none; }
+
+   .brief { margin-top: 1em; margin-bottom: 1em; line-height: 1.1; }
+   .brief li { margin: 0; padding: 0; }
+   .brief li p { margin: 0; padding: 0; }
+
+   .category-list { margin-top: -0.75em; margin-bottom: 1em; line-height: 1.5; }
+   .category-list::before { content: '\21D2\A0'; font-size: 1.2em; font-weight: 900; }
+   .category-list li { display: inline; }
+   .category-list li:not(:last-child)::after { content: ', '; }
+   .category-list li > span, .category-list li > a { text-transform: lowercase; }
+   .category-list li * { text-transform: none; } /* don't affect <code> nested in <a> */
+
+   .XXX { color: #E50000; background: white; border: solid red; padding: 0.5em; margin: 1em 0; }
+   .XXX > :first-child { margin-top: 0; }
+   p .XXX { line-height: 3em; }
+   .annotation { border: solid thin black; background: #0C479D; color: white; position: relative; margin: 8px 0 20px 0; }
+   .annotation:before { position: absolute; left: 0; top: 0; width: 100%; height: 100%; margin: 6px -6px -6px 6px; background: #333333; z-index: -1; content: ''; }
+   .annotation :link, .annotation :visited { color: inherit; }
+   .annotation :link:hover, .annotation :visited:hover { background: transparent; }
+   .annotation span { border: none ! important; }
+   .note { color: green; background: transparent; font-family: sans-serif; }
+   .warning { color: red; background: transparent; }
+   .note, .warning { font-weight: bolder; font-style: italic; }
+   p.note, div.note { padding: 0.5em 2em; }
+   span.note { padding: 0 2em; }
+   .note p:first-child, .warning p:first-child { margin-top: 0; }
+   .note p:last-child, .warning p:last-child { margin-bottom: 0; }
+   .warning:before { font-style: normal; }
+   p.note:before { content: 'Note: '; }
+   p.warning:before { content: '\26A0 Warning! '; }
+
+   .bookkeeping:before { display: block; content: 'Bookkeeping details'; font-weight: bolder; font-style: italic; }
+   .bookkeeping { font-size: 0.8em; margin: 2em 0; }
+   .bookkeeping p { margin: 0.5em 2em; display: list-item; list-style: square; }
+   .bookkeeping dt { margin: 0.5em 2em 0; }
+   .bookkeeping dd { margin: 0 3em 0.5em; }
+
+   h4 { position: relative; z-index: 3; }
+   h4 + .element, h4 + div + .element { margin-top: -2.5em; padding-top: 2em; }
+   .element {
+     background: #EEEEFF;
+     color: black;
+     margin: 0 0 1em 0.15em;
+     padding: 0 1em 0.25em 0.75em;
+     border-left: solid #9999FF 0.25em;
+     position: relative;
+     z-index: 1;
+   }
+   .element:before {
+     position: absolute;
+     z-index: 2;
+     top: 0;
+     left: -1.15em;
+     height: 2em;
+     width: 0.9em;
+     background: #EEEEFF;
+     content: ' ';
+     border-style: none none solid solid;
+     border-color: #9999FF;
+     border-width: 0.25em;
+   }
+
+   .example { display: block; color: #222222; background: #FCFCFC; border-left: double; margin-left: 2em; padding-left: 1em; }
+   td > .example:only-child { margin: 0 0 0 0.1em; }
+
+   ul.domTree, ul.domTree ul { padding: 0 0 0 1em; margin: 0; }
+   ul.domTree li { padding: 0; margin: 0; list-style: none; position: relative; }
+   ul.domTree li li { list-style: none; }
+   ul.domTree li:first-child::before { position: absolute; top: 0; height: 0.6em; left: -0.75em; width: 0.5em; border-style: none none solid solid; content: ''; border-width: 0.1em; }
+   ul.domTree li:not(:last-child)::after { position: absolute; top: 0; bottom: -0.6em; left: -0.75em; width: 0.5em; border-style: none none solid solid; content: ''; border-width: 0.1em; }
+   ul.domTree span { font-style: italic; font-family: serif; }
+   ul.domTree .t1 code { color: purple; font-weight: bold; }
+   ul.domTree .t2 { font-style: normal; font-family: monospace; }
+   ul.domTree .t2 .name { color: black; font-weight: bold; }
+   ul.domTree .t2 .value { color: blue; font-weight: normal; }
+   ul.domTree .t3 code, .domTree .t4 code, .domTree .t5 code { color: gray; }
+   ul.domTree .t7 code, .domTree .t8 code { color: green; }
+   ul.domTree .t10 code { color: teal; }
+
+   body.dfnEnabled dfn { cursor: pointer; }
+   .dfnPanel {
+     display: inline;
+     position: absolute;
+     z-index: 10;
+     height: auto;
+     width: auto;
+     padding: 0.5em 0.75em;
+     font: small sans-serif, Droid Sans Fallback;
+     background: #DDDDDD;
+     color: black;
+     border: outset 0.2em;
+   }
+   .dfnPanel * { margin: 0; padding: 0; font: inherit; text-indent: 0; }
+   .dfnPanel :link, .dfnPanel :visited { color: black; }
+   .dfnPanel p { font-weight: bolder; }
+   .dfnPanel * + p { margin-top: 0.25em; }
+   .dfnPanel li { list-style-position: inside; }
+
+   #configUI { position: absolute; z-index: 20; top: 10em; right: 1em; width: 11em; font-size: small; }
+   #configUI p { margin: 0.5em 0; padding: 0.3em; background: #EEEEEE; color: black; border: inset thin; }
+   #configUI p label { display: block; }
+   #configUI #updateUI, #configUI .loginUI { text-align: center; }
+   #configUI input[type=button] { display: block; margin: auto; }
+
+  </style><style type="text/css">
+
+   .applies thead th > * { display: block; }
+   .applies thead code { display: block; }
+   .applies tbody th { whitespace: nowrap; }
+   .applies td { text-align: center; }
+   .applies .yes { background: yellow; }
+
+   .matrix, .matrix td { border: hidden; text-align: right; }
+   .matrix { margin-left: 2em; }
+
+   .dice-example { border-collapse: collapse; border-style: hidden solid solid hidden; border-width: thin; margin-left: 3em; }
+   .dice-example caption { width: 30em; font-size: smaller; font-style: italic; padding: 0.75em 0; text-align: left; }
+   .dice-example td, .dice-example th { border: solid thin; width: 1.35em; height: 1.05em; text-align: center; padding: 0; }
+
+   #table-example-1 { border: solid thin; border-collapse: collapse; margin-left: 3em; }
+   #table-example-1 * { font-family: "Essays1743", serif; line-height: 1.01em; }
+   #table-example-1 caption { padding-bottom: 0.5em; }
+   #table-example-1 thead, #table-example-1 tbody { border: none; }
+   #table-example-1 th, #table-example-1 td { border: solid thin; }
+   #table-example-1 th { font-weight: normal; }
+   #table-example-1 td { border-style: none solid; vertical-align: top; }
+   #table-example-1 th { padding: 0.5em; vertical-align: middle; text-align: center; }
+   #table-example-1 tbody tr:first-child td { padding-top: 0.5em; }
+   #table-example-1 tbody tr:last-child td { padding-bottom: 1.5em; }
+   #table-example-1 tbody td:first-child { padding-left: 2.5em; padding-right: 0; width: 9em; }
+   #table-example-1 tbody td:first-child::after { content: leader(". "); }
+   #table-example-1 tbody td { padding-left: 2em; padding-right: 2em; }
+   #table-example-1 tbody td:first-child + td { width: 10em; }
+   #table-example-1 tbody td:first-child + td ~ td { width: 2.5em; }
+   #table-example-1 tbody td:first-child + td + td + td ~ td { width: 1.25em; }
+
+   .apple-table-examples { border: none; border-collapse: separate; border-spacing: 1.5em 0em; width: 40em; margin-left: 3em; }
+   .apple-table-examples * { font-family: "Times", serif; }
+   .apple-table-examples td, .apple-table-examples th { border: none; white-space: nowrap; padding-top: 0; padding-bottom: 0; }
+   .apple-table-examples tbody th:first-child { border-left: none; width: 100%; }
+   .apple-table-examples thead th:first-child ~ th { font-size: smaller; font-weight: bolder; border-bottom: solid 2px; text-align: center; }
+   .apple-table-examples tbody th::after, .apple-table-examples tfoot th::after { content: leader(". ") }
+   .apple-table-examples tbody th, .apple-table-examples tfoot th { font: inherit; text-align: left; }
+   .apple-table-examples td { text-align: right; vertical-align: top; }
+   .apple-table-examples.e1 tbody tr:last-child td { border-bottom: solid 1px; }
+   .apple-table-examples.e1 tbody + tbody tr:last-child td { border-bottom: double 3px; }
+   .apple-table-examples.e2 th[scope=row] { padding-left: 1em; }
+   .apple-table-examples sup { line-height: 0; }
+
+   .details-example img { vertical-align: top; }
+
+   #named-character-references-table {
+     font-size: 0.6em;
+     column-width: 28em;
+     column-gap: 1em;
+     -moz-column-width: 28em;
+     -moz-column-gap: 1em;
+     -webkit-column-width: 28em;
+     -webkit-column-gap: 1em;
+   }
+   #named-character-references-table > table > tbody > tr > td:last-child { text-align: center; }
+   #named-character-references-table > table > tbody > tr > td:last-child:hover > span { position: absolute; top: auto; left: auto; margin-left: 0.5em; line-height: 1.2; font-size: 5em; border: outset; padding: 0.25em 0.5em; background: white; width: 1.25em; height: auto; text-align: center; }
+
+   .glyph.control { color: red; }
+
+   @font-face {
+     font-family: 'Essays1743';
+     src: url('http://www.whatwg.org/specs/web-apps/current-work/fonts/Essays1743.ttf');
+   }
+   @font-face {
+     font-family: 'Essays1743';
+     font-weight: bold;
+     src: url('http://www.whatwg.org/specs/web-apps/current-work/fonts/Essays1743-Bold.ttf');
+   }
+   @font-face {
+     font-family: 'Essays1743';
+     font-style: italic;
+     src: url('http://www.whatwg.org/specs/web-apps/current-work/fonts/Essays1743-Italic.ttf');
+   }
+   @font-face {
+     font-family: 'Essays1743';
+     font-style: italic;
+     font-weight: bold;
+     src: url('http://www.whatwg.org/specs/web-apps/current-work/fonts/Essays1743-BoldItalic.ttf');
+   }
+
+  </style><link href="data:text/css," id="complete" rel="stylesheet" title="Complete specification"><link href="data:text/css,.impl%20%7B%20display:%20none;%20%7D%0Ahtml%20%7B%20border:%20solid%20yellow;%20%7D%20.domintro:before%20%7B%20display:%20none;%20%7D" id="author" rel="alternate stylesheet" title="Author documentation only"><link href="data:text/css,.impl%20%7B%20background:%20%23FFEEEE;%20%7D%20.domintro:before%20%7B%20background:%20%23FFEEEE;%20%7D" id="highlight" rel="alternate stylesheet" title="Highlight implementation requirements"><script type="text/javascript">
+ function getCookie(name) {
+   var params = location.search.substr(1).split("&");
+   for (var index = 0; index < params.length; index++) {
+     if (params[index] == name)
+       return "1";
+     var data = params[index].split("=");
+     if (data[0] == name)
+       return unescape(data[1]);
+   }
+   var cookies = document.cookie.split("; ");
+   for (var index = 0; index < cookies.length; index++) {
+     var data = cookies[index].split("=");
+     if (data[0] == name)
+       return unescape(data[1]);
+   }
+   return null;
+ }
+ function load(script) {
+   var e = document.createElement('script');
+   e.setAttribute('src', script + '?' + encodeURIComponent(location) + '&' + encodeURIComponent(document.referrer));
+   document.body.appendChild(e);
+ }
+ function init() {
+   if (location.search == '?slow-browser')
+     return;
+   var configUI = document.createElement('div');
+   configUI.id = 'configUI';
+   document.body.appendChild(configUI);
+   if (document.getElementById('head'))
+     load('toc.js');
+   load('dfn.js');
+   if (getCookie('profile') == '1')
+     document.getElementsByTagName('h2')[0].textContent += '; load: ' + (new Date() - loadTimer) + 'ms';
+   fixBrokenLink();
+ }
+</script><link href="http://www.w3.org/StyleSheets/TR/W3C-ED" rel="stylesheet" type="text/css"><link href="style.css" rel="stylesheet"><script src="link-fixup.js"></script><link href="content-models.html" rel="prev" title="3.2.5 Content models">
+  <link href="Overview.html#contents" rel="index" title="Table of contents">
+  <link href="semantics.html" rel="next" title="4 The elements of HTML">
+  <body onload="fixBrokenLink(); init()"><div class="head" id="head">
+   <p><a href="http://www.w3.org/"><img alt="W3C" height="48" src="http://www.w3.org/Icons/w3c_home" width="72"></a></p>
+
+   <h1>HTML5 (Edition for Web Authors)<span class="rcsrevision"> revision 1.4343</span></h1>
+   </div><div>
+   <a href="content-models.html">&larr; 3.2.5 Content models</a> &ndash;
+   <a href="Overview.html#contents">Table of contents</a> &ndash;
+   <a href="semantics.html">4 The elements of HTML &rarr;</a>
+  <ol class="toc"><li><ol><li><a href="apis-in-html-documents.html#apis-in-html-documents"><span class="secno">3.3 </span>APIs in HTML documents</a><li><a href="apis-in-html-documents.html#dynamic-markup-insertion" id="x3.4-dynamic-markup-insertion"><span class="secno">3.4 </span>Dynamic markup insertion</a>
+    <ol><li><a href="apis-in-html-documents.html#opening-the-input-stream"><span class="secno">3.4.1 </span>Opening the input stream</a><li><a href="apis-in-html-documents.html#closing-the-input-stream"><span class="secno">3.4.2 </span>Closing the input stream</a><li><a href="apis-in-html-documents.html#document.write"><span class="secno">3.4.3 </span><code title="dom-document-write">document.write()</code></a><li><a href="apis-in-html-documents.html#document.writeln"><span class="secno">3.4.4 </span><code title="dom-document-writeln">document.writeln()</code></a><li><a href="apis-in-html-documents.html#innerhtml"><span class="secno">3.4.5 </span><code title="dom-innerHTML">innerHTML</code></a><li><a href="apis-in-html-documents.html#outerhtml"><span class="secno">3.4.6 </span><code title="dom-outerHTML">outerHTML</code></a><li><a href="apis-in-html-documents.html#insertadjacenthtml"><span class="secno">3.4.7 </span><code title="dom-insertAdjacentHTML">insertAdjacentHTML()</code></a></ol></ol></ol></div>
+
+  <h3 id="apis-in-html-documents"><span class="secno">3.3 </span>APIs in HTML documents</h3><p>For <a href="dom.html#html-documents" id="html-documents-9">HTML documents</a>, and for <a href="infrastructure.html#html-elements" id="html-elements-23">HTML
+  elements</a> in <a href="dom.html#html-documents" id="html-documents-10">HTML documents</a>, certain APIs defined
+  in DOM Core become case-insensitive or case-changing, as sometimes
+  defined in DOM Core, and as summarized  below. <a href="references.html#refsDOMCORE">[DOMCORE]</a><p>This does not apply to <a href="dom.html#xml-documents" id="xml-documents-6">XML documents</a> or to elements
+  that are not in the <a href="urls.html#html-namespace-0" id="html-namespace-3">HTML namespace</a> despite being in
+  <a href="dom.html#html-documents" id="html-documents-11">HTML documents</a>.<dl><dt><code title="dom-Element-tagName"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/infrastructure.html#dom-element-tagname" title='Read about this "Element.tagName" reference in the full HTML5 spec.'>Element.tagName</a></code> and <code title="dom-Node-nodeName">Node.nodeName</code></dt>
+
+   <dd>
+
+    <p>These attributes  return element
+    names <a class="full-spec-link" href="http://dev.w3.org/html5/spec/infrastructure.html#converted-to-ascii-uppercase" title='Read about this "converted to ASCII uppercase" reference in the full HTML5 spec.'>converted to ASCII uppercase</a>, regardless of the case
+    with which they were created.</p>
+
+   </dd>
+
+
+   <dt><code title="dom-Document-createElement">Document.createElement()</code></dt>
+
+   <dd>
+
+    <p>The canonical form of HTML markup is all-lowercase; thus, this
+    method will <a class="full-spec-link" href="http://dev.w3.org/html5/spec/infrastructure.html#converted-to-ascii-lowercase" title='Read about this "lowercase" reference in the full HTML5 spec.'>lowercase</a>
+    the argument before creating the requisite element. .</p>
+
+    <p class="note">This doesn't apply to <code title="">Document.createElementNS()</code>. Thus, it is possible,
+    by passing this last method a tag name in the wrong case, to
+    create an element that appears to have the same tag name as that
+    of an element defined in this specification when its <code title="dom-Element-tagName"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/infrastructure.html#dom-element-tagname" title='Read about this "tagName" reference in the full HTML5 spec.'>tagName</a></code> attribute is examined, but that
+    doesn't support the corresponding interfaces. The "real" element
+    name (unaffected by case conversions) can be obtained from the
+    <code title="dom-Node-localName"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/infrastructure.html#dom-node-localname" title='Read about this "localName" reference in the full HTML5 spec.'>localName</a></code> attribute.</p>
+
+   </dd>
+
+
+   <dt><code title="dom-Element-setAttribute">Element.setAttribute()</code></dt>
+   <dt><code title="dom-Element-setAttributeNode">Element.setAttributeNode()</code></dt>
+
+   <dd>
+
+    <p>Attribute names are <a class="full-spec-link" href="http://dev.w3.org/html5/spec/infrastructure.html#converted-to-ascii-lowercase" title='Read about this "converted to ASCII lowercase" reference in the full HTML5 spec.'>converted to ASCII lowercase</a>.</p>
+
+    
+
+    <p class="note">This doesn't apply to <code title="">Element.setAttributeNS()</code> and <code title="">Element.setAttributeNodeNS()</code>.</p>
+
+   </dd>
+
+
+   <dt><code title="dom-Element-getAttribute">Element.getAttribute()</code></dt>
+   <dt><code title="dom-Element-getAttributeNode">Element.getAttributeNode()</code></dt>
+
+   <dd>
+
+    <p>Attribute names are <a class="full-spec-link" href="http://dev.w3.org/html5/spec/infrastructure.html#converted-to-ascii-lowercase" title='Read about this "converted to ASCII lowercase" reference in the full HTML5 spec.'>converted to ASCII lowercase</a>.</p>
+
+    
+
+    <p class="note">This doesn't apply to <code title="">Element.getAttributeNS()</code> and <code title="">Element.getAttributeNodeNS()</code>.</p>
+
+   </dd>
+
+
+   <dt><code title="dom-Document-getElementsByTagName">Document.getElementsByTagName()</code></dt>
+   <dt><code title="dom-Element-getElementsByTagName">Element.getElementsByTagName()</code></dt>
+
+   <dd>
+
+    <p>HTML elements match by lower-casing the argument before
+    comparison, elements from other namespaces are treated as in XML
+    (case-sensitively).</p>
+
+    
+
+    <p class="note">Thus, in an <a href="dom.html#html-documents" id="html-documents-12" title="HTML documents">HTML
+    document</a> with nodes in multiple namespaces, these methods
+    will effectively be both case-sensitive and case-insensitive at
+    the same time.</p>
+
+   </dd>
+
+
+  </dl><h3 id="dynamic-markup-insertion"><span class="secno">3.4 </span><dfn>Dynamic markup insertion</dfn></h3><p class="note">APIs for dynamically inserting markup into the
+  document interact with the parser, and thus their behavior varies
+  depending on whether they are used with <a href="dom.html#html-documents" id="html-documents-13">HTML documents</a>
+  (and the <a class="full-spec-link" href="http://dev.w3.org/html5/spec/parsing.html#html-parser" title='Read about this "HTML parser" reference in the full HTML5 spec.'>HTML parser</a>) or XHTML in <a href="dom.html#xml-documents" id="xml-documents-7">XML
+  documents</a> (and the <a class="full-spec-link" href="http://dev.w3.org/html5/spec/the-xhtml-syntax.html#xml-parser" title='Read about this "XML parser" reference in the full HTML5 spec.'>XML parser</a>).<h4 id="opening-the-input-stream"><span class="secno">3.4.1 </span>Opening the input stream</h4><p>The <dfn id="dom-document-open" title="dom-document-open"><code>open()</code></dfn>
+  method comes in several variants with different numbers of
+  arguments.<dl class="domintro"><dt><var title="">document</var> = <var title="">document</var> . <code title="dom-document-open"><a href="#dom-document-open" id="open-2">open</a></code>( [ <var title="">type</var> [, <var title="">replace</var> ] ] )</dt>
+
+   <dd>
+
+    <p>Causes the <code><a class="full-spec-link" href="http://dev.w3.org/html5/spec/infrastructure.html#document" title='Read about this "Document" reference in the full HTML5 spec.'>Document</a></code> to be replaced in-place, as if
+    it was a new <code><a class="full-spec-link" href="http://dev.w3.org/html5/spec/infrastructure.html#document" title='Read about this "Document" reference in the full HTML5 spec.'>Document</a></code> object, but reusing the
+    previous object, which is then returned.</p>
+
+    <p>If the <var title="">type</var> argument is omitted or has the
+    value "<code><a href="iana.html#text-html" id="text-html-2">text/html</a></code>", then the resulting
+    <code><a class="full-spec-link" href="http://dev.w3.org/html5/spec/infrastructure.html#document" title='Read about this "Document" reference in the full HTML5 spec.'>Document</a></code> has an HTML parser associated with it, which
+    can be given data to parse using <code title="dom-document-write"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/apis-in-html-documents.html#dom-document-write" title='Read about this "document.write()" reference in the full HTML5 spec.'>document.write()</a></code>. Otherwise, all
+    content passed to <code title="dom-document-write"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/apis-in-html-documents.html#dom-document-write" title='Read about this "document.write()" reference in the full HTML5 spec.'>document.write()</a></code> will be parsed
+    as plain text.</p>
+
+    <p>If the <var title="">replace</var> argument is present and has
+    the value "<code title="">replace</code>", the existing entries in
+    the session history for the <code><a class="full-spec-link" href="http://dev.w3.org/html5/spec/infrastructure.html#document" title='Read about this "Document" reference in the full HTML5 spec.'>Document</a></code> object are
+    removed.</p>
+
+    <p>The method has no effect if the <code><a class="full-spec-link" href="http://dev.w3.org/html5/spec/infrastructure.html#document" title='Read about this "Document" reference in the full HTML5 spec.'>Document</a></code> is still
+    being parsed.</p>
+
+    <p>Throws an <code><a href="urls.html#invalid_state_err" id="invalid_state_err-0">INVALID_STATE_ERR</a></code> exception if the
+    <code><a class="full-spec-link" href="http://dev.w3.org/html5/spec/infrastructure.html#document" title='Read about this "Document" reference in the full HTML5 spec.'>Document</a></code> is an <a href="dom.html#xml-documents" id="xml-documents-8" title="XML documents">XML
+    document</a>.</p>
+
+   </dd>
+
+   <dt><var title="">window</var> = <var title="">document</var> . <code title="dom-document-open"><a href="#dom-document-open" id="open-3">open</a></code>( <var title="">url</var>, <var title="">name</var>, <var title="">features</var> [, <var title="">replace</var> ] )</dt>
+
+   <dd>
+
+    <p>Works like the <code title="dom-open"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/browsers.html#dom-open" title='Read about this "window.open()" reference in the full HTML5 spec.'>window.open()</a></code>
+    method.</p>
+
+   </dd>
+
+  </dl><h4 id="closing-the-input-stream"><span class="secno">3.4.2 </span>Closing the input stream</h4><dl class="domintro"><dt><var title="">document</var> . <code title="dom-document-close"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/apis-in-html-documents.html#dom-document-close" title='Read about this "close" reference in the full HTML5 spec.'>close</a></code>()</dt>
+
+   <dd>
+
+    <p>Closes the input stream that was opened by the <code title="dom-document-open"><a href="#dom-document-open" id="document.open">document.open()</a></code> method.</p>
+
+    <p>Throws an <code><a href="urls.html#invalid_state_err" id="invalid_state_err-1">INVALID_STATE_ERR</a></code> exception if the
+    <code><a class="full-spec-link" href="http://dev.w3.org/html5/spec/infrastructure.html#document" title='Read about this "Document" reference in the full HTML5 spec.'>Document</a></code> is an <a href="dom.html#xml-documents" id="xml-documents-9" title="XML documents">XML
+    document</a>.</p>
+
+   </dd>
+
+  </dl><h4 id="document.write"><span class="secno">3.4.3 </span><code title="dom-document-write"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/apis-in-html-documents.html#dom-document-write" title='Read about this "document.write()" reference in the full HTML5 spec.'>document.write()</a></code></h4><dl class="domintro"><dt><var title="">document</var> . <code title="dom-document-write"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/apis-in-html-documents.html#dom-document-write" title='Read about this "write" reference in the full HTML5 spec.'>write</a></code>(<var title="">text</var>...)</dt>
+
+   <dd>
+
+    <p>Adds the given string(s) to the <code><a class="full-spec-link" href="http://dev.w3.org/html5/spec/infrastructure.html#document" title='Read about this "Document" reference in the full HTML5 spec.'>Document</a></code>'s input
+    stream. If necessary, calls the <code title="dom-document-open"><a href="#dom-document-open" id="open-4">open()</a></code> method implicitly
+    first.</p>
+
+    <p>This method throws an <code><a href="urls.html#invalid_state_err" id="invalid_state_err-2">INVALID_STATE_ERR</a></code> exception
+    when invoked on <a href="dom.html#xml-documents" id="xml-documents-10">XML documents</a>.</p>
+
+    <p>Unless called from the body of a <code><a href="scripting-1.html#script" id="script-12">script</a></code> element
+    while the document is being parsed, or called on a script-created
+    document, calling this method will clear the current page first,
+    as if <code title="dom-document-open"><a href="#dom-document-open" id="document.open-0">document.open()</a></code> had
+    been called.</p>
+
+   </dd>
+
+  </dl><h4 id="document.writeln"><span class="secno">3.4.4 </span><code title="dom-document-writeln"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/apis-in-html-documents.html#dom-document-writeln" title='Read about this "document.writeln()" reference in the full HTML5 spec.'>document.writeln()</a></code></h4><dl class="domintro"><dt><var title="">document</var> . <code title="dom-document-writeln"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/apis-in-html-documents.html#dom-document-writeln" title='Read about this "writeln" reference in the full HTML5 spec.'>writeln</a></code>(<var title="">text</var>...)</dt>
+
+   <dd>
+
+    <p>Adds the given string(s) to the <code><a class="full-spec-link" href="http://dev.w3.org/html5/spec/infrastructure.html#document" title='Read about this "Document" reference in the full HTML5 spec.'>Document</a></code>'s input
+    stream, followed by a newline character. If necessary, calls the
+    <code title="dom-document-open"><a href="#dom-document-open" id="open-5">open()</a></code> method implicitly
+    first.</p>
+
+    <p>This method throws an <code><a href="urls.html#invalid_state_err" id="invalid_state_err-3">INVALID_STATE_ERR</a></code> exception
+    when invoked on <a href="dom.html#xml-documents" id="xml-documents-11">XML documents</a>.</p>
+
+   </dd>
+
+  </dl><h4 id="innerhtml"><span class="secno">3.4.5 </span><code title="dom-innerHTML"><a href="#dom-innerhtml" id="innerhtml-0">innerHTML</a></code></h4><p>The <dfn id="dom-innerhtml" title="dom-innerHTML"><code>innerHTML</code></dfn> IDL
+  attribute represents the markup of the node's contents.<dl class="domintro"><dt><var title="">document</var> . <code title="dom-innerHTML"><a href="#dom-innerhtml" id="innerhtml-1">innerHTML</a></code> [ = <var title="">value</var> ]</dt>
+
+   <dd>
+
+    <p>Returns a fragment of HTML or XML that represents the
+    <code><a class="full-spec-link" href="http://dev.w3.org/html5/spec/infrastructure.html#document" title='Read about this "Document" reference in the full HTML5 spec.'>Document</a></code>.</p>
+
+    <p>Can be set, to replace the <code><a class="full-spec-link" href="http://dev.w3.org/html5/spec/infrastructure.html#document" title='Read about this "Document" reference in the full HTML5 spec.'>Document</a></code>'s contents
+    with the result of parsing the given string.</p>
+
+    <p>In the case of <a href="dom.html#xml-documents" id="xml-documents-12">XML documents</a>, will throw an
+    <code><a href="urls.html#invalid_state_err" id="invalid_state_err-4">INVALID_STATE_ERR</a></code> if the <code><a class="full-spec-link" href="http://dev.w3.org/html5/spec/infrastructure.html#document" title='Read about this "Document" reference in the full HTML5 spec.'>Document</a></code> cannot
+    be serialized to XML, and a <code><a href="urls.html#syntax_err" id="syntax_err-4">SYNTAX_ERR</a></code> if the given
+    string is not well-formed.</p>
+
+   </dd>
+
+   <dt><var title="">element</var> . <code title="dom-innerHTML"><a href="#dom-innerhtml" id="innerhtml-2">innerHTML</a></code> [ = <var title="">value</var> ]</dt>
+
+   <dd>
+
+    <p>Returns a fragment of HTML or XML that represents the element's
+    contents.</p>
+
+    <p>Can be set, to replace the contents of the element with nodes
+    parsed from the given string.</p>
+
+    <p>In the case of <a href="dom.html#xml-documents" id="xml-documents-13">XML documents</a>, will throw an
+    <code><a href="urls.html#invalid_state_err" id="invalid_state_err-5">INVALID_STATE_ERR</a></code> if the element cannot be serialized
+    to XML, and a <code><a href="urls.html#syntax_err" id="syntax_err-5">SYNTAX_ERR</a></code> if the given string is not
+    well-formed.</p>
+
+   </dd>
+
+  </dl><h4 id="outerhtml"><span class="secno">3.4.6 </span><code title="dom-outerHTML"><a href="#dom-outerhtml" id="outerhtml-0">outerHTML</a></code></h4><p>The <dfn id="dom-outerhtml" title="dom-outerHTML"><code>outerHTML</code></dfn> IDL
+  attribute represents the markup of the element and its contents.<dl class="domintro"><dt><var title="">element</var> . <code title="dom-outerHTML"><a href="#dom-outerhtml" id="outerhtml-1">outerHTML</a></code> [ = <var title="">value</var> ]</dt>
+
+   <dd>
+
+    <p>Returns a fragment of HTML or XML that represents the element
+    and its contents.</p>
+
+    <p>Can be set, to replace the element with nodes parsed from the
+    given string.</p>
+
+    <p>In the case of <a href="dom.html#xml-documents" id="xml-documents-14">XML documents</a>, will throw an
+    <code><a href="urls.html#invalid_state_err" id="invalid_state_err-6">INVALID_STATE_ERR</a></code> if the element cannot be serialized
+    to XML, and a <code><a href="urls.html#syntax_err" id="syntax_err-6">SYNTAX_ERR</a></code> if the given string is not
+    well-formed.</p>
+
+    <p>Throws a <code><a href="urls.html#no_modification_allowed_err" id="no_modification_allowed_err-0">NO_MODIFICATION_ALLOWED_ERR</a></code> exception if
+    the parent of the element is the <code><a class="full-spec-link" href="http://dev.w3.org/html5/spec/infrastructure.html#document" title='Read about this "Document" reference in the full HTML5 spec.'>Document</a></code>
+    node.</p>
+
+   </dd>
+
+  </dl><h4 id="insertadjacenthtml"><span class="secno">3.4.7 </span><code title="dom-insertAdjacentHTML"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/apis-in-html-documents.html#dom-insertadjacenthtml" title='Read about this "insertAdjacentHTML()" reference in the full HTML5 spec.'>insertAdjacentHTML()</a></code></h4><dl class="domintro"><dt><var title="">element</var> . <code title="dom-insertAdjacentHTML"><a class="full-spec-link" href="http://dev.w3.org/html5/spec/apis-in-html-documents.html#dom-insertadjacenthtml" title='Read about this "insertAdjacentHTML" reference in the full HTML5 spec.'>insertAdjacentHTML</a></code>(<var title="">position</var>, <var title="">text</var>)</dt>
+
+   <dd>
+
+    <p>Parses the given string <var title="">text</var> as HTML or XML
+    and inserts the resulting nodes into the tree in the position
+    given by the <var title="">position</var> argument, as
+    follows:</p>
+
+    <dl><dt>"beforebegin"</dt>
+     <dd>Before the element itself.</dd>
+     <dt>"afterbegin"</dt>
+     <dd>Just inside the element, before its first child.</dd>
+     <dt>"beforeend"</dt>
+     <dd>Just inside the element, after its last child.</dd>
+     <dt>"afterend"</dt>
+     <dd>After the element itself.</dd>
+    </dl><p>Throws a <code><a href="urls.html#syntax_err" id="syntax_err-7">SYNTAX_ERR</a></code> exception if the arguments
+    have invalid values (e.g., in the case of <a href="dom.html#xml-documents" id="xml-documents-15">XML
+    documents</a>, if the given string is not well-formed).</p>
+
+    <p>Throws a <code><a href="urls.html#no_modification_allowed_err" id="no_modification_allowed_err-1">NO_MODIFICATION_ALLOWED_ERR</a></code> exception if
+    the given position isn't possible (e.g. inserting elements after
+    the root element of a <code><a class="full-spec-link" href="http://dev.w3.org/html5/spec/infrastructure.html#document" title='Read about this "Document" reference in the full HTML5 spec.'>Document</a></code>).</p>
+
+   </dd>
+
+  </dl>
