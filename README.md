@@ -29,5 +29,3 @@ the anolis and html5-tools subdirs, but then the build process
 will subsequently re-download and patch them before using them.
 
 Michael(tm) Smith <sideshowbarker@gmail.com>
-
-![me](http://github.com/sideshowbarker/jsblog/raw/master/me.jpg)
