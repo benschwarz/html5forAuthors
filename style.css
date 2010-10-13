@@ -125,11 +125,11 @@ html { background-color: transparent; } /* Override whatwg.css */
 body { margin: 2em auto; width: 33em; font-size: 1.05em; line-height: 1.45; background-image: none; background-color: #fff; }
 
 div.head { position: relative; }
-div.head:before { content: 'W3C'; background-color: #9cc; color: #fff; border-radius: 0.25em; -webkit-border-radius: 0.25em; -moz-border-radius: 0.25em; position: absolute; top: 2em; left: -5em; font-weight: bold; font-size: 11px; padding: 3px 6px 2px; font-family: helvetica, sans-serif; text-align: right; letter-spacing: 0.1em; }
+div.head:before { content: 'W3C'; background-color: #9cc; color: #fff; border-radius: 0.25em; -webkit-border-radius: 0.25em; -moz-border-radius: 0.25em; position: absolute; top: 2em; left: -5em; font-weight: bold; font-size: 0.6em; padding: 2em 0.7em 0.25em; font-family: Helvetica, sans-serif; text-align: right; letter-spacing: 0.1em; }
 div.head hr, div.head > a, img[src*="http://www.w3.org/Icons/"], div.head dl { display: none; } /* Hide hr, the logo, logo alternate and the dl list in the head section */
-div.head h1 { font-family: "ChunkFiveRegular", Helvetica; line-height: 1.4em; width: 530px; margin: -0.2em 0 0.5em 0; -webkit-font-smoothing: antialiased; font-size: 3em; }
-div.head h1 .edition { display: block; font-size: 1em; }
-div.head h1 .rcsrevision { display: none; }
+div.head h1 { font-family: "ChunkFiveRegular", Helvetica; line-height: 1.4em; margin: -0.2em 0 0.5em 0; -webkit-font-smoothing: antialiased; font-size: 3em; }
+div.head h1 span.edition { display: block; font-size: 0.5em; line-height: 0.25em; }
+div.head h1 span.rcsrevision { display: none; }
 div.head h2 { margin: 0 0 0.5em 0; }
 div.head h2.maturity { color: #666; font-size: 1em; border: 0px; }
 div.head p.copyright { color: #999; font-size: 0.8em; font-style: italic; width: 80%; line-height: 1.4em; }
@@ -164,15 +164,14 @@ strong { text-shadow: 1px 1px 1px #fff; }
 
 ol li { color: #9cc; }
 
-
-ul.toc { list-style: none; }
-ul.toc li:before { content: ''; }
+ol.toc, ul.toc { list-style: none; }
+ol.toc, ul.toc li:before { content: ''; }
 div.subtoc { background: transparent; border: 0em; }
-body .toc, body .subtoc { background: transparent; border: 0em; }
+body .toc, body .subtoc { background: transparent; border: 0em; margin-top: 1em; }
 
 h2, h3, h4, h5, h6 { position: relative; }
-div.section span.tocnum, .secno  { background-color: #9cc; color: #fff; border-radius: 3px; -webkit-border-radius: 3px; position: absolute; top: 0.7em; left: -6em; font-weight: bold; font-size: 11px; padding: 3px 6px; font-family: helvetica, sans-serif; text-align: right; letter-spacing: 0.1em; }
-a .secno { background-color: transparent; color: #9cc; border-radius: 0px; -webkit-border-radius: 0px; position: static; font-weight: normal; font-size: 1em; padding: 0px; font-family: inherit; text-align: left; letter-spacing: 0em; }
+div.section span.tocnum, .secno  { background-color: #9cc; color: #fff; border-radius: 0.25em; -webkit-border-radius: 0.25em; -moz-border-radius: 0.25em; position: absolute; top: 0.7em; left: -6em; font-weight: bold; font-size: 0.6em; padding: 0.25em 0.25em; font-family: Helvetica, sans-serif; text-align: right; letter-spacing: 0.1em; }
+a .secno { background-color: transparent; color: #9cc; border-radius: 0; -webkit-border-radius: 0; -moz-border-radius: 0; position: static; font-weight: normal; font-size: 1em; padding: 0; font-family: inherit; text-align: left; letter-spacing: 0; }
 
 h3 { margin: 2em 0em 0em; }
 h3 span.tocnum { top: 0.2em; }
@@ -183,14 +182,21 @@ strong.rfc2119 { font-size: 0.8em; letter-spacing: 0.1; text-transform: uppercas
 
 a.internalDFN { color: #366; border: 0px; }
 
-/* Mobile (iPhone) */
-@media all and (max-device-width: 480px) {
-  body { margin: 0 3em; font-size: 200%; }
+/* Small (iPhone) */
+@media only screen and (max-device-width: 480px) {
+  body { margin: 0 3em; }
+	div.head h1 { font-family: Helvetica; font-weight: bold; } /* No @font-face */
 }
 	 	
-/* Mobile (iPad) */
-@media all and (max-device-width: 1024px) {
-  body { margin: 0 5em; font-size: 400%; }
+/* Medium (iPad) */
+@media only screen and (max-device-width: 1024px) {
+	body { margin: 0 0.7em;
+	div.head h1 { font-family: Helvetica; font-weight: bold; } /* No @font-face */
+}
+
+/* Large (iPhone 4) */
+@media only screen and (-webkit-min-device-pixel-ratio: 2) {
+
 }
 
 /* Pretty printing styles. Used with prettify.js. */
