@@ -29,15 +29,21 @@
   </xsl:template>
   <xsl:template match="h1">
     <h1>
-      <xsl:text>HTML5 (Edition for Web Authors)</xsl:text>
+      <xsl:text>HTML5</xsl:text>
+      <xsl:text> </xsl:text>
+      <span class="edition">Edition for Web Authors</span>
+      <xsl:text> </xsl:text>
       <span class="rcsrevision">
-        <xsl:text> </xsl:text>
         <xsl:value-of select="concat('revision ',$RCSREVISION)"/>
       </span>
     </h1>
   </xsl:template>
   <xsl:template match="title">
     <title>HTML5 (Edition for Web Authors)</title>
+    <xsl:text>&#10;</xsl:text>
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;"/>
+    <xsl:text>&#10;</xsl:text>
+    <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible'/>
   </xsl:template>
   <xsl:template match="a[normalize-space(.)='http://www.w3.org/TR/html5/']">
     <a href="http://www.w3.org/TR/html5/author/">http://www.w3.org/TR/html5/author/</a>
@@ -81,6 +87,7 @@
       conformance criteria, UA implementors should not rely on it,
       but should instead refer to the full specification.</p>
   </xsl:template>
+  <xsl:template match="p[@id='wip']"/>
   <xsl:template match="*[@id='references']" name="insert-index-of-terms">
     <xsl:text>&#10;</xsl:text>
     <h2 id="index-of-terms" class="no-num">Index of terms</h2>
