@@ -41,7 +41,7 @@
   <xsl:template match="title">
     <title>HTML5 (Edition for Web Authors)</title>
     <xsl:text>&#10;</xsl:text>
-    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;"/>
+    <meta name="viewport" content="width=device-width;"/>
     <xsl:text>&#10;</xsl:text>
     <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible'/>
   </xsl:template>
